@@ -333,17 +333,19 @@
                 <?php } ?>
             </div>
         </div><!-- /.panel-body -->
-        <?php
-        if (isset($publish)) {
-            if (empty($publish)) {
-                ?>
-                <div class="panel-footer">
+        <div id="publish-schedule-section" class="panel-footer">
+            <?php
+            if (isset($publish)) {
+                if (empty($publish)) {
+                    ?>
+
                     <button type="button" class="btn btn-info rounded" id="publish_seq">Publish</button>
-                </div>
-                <?php
+
+                    <?php
+                }
             }
-        }
-        ?>
+            ?>
+        </div>
     </div><!--/.panel-->
 </div>
 
@@ -388,6 +390,7 @@
             }).done(function (response) {
                 $('#publish_seq').hide();
                 console.log(response['message']);
+				$('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>')
             });
         });
     });
