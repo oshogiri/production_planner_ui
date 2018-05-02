@@ -14,8 +14,7 @@
     <div class="page-title-wrapper">
         <h2 class="page-title">Tables</h2>
     </div><!-- /.page-titile-wrapper -->
-    <div class="row">
-        <div class="col-sm-12">
+    
             <div class="panel panel-default-light border-default">
                 <div class="panel-heading">
                     <div class="panel-title">
@@ -129,8 +128,7 @@
                     </div><!-- /.table-scroll -->
                 </div>
             </div>
-        </div>
-    </div>
+       
 </div>
 
 <?php require_once 'footer.php'; ?>
