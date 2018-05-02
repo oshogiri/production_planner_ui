@@ -20,11 +20,6 @@
                     <div class="panel-title">
                         <i class="fa fa-list-alt m-right-5"></i> Responsive Table
                     </div><!-- /.panel-title -->
-                    <div class="panel-tools panel-action">
-                        <button class="btn btn-close"></button>
-                        <button class="btn btn-min"></button>
-                        <button class="btn btn-expand"></button>
-                    </div><!-- /.panel-tools -->
                 </div><!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-scroll">
