@@ -23,7 +23,7 @@
                 </div><!-- /.panel-heading -->
                 <div class="panel-body">
                     <div class="table-scroll">
-                        <table class="table table-bordered">
+                        <table class="table table-bordered" data-toggle="table" data-fixed-columns="true" data-fixed-number="2">
                             <thead>
                                 <tr>
                                     <th>#</th>
