@@ -1,0 +1,4 @@
+License
+====
+You're free to use the webfont in a template/theme intended for sale on marketplaces like Themeforest.
+CSS, SCSS & LESS files are under [MIT] (http://opensource.org/licenses/MIT) License.
