@@ -30,8 +30,8 @@ class Schedule extends CI_Controller {
 
     public function get_planned_batches() {
         if (!$this->session->userdata('employee_id')) {
-            $data['error_message'] = "Please login first.";
-            $this->load->view('login_user', $data);
+            //$data['error_message'] = "Please login first.";
+            redirect('login', refresh);
         }
 
         if ($this->session->userdata('role') == 'production') {
