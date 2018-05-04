@@ -29,8 +29,12 @@ class Schedule extends CI_Controller {
     }
 
     public function get_planned_batches() {
-		
-		if($this->session->userdata('role') == 'production'){
+        if (!$this->session->userdata('employee_id')) {
+            $data['error_message'] = "Please login first.";
+            $this->load->view('login_user', $data);
+        }
+
+        if ($this->session->userdata('role') == 'production') {
             redirect('dashboard');
         }
         date_default_timezone_set('Asia/Kolkata');
@@ -65,7 +69,7 @@ class Schedule extends CI_Controller {
 
         if (isset($decode_data)) {
             if (!($decode_data->success)) {
-                if(isset($generate_schedule)){
+                if (isset($generate_schedule)) {
                     $view_data['message_error'] = $generate_schedule->message;
                 }
                 $view_data['message_error'] = $decode_data->message;
@@ -80,9 +84,9 @@ class Schedule extends CI_Controller {
                     $batch_schedules = $resequence_data->batch_schedules;
                     $view_data['batch_schedules'] = $batch_schedules;
                 }
-                if(isset($generate_schedule)){
+                if (isset($generate_schedule)) {
                     $view_data['message_success'] = $generate_schedule->message;
-					$view_data['publish'] = $resequence_data->published;
+                    $view_data['publish'] = $resequence_data->published;
                 }
                 //
                 $batch_sequences = $decode_data->batch_sequences;
@@ -96,7 +100,7 @@ class Schedule extends CI_Controller {
             $view_data['error_batch'] = 'No Responce';
             $this->load->view('schedule_view', $view_data);
         }
-        
+
 //        echo '<pre>';
 //        print_r($generate_schedule);
 //        die();
@@ -229,7 +233,7 @@ class Schedule extends CI_Controller {
                     $view_data['message'] = $set_actual_time->message;
                 }
                 $view_data['batch_schedules'] = $batch_schedules;
-				$view_data['publish'] = $decode_data->published;
+                $view_data['publish'] = $decode_data->published;
                 $this->load->view('production_view', $view_data);
             }
         } else {
