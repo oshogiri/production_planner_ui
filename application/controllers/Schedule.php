@@ -31,6 +31,11 @@ class Schedule extends CI_Controller {
     }
 
     public function get_planned_batches() {
+        if ($this->session->userdata('employee_id')) {
+            $this->load->view('schedule_view');
+        } else {
+            redirect('login/logout', refresh);
+        }
         
         if ($this->session->userdata('role') == 'production') {
             redirect('dashboard');
