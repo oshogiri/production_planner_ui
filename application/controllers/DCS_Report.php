@@ -17,7 +17,7 @@ class DCS_Report extends CI_Controller {
             if (isset($do_upload)) {
                 if (empty($do_upload->success)) {
                     $view_data['fail_message'] = $do_upload->message;
-                    $view_data['success_errors'] = $do_upload->errors;
+                    //$view_data['success_errors'] = $do_upload->errors;
                     $this->load->view('dcs_report_view', $view_data);
                 } else {
                     $view_data['success_message'] = $do_upload->message;
@@ -74,7 +74,7 @@ class DCS_Report extends CI_Controller {
             $result = curl_exec($ch);
             curl_close($ch);
             $decode_data = json_decode($result);
-            echo '<pre>';print_r($decode_data);die();
+            //echo '<pre>';print_r($decode_data);die();
             $this->session->set_flashdata('do_upload', $decode_data);
             redirect('DCS_Report', 'refresh');
 
