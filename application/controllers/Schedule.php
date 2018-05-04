@@ -18,6 +18,8 @@ class Schedule extends CI_Controller {
     public function index() {
         if ($this->session->userdata('employee_id')) {
             $this->load->view('schedule_view');
+        } else {
+            redirect('login', refresh);
         }
     }
 
@@ -29,11 +31,7 @@ class Schedule extends CI_Controller {
     }
 
     public function get_planned_batches() {
-        if (!$this->session->userdata('employee_id')) {
-            //$data['error_message'] = "Please login first.";
-            redirect('login', refresh);
-        }
-
+        
         if ($this->session->userdata('role') == 'production') {
             redirect('dashboard');
         }
