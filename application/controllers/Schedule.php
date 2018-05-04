@@ -123,33 +123,7 @@ class Schedule extends CI_Controller {
 
         $this->session->set_flashdata('generate_schedule', $decode_data);
         redirect('schedule/get_planned_batches', 'refresh');
-
-//        if (isset($decode_data)) {
-//            if (!($decode_data->success)) {
-//                $view_data['message'] = $decode_data->message;
-//                $view_data['error_schedule'] = 'Schedule not published for this date...';
-//
-//                $this->load->view('schedule_view', $view_data);
-//            } else {
-//                $resequence_data = $this->planned_batches->resequence_planned_batches();
-//                $batch_sequences = $resequence_data->batch_sequences;
-//                $view_data['get_planned_batches'] = $batch_sequences;
-//
-//                $batch_schedules = $decode_data->batch_schedules;
-//                $view_data['publish'] = $decode_data->published;
-//                $view_data['message'] = $decode_data->message;
-//                //echo '<pre>';print_r($view_data['publish']);die();
-//                $view_data['batch_schedules'] = $batch_schedules;
-//
-//                $this->load->view('schedule_view', $view_data);
-//            }
-//        } else {
-//            $view_data['message'] = $decode_data->message;
-//            $view_data['error_schedule'] = 'No responce';
-//
-//            $this->load->view('schedule_view', $view_data);
-//        }
-    }
+   }
 
     public function batch_number() {
         //$get_batch = $this->input->post();
@@ -268,25 +242,6 @@ class Schedule extends CI_Controller {
         //echo '<pre>';print_r($decode_data);die();
         $this->session->set_flashdata('set_actual_time', $decode_data);
         redirect('schedule/get_schedule', 'refresh');
-
-//        if (isset($decode_data)) {
-//            if (isset($decode_data->success)) {
-//                $resequence_data = $this->get_schedule->get_schedule_actual_time();
-//
-//                $batch_schedules = $resequence_data->batch_schedules;
-//
-//                $view_data['batch_schedules'] = $batch_schedules;
-//
-//                $view_data['message'] = $decode_data->message;
-//                $this->load->view('production_view', $view_data);
-//            } else {
-//                $view_data['message'] = 'Timestamp not updated';
-//                $this->load->view('production_view', $view_data);
-//            }
-//        } else {
-//            $view_data['message'] = 'No responce';
-//            $this->load->view('production_view', $view_data);
-//        }
     }
 
 }
