@@ -95,12 +95,14 @@
                 <?php } ?>
             </div>
         </div><!-- /.panel-body -->
+        <?php if(isset($get_planned_batches)){ ?>
         <div class="panel-footer">
             <form method="post" id="generate_schedule_form" action="<?php echo site_url('schedule/generate_schedule') ?>">
                 <input type="hidden" name="batch_sequence" id="batch_sequence"/>
                 <button type="submit" class="btn btn-info rounded" id="submit_seq">Submit</button>
             </form>
         </div>
+        <?php } ?>
     </div><!--/.panel-->
 
     <div class="panel panel-default-light border-default">
