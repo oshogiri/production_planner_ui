@@ -16,7 +16,7 @@ class DCS_Report extends CI_Controller {
             //$this->load->view('dcs_report_view');
             if (isset($do_upload)) {
                 if (empty($do_upload->success)) {
-                    $view_data['error'] = $this->upload->display_errors();
+                    //$view_data['error'] = $this->upload->display_errors();
                     $view_data['fail_message'] = $do_upload->message;
                     $view_data['success_errors'] = $do_upload->errors;
                     $this->load->view('dcs_report_view', $view_data);
