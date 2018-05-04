@@ -76,7 +76,7 @@ class DCS_Report extends CI_Controller {
             $result = curl_exec($ch);
             curl_close($ch);
             $decode_data = json_decode($result);
-            echo '<pre>';print_r($decode_data);die();
+            //echo '<pre>';print_r($decode_data);die();
             $this->session->set_flashdata('do_upload', $decode_data);
             redirect('DCS_Report', 'refresh');
 
