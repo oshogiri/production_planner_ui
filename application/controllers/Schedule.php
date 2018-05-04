@@ -19,7 +19,7 @@ class Schedule extends CI_Controller {
         if ($this->session->userdata('employee_id')) {
             $this->load->view('schedule_view');
         } else {
-            redirect('login', refresh);
+            redirect('login/logout', refresh);
         }
     }
 
