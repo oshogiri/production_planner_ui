@@ -87,11 +87,15 @@
                             <?php } ?>
                         </table>
                     </div>
-                <form method="post" id="generate_schedule_form" action="<?php echo site_url('schedule/generate_schedule') ?>">
-                <input type="hidden" name="batch_sequence" id="batch_sequence"/>
-                <button type="submit" class="btn btn-info rounded" id="submit_seq">Submit</button>
-            </form>
-                <?php } elseif (isset($error_batch)) { ?>
+                    <?php if (isset($get_planned_batches->stream_1_2) && isset($get_planned_batches->stream_3_4)) { ?>
+                        <form method="post" id="generate_schedule_form" action="<?php echo site_url('schedule/generate_schedule') ?>">
+                            <input type="hidden" name="batch_sequence" id="batch_sequence"/>
+                            <button type="submit" class="btn btn-info rounded" id="submit_seq">Submit</button>
+                        </form>
+                        <?php
+                    }
+                } elseif (isset($error_batch)) {
+                    ?>
                     <div class="alert alert-danger fade in">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
                         <?php echo $error_batch; ?>
@@ -99,7 +103,7 @@
                 <?php } ?>
             </div>
         </div><!-- /.panel-body -->
-        
+
     </div><!--/.panel-->
 
     <div class="panel panel-default-light border-default">
@@ -389,7 +393,7 @@
             }).done(function (response) {
                 $('#publish_seq').hide();
                 console.log(response['message']);
-				$('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>')
+                $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>')
             });
         });
     });
