@@ -34,7 +34,7 @@ class Schedule extends CI_Controller {
         if (!$this->session->userdata('employee_id')) {
             redirect('login/logout');
         }
-        
+
         if ($this->session->userdata('role') == 'production') {
             redirect('dashboard');
         }
@@ -65,7 +65,7 @@ class Schedule extends CI_Controller {
         $resequence_data = $this->get_schedule->get_schedule_actual_time();
         $generate_schedule = $this->session->flashdata('generate_schedule');
 //        echo '<pre>';
-//        print_r($decode_data);
+//        print_r($generate_schedule);
 //        die();
 
         if (isset($decode_data)) {
@@ -84,10 +84,10 @@ class Schedule extends CI_Controller {
                 } else {
                     $batch_schedules = $resequence_data->batch_schedules;
                     $view_data['batch_schedules'] = $batch_schedules;
+                    $view_data['publish'] = $resequence_data->published;
                 }
                 if (isset($generate_schedule)) {
                     $view_data['message_success'] = $generate_schedule->message;
-                    $view_data['publish'] = $resequence_data->published;
                 }
                 //
                 $batch_sequences = $decode_data->batch_sequences;
@@ -126,7 +126,7 @@ class Schedule extends CI_Controller {
 
         $this->session->set_flashdata('generate_schedule', $decode_data);
         redirect('schedule/get_planned_batches', 'refresh');
-   }
+    }
 
     public function batch_number() {
         //$get_batch = $this->input->post();
@@ -163,6 +163,12 @@ class Schedule extends CI_Controller {
 
     public function publish_schedule() {
         $url = 'http://172.16.0.22:1313/api/v1/schedules/publish_schedule';
+        $responce = $this->postCURL($url, array());
+        echo $responce;
+    }
+
+    public function unpublish_schedule() {
+        $url = 'http://172.16.0.22:1313/api/v1/schedules/unpublish_schedule';
         $responce = $this->postCURL($url, array());
         echo $responce;
     }
