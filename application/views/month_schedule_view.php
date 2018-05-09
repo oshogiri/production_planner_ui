@@ -9,10 +9,10 @@
         font-size: 9px;
     }
     .table{font-size: 9px;}
-    .stream1-color{color: #8BC34A}
-    .stream2-color{color: #D1C4E9}
-    .stream3-color{color: #EBF1DE}
-    .stream4-color{color: #80DEEA}
+    .stream1-color{background-color: #8BC34A}
+    .stream2-color{background-color: #D1C4E9}
+    .stream3-color{background-color: #EBF1DE}
+    .stream4-color{background-color: #80DEEA}
 
 </style>
 <?php require_once 'header.php'; ?>
@@ -38,7 +38,7 @@
         </div><!-- /.panel-heading -->
         <div class="panel-body">
             <div class="table-scroll">
-                <table class="table table-bordered table-striped table-condensed">
+                <table class="table table-bordered table-condensed">
                     <thead>
                         <tr>
                             <th>Demand<br>Quantity<br/>(MT)</th>
@@ -240,12 +240,12 @@
         //var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
 
         //$fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
-        var date_header_array = '<?php echo $date_header_array; ?>';
-        console.log(date_header_array);
-        if (date_header_array !== null && date_header_array !== '') {
+//        var date_header_array = '<?php //echo $date_header_array; ?>';
+//        console.log(date_header_array);
+//        if (date_header_array !== null && date_header_array !== '') {
             var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
             $fixedColumn.find('th:not(:nth-child(1))th:not(:nth-child(2))th:not(:nth-child(3))th:not(:nth-child(4))th:not(:nth-child(5))th:not(:nth-child(6))th:not(:nth-child(7))th:not(:nth-child(8))th:not(:nth-child(9))th:not(:nth-child(10)),td:not(:nth-child(1))td:not(:nth-child(2))td:not(:nth-child(3))td:not(:nth-child(4))td:not(:nth-child(5))td:not(:nth-child(6))td:not(:nth-child(7))td:not(:nth-child(8))td:not(:nth-child(9))td:not(:nth-child(10))').remove();
-        }
+        //}
         $('.time-picker').datepicker({
             format: 'MM yyyy',
             startView: 'months',
