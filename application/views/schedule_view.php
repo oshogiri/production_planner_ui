@@ -87,19 +87,21 @@
                             <?php } ?>
                         </table>
                     </div>
-                    <?php if (!empty($get_planned_batches->stream_1_2) && !empty($get_planned_batches->stream_3_4)) { ?>
-                        <form method="post" id="generate_schedule_form" action="<?php echo site_url('schedule/generate_schedule') ?>">
-                            <input type="hidden" name="batch_sequence" id="batch_sequence"/>
-                            <button type="submit" class="btn btn-info rounded" id="submit_seq">Submit</button>
-                        </form>
-                        <?php
-                    }
+                    <?php
                 } elseif (isset($error_batch)) {
                     ?>
                     <div class="alert alert-danger fade in">
                         <a href="#" class="close" data-dismiss="alert">&times;</a>
                         <?php echo $error_batch; ?>
                     </div>
+                <?php } ?>
+            </div>
+            <div class="panel-footer">
+                <?php if (!empty($get_planned_batches->stream_1_2) && !empty($get_planned_batches->stream_3_4)) { ?>
+                    <form method="post" id="generate_schedule_form" action="<?php echo site_url('schedule/generate_schedule') ?>">
+                        <input type="hidden" name="batch_sequence" id="batch_sequence"/>
+                        <button type="submit" class="btn btn-info rounded" id="submit_seq">Submit</button>
+                    </form>
                 <?php } ?>
             </div>
         </div><!-- /.panel-body -->
@@ -341,9 +343,11 @@
             if (isset($publish)) {
                 if (empty($publish)) {
                     ?>
-
                     <button type="button" class="btn btn-info rounded" id="publish_seq">Publish</button>
-
+                    <?php
+                } else {
+                    ?>
+                    <button type="button" class="btn btn-info rounded" id="unpublish_seq">Unpublish</button>
                     <?php
                 }
             }
@@ -391,9 +395,20 @@
                 method: 'POST',
                 dataType: 'json'
             }).done(function (response) {
-                $('#publish_seq').hide();
+//                $('#publish_seq').hide();
                 console.log(response['message']);
-                $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>')
+                $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+            });
+        });
+        $('#unpublish_seq').click(function () {
+            $.ajax({
+                url: '<?php echo base_url('schedule/unpublish_schedule') ?>',
+                method: 'POST',
+                dataType: 'json'
+            }).done(function (response) {
+//                $('#unpublish_seq').hide();
+                console.log(response['message']);
+                $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
             });
         });
     });
