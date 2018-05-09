@@ -14,7 +14,7 @@
     <div class="panel panel-default-light border-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <i class="fa fa-file-o m-right-5"></i> Upload
+                <i class="fa fa-upload m-right-5"></i> Upload
             </div><!-- /.panel-title -->
             <div class="panel-tools">
                 <a href="<?php echo base_url() . 'uploads/sample.xlsx' ?>" class="btn btn-info btn-sm" download>
