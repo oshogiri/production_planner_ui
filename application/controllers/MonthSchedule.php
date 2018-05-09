@@ -13,12 +13,11 @@ class MonthSchedule extends CI_Controller {
         $this->load->model('Month_Schedule');
     }
 
-    public function index() {
-        if ($this->session->userdata('employee_id')) {
-            $this->month_schedule();
-            $this->load->view('month_schedule_view');
-        }
-    }
+//    public function index() {
+//        if ($this->session->userdata('employee_id')) {
+//            $this->load->view('month_schedule_view');
+//        }
+//    }
 
     private function check_isvalidated() {
         if (!$this->session->userdata('employee_id')) {
@@ -27,9 +26,11 @@ class MonthSchedule extends CI_Controller {
         }
     }
 
-    public function month_schedule() {
+    public function index() {
         if (!$this->session->userdata('employee_id')) {
             redirect('login/logout');
+        } else {
+            $this->load->view('month_schedule_view');
         }
         parse_str($_SERVER['QUERY_STRING'], $_GET);
         if (isset($_GET['month']))
