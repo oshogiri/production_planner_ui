@@ -33,7 +33,7 @@ class DemandSheet extends CI_Controller {
     }
 
     private function check_isvalidated() {
-        if (!($this->session->userdata('employee_id') && $this->session->userdata('role') == 'planner')) {
+        if (!($this->session->userdata('employee_id') && $this->session->userdata('role') == 'planner' || $this->session->userdata('role') == 'marketing')) {
             //$data = "Please login first.";
             //$this->session->set_flashdata('error_message', $data);
             redirect('dashboard', 'refresh');
