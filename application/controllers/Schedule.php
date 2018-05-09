@@ -165,10 +165,22 @@ class Schedule extends CI_Controller {
     }
 
     public function get_schedule() {
+        parse_str($_SERVER['QUERY_STRING'], $_GET);
+
+        if (isset($_GET['date']))
+            $date = $_GET['date'];
+        else
+            $date = null;
+//        echo '<pre>';print_r($date);die();
+
+        $url = 'http://172.16.0.22:1313/api/v1/schedules/get_schedule';
+        if (isset($date))
+            $url = $url . '?schedule_date=' . $date;
+
         date_default_timezone_set('Asia/Kolkata');
 
         //  Setting URL To Fetch Data From
-        $this->curl->create('http://172.16.0.22:1313/api/v1/schedules/get_schedule');
+        $this->curl->create($url);
 
         //  To Temporarily Store Data Received From Server
         $this->curl->option('buffersize', 10);
@@ -189,9 +201,15 @@ class Schedule extends CI_Controller {
         $data = $this->curl->execute();
 
         $decode_data = json_decode($data);
-//         echo '<pre>';print_r($decode_data);die();
+        //echo '<pre>';print_r($url);die();
         $set_actual_time = $this->session->flashdata('set_actual_time');
         //echo '<pre>';print_r($set_actual_time);die();
+
+        if (isset($date))
+            $condate = date('d M Y', $date);
+        else
+            $condate = date('d M Y');
+        $view_data['date'] = $condate;
 
         if (isset($decode_data)) {
             if (!($decode_data->success)) {
