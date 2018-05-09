@@ -94,7 +94,7 @@
     <div class="panel panel-default-light border-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <i class="fa fa-check-square-o m-right-5"></i>Schedule: <?php
+                <i class="fa fa-eye m-right-5"></i>Schedule: <?php
                 if (isset($date)) {
                     echo $date;
                 }
