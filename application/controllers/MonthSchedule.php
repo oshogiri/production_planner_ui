@@ -15,6 +15,7 @@ class MonthSchedule extends CI_Controller {
 
     public function index() {
         if ($this->session->userdata('employee_id')) {
+            $this->month_schedule();
             $this->load->view('month_schedule_view');
         }
     }
