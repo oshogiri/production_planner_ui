@@ -27,6 +27,9 @@ class MonthSchedule extends CI_Controller {
     }
 
     public function month_schedule() {
+        if (!$this->session->userdata('employee_id')) {
+            redirect('login/logout');
+        }
         parse_str($_SERVER['QUERY_STRING'], $_GET);
         if (isset($_GET['month']))
             $month = $_GET['month'];
