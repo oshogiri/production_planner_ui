@@ -6,9 +6,9 @@
         width: auto;
         border-right: 1px solid #ddd;
         background-color: #ddd;
-        font-size: 9px;
+        font-size: 10px;
     }
-    .table{font-size: 9px;}
+    .table{font-size: 10px;}
     .stream1-color{background-color: #8BC34A}
     .stream2-color{background-color: #D1C4E9}
     .stream3-color{background-color: #EBF1DE}
