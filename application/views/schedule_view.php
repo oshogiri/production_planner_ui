@@ -11,7 +11,7 @@
     <div class="panel panel-default-light border-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <i class="fa fa-table m-right-5"></i> Resequence Batches
+                <i class="fa fa-list-ol m-right-5"></i> Resequence Batches
             </div><!-- /.panel-title -->
         </div><!-- /.panel-heading -->
         <?php if (isset($message_error)) { ?>
