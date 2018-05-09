@@ -44,7 +44,7 @@
                             <th>Batches<br>Required</th>
                             <th>Batches<br>Planed </th>
                             <th>Difference</th>
-                            <th>Batch<br>Size<br>ASIS</th>
+                            <th>Batch<br>Size<br>(MT)</th>
                             <th>Products</th>
                             <th>Stream</th>
                             <?php
@@ -105,7 +105,11 @@
                                         //print_r($batch_data_array['Stream 1'][$inventory->product]);exit;
                                         foreach ($date_header_array as $d => $date_val) {
                                             if (isset($batch_data_array['Stream 1'][$inventory->product][$date_val])) {
-                                                ?><td><?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                if ($batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches'] > 0) {
+                                                    ?><td><strong><?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?></strong></td><?php
+                                                } else {
+                                                    ?><td></td><?php
+                                                }
                                             } else {
                                                 ?><td>NIL</td><?php
                                             }
@@ -131,7 +135,11 @@
                                         //print_r($batch_data_array['Stream 1'][$inventory->product]);exit;
                                         foreach ($date_header_array as $d => $date_val) {
                                             if (isset($batch_data_array['Stream 2'][$inventory->product][$date_val])) {
-                                                ?><td><?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                if ($batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches'] > 0) {
+                                                    ?><td><strong><?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?></strong></td><?php
+                                                } else {
+                                                    ?><td></td><?php
+                                                }
                                             } else {
                                                 ?><td>NIL</td><?php
                                             }
@@ -157,7 +165,11 @@
                                         //print_r($batch_data_array['Stream 1'][$inventory->product]);exit;
                                         foreach ($date_header_array as $d => $date_val) {
                                             if (isset($batch_data_array['Stream 3'][$inventory->product][$date_val])) {
-                                                ?><td><?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                if ($batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches'] > 0) {
+                                                    ?><td><strong><?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?></strong></td><?php
+                                                } else {
+                                                    ?><td></td><?php
+                                                }
                                             } else {
                                                 ?><td>NIL</td><?php
                                             }
@@ -183,7 +195,11 @@
                                         //print_r($batch_data_array['Stream 1'][$inventory->product]);exit;
                                         foreach ($date_header_array as $d => $date_val) {
                                             if (isset($batch_data_array['Stream 4'][$inventory->product][$date_val])) {
-                                                ?><td><?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                if ($batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches'] > 0) {
+                                                    ?><td><strong><?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?></strong></td><?php
+                                                } else {
+                                                    ?><td></td><?php
+                                                }
                                             } else {
                                                 ?><td>NIL</td><?php
                                             }
