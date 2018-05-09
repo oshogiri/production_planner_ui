@@ -108,6 +108,9 @@ class Schedule extends CI_Controller {
     }
 
     public function generate_schedule() {
+        if (!$this->session->userdata('employee_id')) {
+            redirect('login/logout');
+        }
         date_default_timezone_set('Asia/Kolkata');
 
         $data = $this->input->post('batch_sequence');
@@ -165,6 +168,9 @@ class Schedule extends CI_Controller {
     }
 
     public function get_schedule() {
+        if (!$this->session->userdata('employee_id')) {
+            redirect('login/logout');
+        }
         parse_str($_SERVER['QUERY_STRING'], $_GET);
 
         if (isset($_GET['date']))
