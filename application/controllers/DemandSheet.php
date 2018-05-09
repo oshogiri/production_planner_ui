@@ -12,7 +12,7 @@ class DemandSheet extends CI_Controller {
 
     public function index() {
         $do_upload = $this->session->flashdata('do_upload');
-        if ($this->session->userdata('employee_id') && $this->session->userdata('role') == 'planner' && $this->session->userdata('role') == 'marketing') {
+        if ($this->session->userdata('employee_id') && $this->session->userdata('role') == 'planner' || $this->session->userdata('role') == 'marketing') {
             //$this->load->view('dcs_report_view');
             if (isset($do_upload)) {
                 if (empty($do_upload->success)) {
