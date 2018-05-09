@@ -62,7 +62,7 @@
             <li class="title">Schedule</li>
             <li class="dropdown">
                 <a href="<?php echo site_url('schedule/get_schedule') ?>">
-                    <i class="fa fa-area-chart"></i>
+                    <i class="fa fa--eye"></i>
                     <span>View Schedule</span>
                 </a>
             </li>
@@ -85,7 +85,7 @@
             <li class="title">Schedule</li>
             <li class="dropdown">
                 <a href="<?php echo site_url('schedule/get_schedule') ?>">
-                    <i class="fa fa-area-chart"></i>
+                    <i class="fa fa-eye"></i>
                     <span>View Schedule</span>
                 </a>
             </li>
