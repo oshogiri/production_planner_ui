@@ -6,47 +6,44 @@
         width: auto;
         border-right: 1px solid #ddd;
         background-color: #ddd;
-        font-size: 12px;
+        font-size: 9px;
     }
-    .table{font-size: 12px;}
+    .table{font-size: 9px;}
 
 </style>
 <?php require_once 'header.php'; ?>
 <?php require_once 'sidebar.php'; ?>
 
 <div class="content">
-    <div class="breadcrumb-wrapper">
-        <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-home"></i>Home</a></li>
-            <li class="active">Tables</li>
-        </ol>
-    </div><!-- /.breadcrumb-wrapper -->
-
     <div class="page-title-wrapper">
-        <h2 class="page-title">Tables</h2>
+        <h2 class="page-title">Batch Plan</h2>
     </div><!-- /.page-titile-wrapper -->
 
     <div class="panel panel-default-light border-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <i class="fa fa-list-alt m-right-5"></i> Month Schedule 
+                <i class="fa fa-list-alt m-right-5"></i>Batch Plan: <?php
+                if (isset($month)) {
+                    echo $month;
+                }
+                ?> 
             </div><!-- /.panel-title -->
-<!--            <div class="panel-tools panel-action">
-                <button class="btn btn-expand"></button>
-            </div>-->
+            <div class="panel-tools">
+                <input type="text" class="form-control time-picker" placeholder="Select Month" readonly>
+            </div>
         </div><!-- /.panel-heading -->
         <div class="panel-body">
             <div class="table-scroll">
                 <table class="table table-bordered table-striped table-condensed">
                     <thead>
                         <tr>
-                            <th>Demand<br>Qty</th>
-                            <th>Inventory</th>
-                            <th>WIP</th>
-                            <th>Demand<br>-<br>inventory</th>
-                            <th>Batches<br>required</th>
+                            <th>Demand<br>Quantity<br/>(MT)</th>
+                            <th>Inventory<br/>(MT)</th>
+                            <th>WIP<br/>(MT)</th>
+                            <th>Demand<br/>Inventory<br/>(MT)</th>
+                            <th>Batches<br>Required</th>
                             <th>Batches<br>Planed </th>
-                            <th>Diff</th>
+                            <th>Difference</th>
                             <th>Batch<br>Size<br>ASIS</th>
                             <th>Products</th>
                             <th>Stream</th>
@@ -68,13 +65,15 @@
                             }
 
                             $batch_data_array = array();
-                            foreach ($batch_plans as $d => $bp) {
-                                foreach ($bp['daily_plans'] as $x => $d_val) {
-                                    $batch_data_array[$bp['stream']][$bp['product']][$d_val['date']] = $d_val;
+                            if (isset($batch_plans)) {
+                                foreach ($batch_plans as $d => $bp) {
+                                    foreach ($bp['daily_plans'] as $x => $d_val) {
+                                        $batch_data_array[$bp['stream']][$bp['product']][$d_val['date']] = $d_val;
+                                    }
                                 }
                             }
-                            $date_header_array = date_range(date("Y-m-01"), date("Y-m-t"), '+1 day', 'j M y');
-                            //echo "<pre>";print_r($batch_data_array);exit;
+//                            $date_header_array = date_range(date("Y-m-01"), date("Y-m-t"), '+1 day', 'j M y');
+//                            echo "<pre>";print_r($date_header_array);exit;
 
                             foreach ($date_header_array as $d => $date_val) {
                                 ?><th><?php echo $date_val; ?></th><?php
@@ -221,5 +220,22 @@
 
         //$fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
         $fixedColumn.find('th:not(:nth-child(1))th:not(:nth-child(2))th:not(:nth-child(3))th:not(:nth-child(4))th:not(:nth-child(5))th:not(:nth-child(6))th:not(:nth-child(7))th:not(:nth-child(8))th:not(:nth-child(9))th:not(:nth-child(10)),td:not(:nth-child(1))td:not(:nth-child(2))td:not(:nth-child(3))td:not(:nth-child(4))td:not(:nth-child(5))td:not(:nth-child(6))td:not(:nth-child(7))td:not(:nth-child(8))td:not(:nth-child(9))td:not(:nth-child(10))').remove();
+
+        $('.time-picker').datepicker({
+            format: 'MM yyyy',
+            startView: 'months',
+            minViewMode: 'months',
+            endDate: new Date()
+        }).datepicker('update', new Date('<?php echo $month; ?>'));
     });
+//    $('#cu1rrentdate').datepicker({format: "MM yyyy"}).datepicker('setDate', 'today');
+
+    $(document).on('changeDate', '.time-picker', function () {
+        month = new Date($(this).val()).getTime() / 1000;
+        console.log(month);
+
+        if ($.isNumeric(month))
+            location = location.protocol + "//" + location.host + location.pathname + "?month=" + month;
+    });
+
 </script>
