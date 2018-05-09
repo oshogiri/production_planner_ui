@@ -101,7 +101,10 @@
                 ?>
             </div><!-- /.panel-title -->
             <div class="panel-tools">
-                <input type="text" class="form-control time-picker" placeholder="Select Date" readonly>
+                <form class="form-inline">
+                    <label>Date: </label>
+                    <input type="text" class="form-control time-picker" placeholder="Select Date" readonly>
+                </form>
             </div>
         </div><!-- /.panel-heading -->
         <?php if (isset($message)) { ?>
@@ -213,7 +216,7 @@
                                                             ?>
                                                         </td>
                                                     <?php } ?>
-                    <!--<td><?php //echo gmdate("H:i", $schedule->hold_up);               ?></td>-->
+                    <!--<td><?php //echo gmdate("H:i", $schedule->hold_up);                ?></td>-->
                                                     <td><?php echo sprintf('%02d', floor($schedule->hold_up / 3600)) . gmdate(":i", $schedule->hold_up % 3600); ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -609,7 +612,7 @@
             endDate: new Date()
         }).datepicker('update', new Date('<?php echo $date; ?>'));
     });
-    
+
     $(document).on('changeDate', '.time-picker', function () {
         date = new Date($(this).val()).getTime() / 1000;
         if ($.isNumeric(date))
