@@ -33,7 +33,10 @@
                 ?> 
             </div><!-- /.panel-title -->
             <div class="panel-tools">
-                <input type="text" class="form-control time-picker" placeholder="Select Month" readonly>
+                <form class="form-inline">
+                    <label>Month: </label>
+                    <input type="text" class="form-control time-picker" placeholder="Select Month" readonly>
+                </form>
             </div>
         </div><!-- /.panel-heading -->
         <div class="panel-body">
@@ -41,51 +44,50 @@
                 <table class="table table-bordered table-condensed">
                     <thead>
                         <?php if (!empty($date_header_array)) { ?>
-                        <tr>
-                            <th>Demand<br>Quantity<br/>(MT)</th>
-                            <th>Inventory<br/>(MT)</th>
-                            <th>WIP<br/>(MT)</th>
-                            <th>Demand<br/>Inventory<br/>(MT)</th>
-                            <th>Batches<br>Required</th>
-                            <th>Batches<br>Planed </th>
-                            <th>Difference</th>
-                            <th>Batch<br>Size<br>(MT)</th>
-                            <th>Products</th>
-                            <th>Stream</th>
-                            <?php
+                            <tr>
+                                <th>Demand<br>Quantity<br/>(MT)</th>
+                                <th>Inventory<br/>(MT)</th>
+                                <th>WIP<br/>(MT)</th>
+                                <th>Demand<br/>Inventory<br/>(MT)</th>
+                                <th>Batches<br>Required</th>
+                                <th>Batches<br>Planed </th>
+                                <th>Difference</th>
+                                <th>Batch<br>Size<br>(MT)</th>
+                                <th>Products</th>
+                                <th>Stream</th>
+                                <?php
 
-                            function date_range($first, $last, $step = '+1 day', $output_format = 'd/m/Y') {
+                                function date_range($first, $last, $step = '+1 day', $output_format = 'd/m/Y') {
 
-                                $dates = array();
-                                $current = strtotime($first);
-                                $last = strtotime($last);
+                                    $dates = array();
+                                    $current = strtotime($first);
+                                    $last = strtotime($last);
 
-                                while ($current <= $last) {
+                                    while ($current <= $last) {
 
-                                    $dates[] = date($output_format, $current);
-                                    $current = strtotime($step, $current);
+                                        $dates[] = date($output_format, $current);
+                                        $current = strtotime($step, $current);
+                                    }
+
+                                    return $dates;
                                 }
 
-                                return $dates;
-                            }
-
-                            $batch_data_array = array();
-                            if (isset($batch_plans)) {
-                                foreach ($batch_plans as $d => $bp) {
-                                    foreach ($bp['daily_plans'] as $x => $d_val) {
-                                        $batch_data_array[$bp['stream']][$bp['product']][$d_val['date']] = $d_val;
+                                $batch_data_array = array();
+                                if (isset($batch_plans)) {
+                                    foreach ($batch_plans as $d => $bp) {
+                                        foreach ($bp['daily_plans'] as $x => $d_val) {
+                                            $batch_data_array[$bp['stream']][$bp['product']][$d_val['date']] = $d_val;
+                                        }
                                     }
                                 }
-                            }
 //                            $date_header_array = date_range(date("Y-m-01"), date("Y-m-t"), '+1 day', 'j M y');
 //                            echo "<pre>";print_r($date_header_array);exit;
-                            
+
                                 foreach ($date_header_array as $d => $date_val) {
                                     ?><th><?php echo $date_val; ?></th><?php
                                     }
-                                
-                                ?>
-                        </tr>
+                                    ?>
+                            </tr>
                         <?php } ?>
                     </thead>
 
@@ -242,11 +244,11 @@
         //var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
 
         //$fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
-//        var date_header_array = '<?php //echo $date_header_array; ?>';
+//        var date_header_array = '<?php //echo $date_header_array;  ?>';
 //        console.log(date_header_array);
 //        if (date_header_array !== null && date_header_array !== '') {
-            var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
-            $fixedColumn.find('th:not(:nth-child(1))th:not(:nth-child(2))th:not(:nth-child(3))th:not(:nth-child(4))th:not(:nth-child(5))th:not(:nth-child(6))th:not(:nth-child(7))th:not(:nth-child(8))th:not(:nth-child(9))th:not(:nth-child(10)),td:not(:nth-child(1))td:not(:nth-child(2))td:not(:nth-child(3))td:not(:nth-child(4))td:not(:nth-child(5))td:not(:nth-child(6))td:not(:nth-child(7))td:not(:nth-child(8))td:not(:nth-child(9))td:not(:nth-child(10))').remove();
+        var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
+        $fixedColumn.find('th:not(:nth-child(1))th:not(:nth-child(2))th:not(:nth-child(3))th:not(:nth-child(4))th:not(:nth-child(5))th:not(:nth-child(6))th:not(:nth-child(7))th:not(:nth-child(8))th:not(:nth-child(9))th:not(:nth-child(10)),td:not(:nth-child(1))td:not(:nth-child(2))td:not(:nth-child(3))td:not(:nth-child(4))td:not(:nth-child(5))td:not(:nth-child(6))td:not(:nth-child(7))td:not(:nth-child(8))td:not(:nth-child(9))td:not(:nth-child(10))').remove();
         //}
         $('.time-picker').datepicker({
             format: 'MM yyyy',
