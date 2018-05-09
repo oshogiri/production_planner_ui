@@ -14,7 +14,7 @@
                         <!--<div class="input-icon-left m-top-15">-->
                         <input type="text" name="time" id="starttime" class="form-control" readonly>
                     </div>
-                    
+
                     <input type="hidden" name="punch_type" value="start_time_punch">
                     <input type="hidden" name="uuid" id="start_uuid">
                     <input type="hidden" name="employee_id" value="<?php echo $this->session->userdata('employee_id'); ?>">
@@ -94,13 +94,26 @@
     <div class="panel panel-default-light border-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <i class="fa fa-check-square-o m-right-5"></i> Today's Schedules
+                <i class="fa fa-check-square-o m-right-5"></i>Schedule: <?php
+                if (isset($date)) {
+                    echo $date;
+                }
+                ?>
             </div><!-- /.panel-title -->
+            <div class="panel-tools">
+                <input type="text" class="form-control time-picker" placeholder="Select Date" readonly>
+            </div>
         </div><!-- /.panel-heading -->
         <?php if (isset($message)) { ?>
             <div class="alert alert-success fade in">
                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                 <?php echo $message; ?>
+            </div>
+        <?php } ?>
+        <?php if (isset($error_schedule)) { ?>
+            <div class="alert alert-danger fade in">
+                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                <?php echo $error_schedule; ?>
             </div>
         <?php } ?>
 
@@ -120,367 +133,367 @@
                 </li>
             </ul>
 
-		<?php if (!empty($publish)) { ?>
-            <div class="tab-content">
-                <?php if (isset($batch_schedules)) { ?>
-                    <div class="tab-pane fade in active" id="Stream1">
-                        <?php if (isset($batch_schedules->stream_1)) { ?>
-                            <?php foreach ($batch_schedules->stream_1 as $batch_schedule) { ?>
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2">BCT</th>
-                                            <th rowspan="2">Reactor</th>
-                                            <th rowspan="2">Process</th>
-                                            <th rowspan="2">Product</th>
-                                            <th rowspan="2">Batch Number</th>
-                                            <th colspan="2">Plan</th>
-                                            <?php if($this->session->userdata('role') == 'production'){ ?>
-                                            <th colspan="2">Actual</th>
-                                            <?php } ?>
-                                            <th rowspan="2">Delay</th>
-                                            <!--<th rowspan="2">Comment</th>-->
-                                        </tr>
-                                        <tr>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-											<?php if($this->session->userdata('role') == 'production'){ ?>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-											<?php } ?>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <?php
-                                        $schedules = $batch_schedule->schedules;
-                                        foreach ($schedules as $schedule):
-                                            ?>
+            <?php if (!empty($publish)) { ?>
+                <div class="tab-content">
+                    <?php if (isset($batch_schedules)) { ?>
+                        <div class="tab-pane fade in active" id="Stream1">
+                            <?php if (isset($batch_schedules->stream_1)) { ?>
+                                <?php foreach ($batch_schedules->stream_1 as $batch_schedule) { ?>
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
                                             <tr>
-                                                <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
-                                                <td><?php echo $schedule->reactor; ?></td>
-                                                <td><?php echo $schedule->stage; ?></td>
-                                                <td><?php echo $schedule->product; ?></td>
-                                                <td><?php echo $schedule->batch_number; ?></td>
-                                                <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
-                                                <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
-												<?php if($this->session->userdata('role') == 'production'){ ?>
-                                                <td>
-                                                    <?php
-                                                    if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
-                                                        if (!empty($schedule->actual_start_time)) {
-                                                            echo date("d/m/Y H:i", $schedule->actual_start_time);
-                                                        }
-                                                    } else {
-                                                        if (!empty($schedule->is_next)) {
-                                                            if ($schedule->is_next_type == 'start') {
-                                                                ?>
-                                                                <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time; ?>">
-                                                                <?php
-                                                            }
-                                                        }
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
-                                                        if (!empty($schedule->actual_end_time)) {
-                                                            echo date("d/m/Y H:i", $schedule->actual_end_time);
-                                                        }
-                                                    } else {
-                                                        if (!empty($schedule->is_next)) {
-                                                            if ($schedule->is_next_type == 'end') {
-                                                                ?>
-                                                                <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
-                                                                <?php
-                                                            }
-                                                        }
-                                                    }
-                                                    ?>
-                                                </td>
-												<?php } ?>
-                                                <!--<td><?php //echo gmdate("H:i", $schedule->hold_up); ?></td>-->
-                                                <td><?php echo sprintf('%02d',floor($schedule->hold_up / 3600)).gmdate(":i", $schedule->hold_up % 3600); ?></td>
+                                                <th rowspan="2">BCT</th>
+                                                <th rowspan="2">Reactor</th>
+                                                <th rowspan="2">Process</th>
+                                                <th rowspan="2">Product</th>
+                                                <th rowspan="2">Batch Number</th>
+                                                <th colspan="2">Plan</th>
+                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <th colspan="2">Actual</th>
+                                                <?php } ?>
+                                                <th rowspan="2">Delay</th>
+                                                <!--<th rowspan="2">Comment</th>-->
                                             </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-
-                            <?php } ?>
-                        <?php } ?>
-                    </div>
-                    <div class="tab-pane fade in" id="Stream2">
-                        <?php if (isset($batch_schedules->stream_2)) { ?>
-                            <?php foreach ($batch_schedules->stream_2 as $batch_schedule) { ?>
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2">BCT</th>
-                                            <th rowspan="2">Reactor</th>
-                                            <th rowspan="2">Process</th>
-                                            <th rowspan="2">Product</th>
-                                            <th rowspan="2">Batch Number</th>
-                                            <th colspan="2">Plan</th>
-											<?php if($this->session->userdata('role') == 'production'){ ?>
-                                            <th colspan="2">Actual</th>
-											<?php } ?>
-                                            <th rowspan="2">Delay</th>
-                                            <!--<th rowspan="2">Comment</th>-->
-                                        </tr>
-                                        <tr>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-											<?php if($this->session->userdata('role') == 'production'){ ?>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-											<?php } ?>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <?php
-                                        $schedules = $batch_schedule->schedules;
-                                        foreach ($schedules as $schedule):
-                                            ?>
                                             <tr>
-                                                <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
-                                                <td><?php echo $schedule->reactor; ?></td>
-                                                <td><?php echo $schedule->stage; ?></td>
-                                                <td><?php echo $schedule->product; ?></td>
-                                                <td><?php echo $schedule->batch_number; ?></td>
-                                                <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
-                                                <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
-												<?php if($this->session->userdata('role') == 'production'){ ?>
-                                                <td>
-                                                    <?php
-                                                    if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
-                                                        if (!empty($schedule->actual_start_time)) {
-                                                            echo date("d/m/Y H:i", $schedule->actual_start_time);
-                                                        }
-                                                    } else {
-                                                        if (!empty($schedule->is_next)) {
-                                                            if ($schedule->is_next_type == 'start') {
-                                                                ?>
-                                                                <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
-                                                                <?php
-                                                            }
-                                                        }
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
-                                                        if (!empty($schedule->actual_end_time)) {
-                                                            echo date("d/m/Y H:i", $schedule->actual_end_time);
-                                                        }
-                                                    } else {
-                                                        if (!empty($schedule->is_next)) {
-                                                            if ($schedule->is_next_type == 'end') {
-                                                                ?>
-                                                                <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
-                                                                <?php
-                                                            }
-                                                        }
-                                                    }
-                                                    ?>
-                                                </td>
-												<?php } ?>
-                                                <td><?php echo sprintf('%02d',floor($schedule->hold_up / 3600)).gmdate(":i", $schedule->hold_up % 3600); ?></td>
-                                                <!--<td><input type="textarea" class="form-control"></td>-->
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <th>Start Time</th>
+                                                    <th>End Time</th>
+                                                <?php } ?>
                                             </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
 
+                                            <?php
+                                            $schedules = $batch_schedule->schedules;
+                                            foreach ($schedules as $schedule):
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
+                                                    <td><?php echo $schedule->reactor; ?></td>
+                                                    <td><?php echo $schedule->stage; ?></td>
+                                                    <td><?php echo $schedule->product; ?></td>
+                                                    <td><?php echo $schedule->batch_number; ?></td>
+                                                    <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
+                                                    <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                        <td>
+                                                            <?php
+                                                            if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
+                                                                if (!empty($schedule->actual_start_time)) {
+                                                                    echo date("d/m/Y H:i", $schedule->actual_start_time);
+                                                                }
+                                                            } else {
+                                                                if (!empty($schedule->is_next)) {
+                                                                    if ($schedule->is_next_type == 'start') {
+                                                                        ?>
+                                                                        <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time; ?>">
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php
+                                                            if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
+                                                                if (!empty($schedule->actual_end_time)) {
+                                                                    echo date("d/m/Y H:i", $schedule->actual_end_time);
+                                                                }
+                                                            } else {
+                                                                if (!empty($schedule->is_next)) {
+                                                                    if ($schedule->is_next_type == 'end') {
+                                                                        ?>
+                                                                        <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                    <?php } ?>
+                    <!--<td><?php //echo gmdate("H:i", $schedule->hold_up);               ?></td>-->
+                                                    <td><?php echo sprintf('%02d', floor($schedule->hold_up / 3600)) . gmdate(":i", $schedule->hold_up % 3600); ?></td>
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+
+                                <?php } ?>
                             <?php } ?>
-                        <?php } ?>
-                    </div>
-                    <div class="tab-pane fade in" id="Stream3">
-                        <?php if (isset($batch_schedules->stream_3)) { ?>
-                            <?php foreach ($batch_schedules->stream_3 as $batch_schedule) { ?>
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2">BCT</th>
-                                            <th rowspan="2">Reactor</th>
-                                            <th rowspan="2">Process</th>
-                                            <th rowspan="2">Product</th>
-                                            <th rowspan="2">Batch Number</th>
-                                            <th colspan="2">Plan</th>
-											<?php if($this->session->userdata('role') == 'production'){ ?>
-                                            <th colspan="2">Actual</th>
-											<?php } ?>
-                                            <th rowspan="2">Delay</th>
-                                            <!--<th rowspan="2">Comment</th>-->
-                                        </tr>
-                                        <tr>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-											<?php if($this->session->userdata('role') == 'production'){ ?>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-											<?php } ?>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <?php
-                                        $schedules = $batch_schedule->schedules;
-                                        foreach ($schedules as $schedule):
-                                            ?>
+                        </div>
+                        <div class="tab-pane fade in" id="Stream2">
+                            <?php if (isset($batch_schedules->stream_2)) { ?>
+                                <?php foreach ($batch_schedules->stream_2 as $batch_schedule) { ?>
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
                                             <tr>
-                                                <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
-                                                <td><?php echo $schedule->reactor; ?></td>
-                                                <td><?php echo $schedule->stage; ?></td>
-                                                <td><?php echo $schedule->product; ?></td>
-                                                <td><?php echo $schedule->batch_number; ?></td>
-                                                <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
-                                                <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
-												<?php if($this->session->userdata('role') == 'production'){ ?>
-                                                <td>
-                                                    <?php
-                                                    if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
-                                                        if (!empty($schedule->actual_start_time)) {
-                                                            echo date("d/m/Y H:i", $schedule->actual_start_time);
-                                                        }
-                                                    } else {
-                                                        if (!empty($schedule->is_next)) {
-                                                            if ($schedule->is_next_type == 'start') {
-                                                                ?>
-                                                                <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
-                                                                <?php
-                                                            }
-                                                        }
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
-                                                        if (!empty($schedule->actual_end_time)) {
-                                                            echo date("d/m/Y H:i", $schedule->actual_end_time);
-                                                        }
-                                                    } else {
-                                                        if (!empty($schedule->is_next)) {
-                                                            if ($schedule->is_next_type == 'end') {
-                                                                ?>
-                                                                <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
-                                                                <?php
-                                                            }
-                                                        }
-                                                    }
-                                                    ?>
-                                                </td>
-												<?php } ?>
-                                                <td><?php echo sprintf('%02d',floor($schedule->hold_up / 3600)).gmdate(":i", $schedule->hold_up % 3600); ?></td>
-                                                <!--<td><input type="textarea" class="form-control"></td>-->
+                                                <th rowspan="2">BCT</th>
+                                                <th rowspan="2">Reactor</th>
+                                                <th rowspan="2">Process</th>
+                                                <th rowspan="2">Product</th>
+                                                <th rowspan="2">Batch Number</th>
+                                                <th colspan="2">Plan</th>
+                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <th colspan="2">Actual</th>
+                                                <?php } ?>
+                                                <th rowspan="2">Delay</th>
+                                                <!--<th rowspan="2">Comment</th>-->
                                             </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
-
-                            <?php } ?>
-                        <?php } ?>
-                    </div>
-                    <div class="tab-pane fade in" id="Stream4">
-                        <?php if (isset($batch_schedules->stream_4)) { ?>
-                            <?php foreach ($batch_schedules->stream_4 as $batch_schedule) { ?>
-                                <table class="table table-striped table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th rowspan="2">BCT</th>
-                                            <th rowspan="2">Reactor</th>
-                                            <th rowspan="2">Process</th>
-                                            <th rowspan="2">Product</th>
-                                            <th rowspan="2">Batch Number</th>
-                                            <th colspan="2">Plan</th>
-											<?php if($this->session->userdata('role') == 'production'){ ?>
-                                            <th colspan="2">Actual</th>
-											<?php } ?>
-                                            <th rowspan="2">Delay</th>
-                                            <!--<th rowspan="2">Comment</th>-->
-                                        </tr>
-                                        <tr>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-											<?php if($this->session->userdata('role') == 'production'){ ?>
-                                            <th>Start Time</th>
-                                            <th>End Time</th>
-											<?php } ?>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <?php
-                                        $schedules = $batch_schedule->schedules;
-                                        foreach ($schedules as $schedule):
-                                            ?>
                                             <tr>
-                                                <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
-                                                <td><?php echo $schedule->reactor; ?></td>
-                                                <td><?php echo $schedule->stage; ?></td>
-                                                <td><?php echo $schedule->product; ?></td>
-                                                <td><?php echo $schedule->batch_number; ?></td>
-                                                <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
-                                                <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
-												<?php if($this->session->userdata('role') == 'production'){ ?>
-                                                <td>
-                                                    <?php
-                                                    if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
-                                                        if (!empty($schedule->actual_start_time)) {
-                                                            echo date("d/m/Y H:i", $schedule->actual_start_time);
-                                                        }
-                                                    } else {
-                                                        if (!empty($schedule->is_next)) {
-                                                            if ($schedule->is_next_type == 'start') {
-                                                                ?>
-                                                                <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
-                                                                <?php
-                                                            }
-                                                        }
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td>
-                                                    <?php
-                                                    if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
-                                                        if (!empty($schedule->actual_end_time)) {
-                                                            echo date("d/m/Y H:i", $schedule->actual_end_time);
-                                                        }
-                                                    } else {
-                                                        if (!empty($schedule->is_next)) {
-                                                            if ($schedule->is_next_type == 'end') {
-                                                                ?>
-                                                                <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
-                                                                <?php
-                                                            }
-                                                        }
-                                                    }
-                                                    ?>
-                                                </td>
-												<?php } ?>
-                                                <td><?php echo sprintf('%02d',floor($schedule->hold_up / 3600)).gmdate(":i", $schedule->hold_up % 3600); ?></td>
-                                                <!--<td><input type="textarea" class="form-control"></td>-->
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <th>Start Time</th>
+                                                    <th>End Time</th>
+                                                <?php } ?>
                                             </tr>
-                                        <?php endforeach; ?>
-                                    </tbody>
-                                </table>
+                                        </thead>
+                                        <tbody>
 
+                                            <?php
+                                            $schedules = $batch_schedule->schedules;
+                                            foreach ($schedules as $schedule):
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
+                                                    <td><?php echo $schedule->reactor; ?></td>
+                                                    <td><?php echo $schedule->stage; ?></td>
+                                                    <td><?php echo $schedule->product; ?></td>
+                                                    <td><?php echo $schedule->batch_number; ?></td>
+                                                    <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
+                                                    <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                        <td>
+                                                            <?php
+                                                            if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
+                                                                if (!empty($schedule->actual_start_time)) {
+                                                                    echo date("d/m/Y H:i", $schedule->actual_start_time);
+                                                                }
+                                                            } else {
+                                                                if (!empty($schedule->is_next)) {
+                                                                    if ($schedule->is_next_type == 'start') {
+                                                                        ?>
+                                                                        <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php
+                                                            if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
+                                                                if (!empty($schedule->actual_end_time)) {
+                                                                    echo date("d/m/Y H:i", $schedule->actual_end_time);
+                                                                }
+                                                            } else {
+                                                                if (!empty($schedule->is_next)) {
+                                                                    if ($schedule->is_next_type == 'end') {
+                                                                        ?>
+                                                                        <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                    <?php } ?>
+                                                    <td><?php echo sprintf('%02d', floor($schedule->hold_up / 3600)) . gmdate(":i", $schedule->hold_up % 3600); ?></td>
+                                                    <!--<td><input type="textarea" class="form-control"></td>-->
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+
+                                <?php } ?>
                             <?php } ?>
-                        <?php } ?>
-                    </div>
-                <?php } elseif (isset($error_schedule)) { ?>
-                    <div class="alert alert-info fade in">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <?php echo $error_schedule; ?>
-                    </div>
-                <?php } ?>
-            </div>
-		<?php } ?>
+                        </div>
+                        <div class="tab-pane fade in" id="Stream3">
+                            <?php if (isset($batch_schedules->stream_3)) { ?>
+                                <?php foreach ($batch_schedules->stream_3 as $batch_schedule) { ?>
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2">BCT</th>
+                                                <th rowspan="2">Reactor</th>
+                                                <th rowspan="2">Process</th>
+                                                <th rowspan="2">Product</th>
+                                                <th rowspan="2">Batch Number</th>
+                                                <th colspan="2">Plan</th>
+                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <th colspan="2">Actual</th>
+                                                <?php } ?>
+                                                <th rowspan="2">Delay</th>
+                                                <!--<th rowspan="2">Comment</th>-->
+                                            </tr>
+                                            <tr>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <th>Start Time</th>
+                                                    <th>End Time</th>
+                                                <?php } ?>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <?php
+                                            $schedules = $batch_schedule->schedules;
+                                            foreach ($schedules as $schedule):
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
+                                                    <td><?php echo $schedule->reactor; ?></td>
+                                                    <td><?php echo $schedule->stage; ?></td>
+                                                    <td><?php echo $schedule->product; ?></td>
+                                                    <td><?php echo $schedule->batch_number; ?></td>
+                                                    <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
+                                                    <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                        <td>
+                                                            <?php
+                                                            if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
+                                                                if (!empty($schedule->actual_start_time)) {
+                                                                    echo date("d/m/Y H:i", $schedule->actual_start_time);
+                                                                }
+                                                            } else {
+                                                                if (!empty($schedule->is_next)) {
+                                                                    if ($schedule->is_next_type == 'start') {
+                                                                        ?>
+                                                                        <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php
+                                                            if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
+                                                                if (!empty($schedule->actual_end_time)) {
+                                                                    echo date("d/m/Y H:i", $schedule->actual_end_time);
+                                                                }
+                                                            } else {
+                                                                if (!empty($schedule->is_next)) {
+                                                                    if ($schedule->is_next_type == 'end') {
+                                                                        ?>
+                                                                        <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                    <?php } ?>
+                                                    <td><?php echo sprintf('%02d', floor($schedule->hold_up / 3600)) . gmdate(":i", $schedule->hold_up % 3600); ?></td>
+                                                    <!--<td><input type="textarea" class="form-control"></td>-->
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+
+                                <?php } ?>
+                            <?php } ?>
+                        </div>
+                        <div class="tab-pane fade in" id="Stream4">
+                            <?php if (isset($batch_schedules->stream_4)) { ?>
+                                <?php foreach ($batch_schedules->stream_4 as $batch_schedule) { ?>
+                                    <table class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th rowspan="2">BCT</th>
+                                                <th rowspan="2">Reactor</th>
+                                                <th rowspan="2">Process</th>
+                                                <th rowspan="2">Product</th>
+                                                <th rowspan="2">Batch Number</th>
+                                                <th colspan="2">Plan</th>
+                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <th colspan="2">Actual</th>
+                                                <?php } ?>
+                                                <th rowspan="2">Delay</th>
+                                                <!--<th rowspan="2">Comment</th>-->
+                                            </tr>
+                                            <tr>
+                                                <th>Start Time</th>
+                                                <th>End Time</th>
+                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <th>Start Time</th>
+                                                    <th>End Time</th>
+                                                <?php } ?>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+
+                                            <?php
+                                            $schedules = $batch_schedule->schedules;
+                                            foreach ($schedules as $schedule):
+                                                ?>
+                                                <tr>
+                                                    <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
+                                                    <td><?php echo $schedule->reactor; ?></td>
+                                                    <td><?php echo $schedule->stage; ?></td>
+                                                    <td><?php echo $schedule->product; ?></td>
+                                                    <td><?php echo $schedule->batch_number; ?></td>
+                                                    <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
+                                                    <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                        <td>
+                                                            <?php
+                                                            if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
+                                                                if (!empty($schedule->actual_start_time)) {
+                                                                    echo date("d/m/Y H:i", $schedule->actual_start_time);
+                                                                }
+                                                            } else {
+                                                                if (!empty($schedule->is_next)) {
+                                                                    if ($schedule->is_next_type == 'start') {
+                                                                        ?>
+                                                                        <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                        <td>
+                                                            <?php
+                                                            if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
+                                                                if (!empty($schedule->actual_end_time)) {
+                                                                    echo date("d/m/Y H:i", $schedule->actual_end_time);
+                                                                }
+                                                            } else {
+                                                                if (!empty($schedule->is_next)) {
+                                                                    if ($schedule->is_next_type == 'end') {
+                                                                        ?>
+                                                                        <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
+                                                                        <?php
+                                                                    }
+                                                                }
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                    <?php } ?>
+                                                    <td><?php echo sprintf('%02d', floor($schedule->hold_up / 3600)) . gmdate(":i", $schedule->hold_up % 3600); ?></td>
+                                                    <!--<td><input type="textarea" class="form-control"></td>-->
+                                                </tr>
+                                            <?php endforeach; ?>
+                                        </tbody>
+                                    </table>
+
+                                <?php } ?>
+                            <?php } ?>
+                        </div>
+                    <?php } elseif (isset($error_schedule)) { ?>
+                        <div class="alert alert-info fade in">
+                            <a href="#" class="close" data-dismiss="alert">&times;</a>
+                            <?php echo $error_schedule; ?>
+                        </div>
+                    <?php } ?>
+                </div>
+            <?php } ?>
         </div><!-- /.panel-body -->
-        
+
     </div><!--/.panel-->
 
 </div>
@@ -514,21 +527,21 @@
                 }
             }
         }
-        
+
         $('.start-time-picker').change(function () {
             var picker = $(this);
             //alert(new Date($(this).val()).getTime()/1000 + " --- " + picker.data('planstarttime') + "Diff - "+((new Date($(this).val()).getTime()/1000)-picker.data('planstarttime')) );
-            
-            var difftime = (new Date($(this).val()).getTime()/1000) - picker.data('planstarttime');
+
+            var difftime = (new Date($(this).val()).getTime() / 1000) - picker.data('planstarttime');
             //alert(difftime);
             //$('#delaytime').val(difftime);
-            if(difftime === 0){
+            if (difftime === 0) {
                 $('#startselectreasonoption').hide();
                 $('#startcomment').hide();
-            }else{
+            } else {
                 $('#startselectreasonoption').show();
             }
-            
+
             if (validate_punch(picker)) {
                 $('#starttime').val($(this).val());
                 $('#start_uuid').val($(this).data('uuid'));
@@ -543,17 +556,17 @@
 
         $('.end-time-picker').change(function () {
             var picker = $(this);
-            
-            var difftime = (new Date($(this).val()).getTime()/1000) - picker.data('planendtime');
+
+            var difftime = (new Date($(this).val()).getTime() / 1000) - picker.data('planendtime');
             //alert(difftime);
             //$('#delaytime').val(difftime);
-            if(difftime === 0){
+            if (difftime === 0) {
                 $('#endselectreasonoption').hide();
                 $('#endcomment').hide();
-            }else{
+            } else {
                 $('#endselectreasonoption').show();
             }
-            
+
             if (validate_punch(picker)) {
                 $('#endtime').val($(this).val());
                 $('#end_uuid').val($(this).data('uuid'));
@@ -590,6 +603,16 @@
                 $('#endcomment').hide();
             }
         });
-        
+
+        $('.time-picker').datepicker({
+            format: 'dd M yyyy',
+            endDate: new Date()
+        }).datepicker('update', new Date('<?php echo $date; ?>'));
+    });
+    
+    $(document).on('changeDate', '.time-picker', function () {
+        date = new Date($(this).val()).getTime() / 1000;
+        if ($.isNumeric(date))
+            location = location.protocol + "//" + location.host + location.pathname + "?date=" + date;
     });
 </script>
