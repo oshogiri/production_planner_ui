@@ -233,11 +233,15 @@
 <script>
     $(function () {
         var $table = $('.table');
-        var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
+        //var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
 
         //$fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
-        $fixedColumn.find('th:not(:nth-child(1))th:not(:nth-child(2))th:not(:nth-child(3))th:not(:nth-child(4))th:not(:nth-child(5))th:not(:nth-child(6))th:not(:nth-child(7))th:not(:nth-child(8))th:not(:nth-child(9))th:not(:nth-child(10)),td:not(:nth-child(1))td:not(:nth-child(2))td:not(:nth-child(3))td:not(:nth-child(4))td:not(:nth-child(5))td:not(:nth-child(6))td:not(:nth-child(7))td:not(:nth-child(8))td:not(:nth-child(9))td:not(:nth-child(10))').remove();
-
+        var date_header_array = '<?php echo $date_header_array; ?>';
+        console.log(date_header_array);
+        if (date_header_array !== null && date_header_array !== '') {
+            var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
+            $fixedColumn.find('th:not(:nth-child(1))th:not(:nth-child(2))th:not(:nth-child(3))th:not(:nth-child(4))th:not(:nth-child(5))th:not(:nth-child(6))th:not(:nth-child(7))th:not(:nth-child(8))th:not(:nth-child(9))th:not(:nth-child(10)),td:not(:nth-child(1))td:not(:nth-child(2))td:not(:nth-child(3))td:not(:nth-child(4))td:not(:nth-child(5))td:not(:nth-child(6))td:not(:nth-child(7))td:not(:nth-child(8))td:not(:nth-child(9))td:not(:nth-child(10))').remove();
+        }
         $('.time-picker').datepicker({
             format: 'MM yyyy',
             startView: 'months',
