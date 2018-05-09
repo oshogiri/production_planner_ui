@@ -74,9 +74,10 @@
                             }
 //                            $date_header_array = date_range(date("Y-m-01"), date("Y-m-t"), '+1 day', 'j M y');
 //                            echo "<pre>";print_r($date_header_array);exit;
-
-                            foreach ($date_header_array as $d => $date_val) {
-                                ?><th><?php echo $date_val; ?></th><?php
+                            if (!empty($date_header_array)) {
+                                foreach ($date_header_array as $d => $date_val) {
+                                    ?><th><?php echo $date_val; ?></th><?php
+                                    }
                                 }
                                 ?>
                         </tr>
