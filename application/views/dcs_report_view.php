@@ -4,13 +4,7 @@
 <?php require_once 'sidebar.php'; ?>
 
 <div class="content">
-    <div class="breadcrumb-wrapper">
-        <ol class="breadcrumb">
-            <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-home"></i>Home</a></li>
-            <li class="active">Upload Batch Plan</li>
-        </ol>
-    </div><!-- /.breadcrumb-wrapper -->
-
+    
     <div class="page-title-wrapper">
         <h2 class="page-title">Batch Plan</h2>
     </div><!-- /.page-titile-wrapper -->
