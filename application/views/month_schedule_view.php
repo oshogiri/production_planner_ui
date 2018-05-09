@@ -9,10 +9,10 @@
         font-size: 10px;
     }
     .table{font-size: 10px;}
-    .stream1-color{background-color: #8BC34A}
-    .stream2-color{background-color: #D1C4E9}
-    .stream3-color{background-color: #EBF1DE}
-    .stream4-color{background-color: #80DEEA}
+    .stream1-color{background-color: #00C851}
+    .stream2-color{background-color: #33B5EC}
+    .stream3-color{background-color: #ffbb33}
+    .stream4-color{background-color: #2BBBAD}
 
 </style>
 <?php require_once 'header.php'; ?>
@@ -40,6 +40,7 @@
             <div class="table-scroll">
                 <table class="table table-bordered table-condensed">
                     <thead>
+                        <?php if (!empty($date_header_array)) { ?>
                         <tr>
                             <th>Demand<br>Quantity<br/>(MT)</th>
                             <th>Inventory<br/>(MT)</th>
@@ -78,13 +79,14 @@
                             }
 //                            $date_header_array = date_range(date("Y-m-01"), date("Y-m-t"), '+1 day', 'j M y');
 //                            echo "<pre>";print_r($date_header_array);exit;
-                            if (!empty($date_header_array)) {
+                            
                                 foreach ($date_header_array as $d => $date_val) {
                                     ?><th><?php echo $date_val; ?></th><?php
                                     }
-                                }
+                                
                                 ?>
                         </tr>
+                        <?php } ?>
                     </thead>
 
                     <tbody>
