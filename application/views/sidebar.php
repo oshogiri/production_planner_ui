@@ -10,50 +10,79 @@
             </a>
         </li>
         <?php if ($this->session->userdata('role') == 'planner') { ?>
-            <li class="title">Planner</li>
-            <!--<li class="title">Core Package</li>-->
-			<li class="dropdown">
+            <li class="title">Demand Sheet</li>
+            <li class="dropdown">
+                <a href="<?php echo site_url('DemandSheet') ?>">
+                    <i class="fa fa-upload"></i>
+                    <span>Upload Demand Sheet</span>
+                </a>
+            </li>
+            <li class="title">Inventory</li>
+            <li class="dropdown">
+                <a href="<?php echo site_url('Inventory') ?>">
+                    <i class="fa fa-upload"></i>
+                    <span>Upload Inventory</span>
+                </a>
+            </li>
+            <li class="title">Batch Plan</li>
+            <li class="dropdown">
                 <a href="<?php echo site_url('DCS_Report') ?>">
-                    <i class="fa fa-area-chart"></i>
+                    <i class="fa fa-upload"></i>
                     <span>Upload Batch Plan</span>
                 </a>
             </li>
             <li class="dropdown">
+                <a href="<?php echo site_url('MonthSchedule/month_schedule') ?>">
+                    <i class="fa fa-eye"></i>
+                    <span>View Batch Plan</span>
+                </a>
+            </li>
+            <li class="title">Schedule</li>
+            <li class="dropdown">
                 <a href="<?php echo site_url('schedule/get_planned_batches') ?>">
-                    <i class="fa fa-area-chart"></i>
+                    <i class="fa fa-list-ol"></i>
                     <span>Schedule Batches</span>
                 </a>
             </li>
-			<li class="dropdown">
+            <li class="dropdown">
                 <a href="<?php echo site_url('schedule/get_schedule') ?>">
-                    <i class="fa fa-area-chart"></i>
+                    <i class="fa fa-eye"></i>
                     <span>View Schedule</span>
                 </a>
             </li>
-			 
-        <?php } else if ($this->session->userdata('role') == 'production') { ?>
-            <li class="title">Production</li>
-            <!--<li class="title">Core Package</li>-->
+
+        <?php } elseif ($this->session->userdata('role') == 'production') { ?>
+            <li class="title">Batch Plan</li>
+            <li class="dropdown">
+                <a href="<?php echo site_url('MonthSchedule/month_schedule') ?>">
+                    <i class="fa fa-eye"></i>
+                    <span>View Batch Plan</span>
+                </a>
+            </li>
+            <li class="title">Schedule</li>
             <li class="dropdown">
                 <a href="<?php echo site_url('schedule/get_schedule') ?>">
                     <i class="fa fa-area-chart"></i>
                     <span>View Schedule</span>
                 </a>
             </li>
-        <?php } else { ?>
 
-            <li class="title">Planner</li>
-            <!--<li class="title">Core Package</li>-->
+        <?php } elseif ($this->session->userdata('role') == 'marketing') { ?>
+            <li class="title">Demand Sheet</li>
             <li class="dropdown">
-                <a href="<?php echo site_url('schedule/get_planned_batches') ?>">
-                    <i class="fa fa-area-chart"></i>
-                    <span>Schedule Batches</span>
+                <a href="<?php echo site_url('DemandSheet') ?>">
+                    <i class="fa fa-upload"></i>
+                    <span>Upload Demand Sheet</span>
                 </a>
             </li>
-			
-
-            <li class="title">Production</li>
-            <!--<li class="title">Core Package</li>-->
+            <li class="title">Batch Plan</li>
+            <li class="dropdown">
+                <a href="<?php echo site_url('MonthSchedule/month_schedule') ?>">
+                    <i class="fa fa-eye"></i>
+                    <span>View Batch Plan</span>
+                </a>
+            </li>
+            <li class="title">Schedule</li>
             <li class="dropdown">
                 <a href="<?php echo site_url('schedule/get_schedule') ?>">
                     <i class="fa fa-area-chart"></i>
@@ -61,20 +90,7 @@
                 </a>
             </li>
         <?php } ?>
-        <!--<li class="title">DCS Report</li>-->
-        <!--        <li class="dropdown">
-                    <a href="#" data-click="prevent">
-                        <i class="fa fa-area-chart"></i>
-                        <span>DCS Report</span>
-                    </a>
-                    <ul class="inner-nav">
-                        <li>
-                            <a href="<?php //echo site_url('dcs_report')       ?>">
-                                Upload DCS Report
-                            </a>
-                        </li>
-                    </ul>
-                </li>-->
+
     </ul>
 </div>
 <!-- SIDEBAR ENDS -->
