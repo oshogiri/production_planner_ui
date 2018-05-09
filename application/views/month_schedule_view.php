@@ -26,7 +26,7 @@
     <div class="panel panel-default-light border-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <i class="fa fa-list-alt m-right-5"></i>Batch Plan: <?php
+                <i class="fa fa-eye m-right-5"></i>Batch Plan: <?php
                 if (isset($month)) {
                     echo $month;
                 }
