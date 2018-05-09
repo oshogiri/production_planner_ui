@@ -14,20 +14,19 @@
     <div class="panel panel-default-light border-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <i class="fa fa-file-o m-right-5"></i> File Input
+                <i class="fa fa-file-o m-right-5"></i> Upload
             </div><!-- /.panel-title -->
             <div class="panel-tools">
                 <a href="<?php echo base_url() . 'sample/inventory.xlsx' ?>" class="btn btn-info btn-sm" download>
                     <span>
                         <i class="fa fa-download"></i>
-                        Download Sample File
+                        Download Sample Inventory File
                     </span>
                 </a>
             </div>
         </div><!-- /.panel-heading -->
 
         <div class="panel-body">
-            <h2 class="m-bottom-30">Upload</h2>
             <?php if (isset($error)) { ?>
                 <div class="alert alert-danger fade in">
                     <a href="#" class="close" data-dismiss="alert">&times;</a>
