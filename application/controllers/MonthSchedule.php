@@ -13,11 +13,11 @@ class MonthSchedule extends CI_Controller {
         $this->load->model('Month_Schedule');
     }
 
-    public function index() {
-        if ($this->session->userdata('employee_id')) {
-            $this->load->view('month_schedule_view');
-        }
-    }
+//    public function index() {
+//        if ($this->session->userdata('employee_id')) {
+//            $this->load->view('month_schedule_view');
+//        }
+//    }
 
     private function check_isvalidated() {
         if (!$this->session->userdata('employee_id')) {
