@@ -9,6 +9,10 @@
         font-size: 9px;
     }
     .table{font-size: 9px;}
+    .stream1-color{color: #8BC34A}
+    .stream2-color{color: #D1C4E9}
+    .stream3-color{color: #EBF1DE}
+    .stream4-color{color: #80DEEA}
 
 </style>
 <?php require_once 'header.php'; ?>
@@ -90,7 +94,7 @@
                             foreach ($inventories as $inventory) {
                                 if ($inventory->stream == 'Stream 1') {
                                     ?>
-                                    <tr>
+                                    <tr class="stream1-color">
                                         <td><?php echo $inventory->demand_quantity; ?></td>
                                         <td><?php echo $inventory->inventory_quantity; ?></td>
                                         <td><?php echo $inventory->wip_quantity; ?></td>
@@ -121,7 +125,7 @@
                                 }
                                 if ($inventory->stream == 'Stream 2') {
                                     ?>
-                                    <tr>
+                                    <tr class="stream2-color">
                                         <td><?php echo $inventory->demand_quantity; ?></td>
                                         <td><?php echo $inventory->inventory_quantity; ?></td>
                                         <td><?php echo $inventory->wip_quantity; ?></td>
@@ -151,7 +155,7 @@
                                 }
                                 if ($inventory->stream == 'Stream 3') {
                                     ?>
-                                    <tr>
+                                    <tr class="stream3-color">
                                         <td><?php echo $inventory->demand_quantity; ?></td>
                                         <td><?php echo $inventory->inventory_quantity; ?></td>
                                         <td><?php echo $inventory->wip_quantity; ?></td>
@@ -181,7 +185,7 @@
                                 }
                                 if ($inventory->stream == 'Stream 4') {
                                     ?>
-                                    <tr>
+                                    <tr class="stream4-color">
                                         <td><?php echo $inventory->demand_quantity; ?></td>
                                         <td><?php echo $inventory->inventory_quantity; ?></td>
                                         <td><?php echo $inventory->wip_quantity; ?></td>
