@@ -258,6 +258,7 @@
             format: 'MM yyyy',
             startView: 'months',
             minViewMode: 'months',
+            startDate: new Date(2018, 0),
             endDate: new Date()
         }).datepicker('update', new Date('<?php echo $month; ?>'));
     });
