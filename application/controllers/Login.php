@@ -11,8 +11,12 @@ class Login extends CI_Controller {
     }
 
     public function index($data = NULL) {
-        print_r($data);
-        //exit;
+        if (isset($this->session->flashdata('success_message'))) {
+            $data = $this->session->flashdata('success_message');
+        } else {
+            $data = $this->session->flashdata('error_message');
+        }
+        //print_r($data);exit;
         $this->load->view('login_user', $data);
     }
 
@@ -70,15 +74,14 @@ class Login extends CI_Controller {
         $findemail = $this->login_model->check_forgotpassword_email($email);
         if ($findemail) {
             $this->login_model->send_resetpassword_link($findemail);
-            //$data['success_message'] = 'Reset password link send to '.$findemail.' please visite to reset.';
-           //$this->load->view('forgetpassword_user', $data);
-            redirect('login');
+            $data['error_message'] = 'Reset password link send to ' . $findemail . ' please visite to reset.';
+            $this->session->set_flashdata('success_message', $data);
+            redirect('login', $data);
         } else {
             $this->session->set_flashdata('msg', ' Email not found!');
             $data['error_message'] = "Email not found!";
-            //print_r($data);exit;
+            $this->session->set_flashdata('error_message', $data);
             redirect('login', $data);
-            //$this->load->view('login_user', $data);
         }
     }
 
