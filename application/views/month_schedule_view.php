@@ -265,8 +265,8 @@
 //    $('#cu1rrentdate').datepicker({format: "MM yyyy"}).datepicker('setDate', 'today');
 
     $(document).on('changeDate', '.time-picker', function () {
-        month = new Date($(this).val()).getTime() / 1000;
-        console.log(month);
+        month = $(this).datepicker('getDate').getTime() / 1000;
+        console.log($(this).datepicker('getDate'));
 
         if ($.isNumeric(month))
             location = location.protocol + "//" + location.host + location.pathname + "?month=" + month;
