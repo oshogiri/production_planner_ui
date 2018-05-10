@@ -40,10 +40,10 @@
             </div>
         </div><!-- /.panel-heading -->
         <div class="panel-body">
-            <div class="table-scroll">
-                <table class="table table-bordered table-condensed">
-                    <thead>
-                        <?php if (!empty($date_header_array)) { ?>
+            <?php if (isset($date_header_array) && isset($inventories) && isset($batch_plans)) { ?>
+                <div class="table-scroll">
+                    <table class="table table-bordered table-condensed">
+                        <thead>
                             <tr>
                                 <th>Demand<br>Quantity<br/>(MT)</th>
                                 <th>Inventory<br/>(MT)</th>
@@ -88,13 +88,11 @@
                                     }
                                     ?>
                             </tr>
-                        <?php } ?>
-                    </thead>
+                        </thead>
 
-                    <tbody>
+                        <tbody>
 
-                        <?php
-                        if (isset($inventories) && isset($batch_plans)) {
+                            <?php
                             foreach ($inventories as $inventory) {
                                 if ($inventory->stream == 'Stream 1') {
                                     ?>
@@ -218,21 +216,19 @@
                                     <?php
                                 }
                             }
-                        } else {
                             ?>
-                        <div class="alert alert-danger">
-                            <?Php
-                            if (isset($error_message)) {
-                                echo $error_message;
-                            }
-                            ?>
-                        </div>
-                        <?php
+                        </tbody>
+                    </table>
+                </div><!-- /.table-scroll -->
+            <?php } else { ?>
+                <div class="alert alert-danger">
+                    <?Php
+                    if (isset($error_message)) {
+                        echo $error_message;
                     }
                     ?>
-                    </tbody>
-                </table>
-            </div><!-- /.table-scroll -->
+                </div>
+            <?php } ?>
         </div>
     </div>
 
@@ -244,7 +240,7 @@
         //var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
 
         //$fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
-//        var date_header_array = '<?php //echo $date_header_array;  ?>';
+//        var date_header_array = '<?php //echo $date_header_array;      ?>';
 //        console.log(date_header_array);
 //        if (date_header_array !== null && date_header_array !== '') {
         var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
