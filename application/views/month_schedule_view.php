@@ -13,6 +13,7 @@
     .stream2-color{background-color: #33B5EC}
     .stream3-color{background-color: #ffbb33}
     .stream4-color{background-color: #2BBBAD}
+    .table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td{font-weight: bold !important;padding: 0.5em !important;text-align: center;}
 
 </style>
 <?php require_once 'header.php'; ?>
@@ -113,7 +114,7 @@
                                         foreach ($date_header_array as $d => $date_val) {
                                             if (isset($batch_data_array['Stream 1'][$inventory->product][$date_val])) {
                                                 if ($batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                    ?><td><strong><?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?></strong></td><?php
+                                                    ?><td><?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                 } else {
                                                     ?><td></td><?php
                                                 }
@@ -143,7 +144,7 @@
                                         foreach ($date_header_array as $d => $date_val) {
                                             if (isset($batch_data_array['Stream 2'][$inventory->product][$date_val])) {
                                                 if ($batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                    ?><td><strong><?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?></strong></td><?php
+                                                    ?><td><?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                 } else {
                                                     ?><td></td><?php
                                                 }
@@ -173,7 +174,7 @@
                                         foreach ($date_header_array as $d => $date_val) {
                                             if (isset($batch_data_array['Stream 3'][$inventory->product][$date_val])) {
                                                 if ($batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                    ?><td><strong><?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?></strong></td><?php
+                                                    ?><td><?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                 } else {
                                                     ?><td></td><?php
                                                 }
@@ -203,7 +204,7 @@
                                         foreach ($date_header_array as $d => $date_val) {
                                             if (isset($batch_data_array['Stream 4'][$inventory->product][$date_val])) {
                                                 if ($batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                    ?><td><strong><?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?></strong></td><?php
+                                                    ?><td><?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                 } else {
                                                     ?><td></td><?php
                                                 }
