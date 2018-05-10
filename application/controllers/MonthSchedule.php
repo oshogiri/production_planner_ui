@@ -59,6 +59,7 @@ class MonthSchedule extends CI_Controller {
             } else {
                 $view_data['date_header_array'] = '';
                 $view_data['error_message'] = $get_inventories->message;
+            $view_data['batch_plan_message'] = $get_batch_plan['message'];
                 $this->load->view('month_schedule_view', $view_data);
             }
         } else {
