@@ -64,8 +64,32 @@ class Login_model extends CI_Model {
     }
 
     public function send_resetpassword_link($findemail) {
-        $email = $findemail['email'];
+        $this->load->library('email');
+
+        $config['protocol'] = 'smtp';
+
+        $config['smtp_host'] = 'ssl://smtp.gmail.com';
+
+        $config['smtp_port'] = '465';
+
+        $config['smtp_timeout'] = '7';
+
+        $config['smtp_user'] = 'tushar@linkwok.com';
+
+        $config['smtp_pass'] = '99789tushar@';
+
+        $config['charset'] = 'utf-8';
+
+        $config['newline'] = "\r\n";
+
+        $config['mailtype'] = 'text'; // or html
+
+        $config['validation'] = TRUE; // bool whether to validate email or not      
+
+        $this->email->initialize($config);
         
+        $email = $findemail['email'];
+
         $this->email->from("productionplanner@cybit.com", "Cybit");
         $this->email->to($email);
         $this->email->subject("Reset your Password");
@@ -74,4 +98,5 @@ class Login_model extends CI_Model {
         $this->email->message($message);
         $this->email->send();
     }
+
 }
