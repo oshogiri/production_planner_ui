@@ -65,7 +65,7 @@ class Login_model extends CI_Model {
 
     public function send_resetpassword_link($findemail) {
         $email = $findemail['email'];
-        
+        $this->load->library('email');
         $this->email->from('ps@cybit.com', "Site");
         $this->email->to($email);
         $this->email->subject("Reset your Password");
