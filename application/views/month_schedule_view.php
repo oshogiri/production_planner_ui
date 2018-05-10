@@ -228,6 +228,13 @@
                     }
                     ?>
                 </div>
+                <div class="alert alert-danger">
+                    <?Php
+                    if (isset($batch_plan_message)) {
+                        echo $batch_plan_message;
+                    }
+                    ?>
+                </div>
             <?php } ?>
         </div>
     </div>
@@ -240,7 +247,7 @@
         //var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
 
         //$fixedColumn.find('th:not(:first-child),td:not(:first-child)').remove();
-//        var date_header_array = '<?php //echo $date_header_array;      ?>';
+//        var date_header_array = '<?php //echo $date_header_array;           ?>';
 //        console.log(date_header_array);
 //        if (date_header_array !== null && date_header_array !== '') {
         var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
