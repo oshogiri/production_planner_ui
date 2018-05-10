@@ -71,6 +71,6 @@ class Login_model extends CI_Model {
         $this->email->subject("Reset your Password");
         $message = "<p>This email has been sent as a request to reset our password</p>";
         $message .= "<p><a href='" . base_url() . "forgetpassword/$email'>Click here </a>if you want to reset your password, if not, then ignore</p>";
-        $this->send();
+        $this->email->send();
     }
 }
