@@ -31,7 +31,7 @@
                 <div class="modal-content">
                     <div class="modal-body">
                         <h2>Forgot Password?</h2>
-                        <form action="<?php echo site_url('login/forgotpassword') ?>" method="post" name='forgotpassword'>
+                        <form action="<?php echo site_url('login/forgotpassword_sendemail') ?>" method="post" name='forgotpassword'>
                             <div class="form-group">
                                 <p>Enter your e-mail address below to reset your password.</p>
                                 <div class="input-icon-left m-top-15">
@@ -46,34 +46,6 @@
                                 </span>
                                 <span>
                                     <input type="Submit" value="Submit" class="btn btn-primary btn-block rounded" />
-                                </span>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div><!-- /.modal -->
-
-        <div class="modal fade" id="modal-resetPass" tabindex="-1">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <h2>Reset Password?</h2>
-                        <form>
-                            <div class="form-group">
-                                <p>Enter your e-mail address below to reset your password.</p>
-                                <div class="input-icon-left m-top-15">
-                                    <i class="fa fa-envelope input-icon"></i>
-                                    <input type="text" class="form-control" placeholder="Enter Email">
-                                </div>
-                            </div><!-- /.form-group -->
-
-                            <div class="btn-wrapper">
-                                <span>
-                                    <button type="button" class="btn btn-default-outline btn-block rounded" data-dismiss="modal">Cancel</button>
-                                </span>
-                                <span>
-                                    <button type="submit" class="btn btn-primary btn-block rounded">Submit</button>
                                 </span>
                             </div>
                         </form>
@@ -111,18 +83,17 @@
                                     <input type="password" name="password" class="form-control rounded" placeholder="Enter Password" required>
                                 </div>
                             </div><!-- /.form-group -->
-                            <div class="form-group">
+<!--                            <div class="form-group">
                                 <div class="checkbox">
                                     <label>
                                         <input type="checkbox" class="icheck-minimal-grey">
                                         Remember me
                                     </label>
                                 </div>
-                            </div><!-- /.form-group -->
+                            </div> /.form-group -->
 
                             <input type="Submit" value="SIGN IN" class="btn btn-primary btn-block rounded" />
                             <a href="#" class="m-top-5" data-toggle="modal" data-target="#modal-forgotPass">Forgot Password?</a>
-                            <a href="#" class="m-top-5 pull-right" data-toggle="modal" data-target="#modal-resetPass">Reset Password?</a>
                         </form>
                     </div><!-- /.panel-body -->
 
