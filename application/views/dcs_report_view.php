@@ -17,7 +17,7 @@
                 <i class="fa fa-upload m-right-5"></i> Upload
             </div><!-- /.panel-title -->
             <div class="panel-tools">
-                <a href="<?php echo base_url() . 'uploads/sample.xlsx' ?>" class="btn btn-info btn-sm" download>
+                <a href="<?php echo base_url() . 'sample/sample.xlsx' ?>" class="btn btn-info btn-sm" download>
                     <span>
                         <i class="fa fa-download"></i>
                         Download Sample Batch Plan File
