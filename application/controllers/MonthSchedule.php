@@ -41,9 +41,9 @@ class MonthSchedule extends CI_Controller {
         //echo '<pre>';print_r($month);die();
 
         if (isset($month))
-            $condate = date('F Y', $month);
+            $condate = date('d F Y', $month);
         else
-            $condate = date('F Y');
+            $condate = date('d F Y');
         $view_data['month'] = $condate;
         //echo '<pre>';print_r($get_inventories);//die();
         //echo '<pre>';print_r($get_batch_plan);die();
