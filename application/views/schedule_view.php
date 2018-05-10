@@ -14,30 +14,29 @@
                 <i class="fa fa-list-ol m-right-5"></i> Resequence Batches
             </div><!-- /.panel-title -->
         </div><!-- /.panel-heading -->
-        <?php if (isset($message_error)) { ?>
-            <div class="alert alert-danger fade in">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <?php echo $message_error; ?>
-            </div>
-        <?php } ?>
-        <?php if (isset($message_success)) { ?>
-            <div class="alert alert-success fade in">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <?php echo $message_success; ?>
-            </div>
-        <?php } ?>
         <div class="panel-body">
-            <ul class="nav nav-tabs underline-tabs success-tabs">
-                <li class="active">
-                    <a href="#Stream12" data-toggle="tab">Stream 1 & 2</a>
-                </li>
-                <li>
-                    <a href="#Stream34" data-toggle="tab">Stream 3 & 4</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <?php //echo '<pre>';print_r($get_planned_batches->stream_1_2);die(); ?>
-                <?php if (isset($get_planned_batches)) { ?>
+            <?php if (isset($message_error)) { ?>
+                <div class="alert alert-danger fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <?php echo $message_error; ?>
+                </div>
+            <?php } ?>
+            <?php if (isset($message_success)) { ?>
+                <div class="alert alert-success fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <?php echo $message_success; ?>
+                </div>
+            <?php } ?>
+            <?php if (isset($get_planned_batches)) { ?>
+                <ul class="nav nav-tabs underline-tabs success-tabs">
+                    <li class="active">
+                        <a href="#Stream12" data-toggle="tab">Stream 1 & 2</a>
+                    </li>
+                    <li>
+                        <a href="#Stream34" data-toggle="tab">Stream 3 & 4</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
                     <div class="tab-pane fade in active" id="Stream12">
                         <?php if (isset($get_planned_batches->stream_1_2)) { ?>
                             <table class="table table-bordered" >
@@ -87,15 +86,15 @@
                             <?php } ?>
                         </table>
                     </div>
-                    <?php
-                } elseif (isset($error_batch)) {
-                    ?>
-                    <div class="alert alert-danger fade in">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <?php echo $error_batch; ?>
-                    </div>
-                <?php } ?>
-            </div>
+                </div>
+                <?php
+            } elseif (isset($error_batch)) {
+                ?>
+                <div class="alert alert-danger fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <?php echo $error_batch; ?>
+                </div>
+            <?php } ?>
             <div class="panel-footer">
                 <?php if (!empty($get_planned_batches->stream_1_2) && !empty($get_planned_batches->stream_3_4)) { ?>
                     <form method="post" id="generate_schedule_form" action="<?php echo site_url('schedule/generate_schedule') ?>">
@@ -121,23 +120,23 @@
         </div><!-- /.panel-heading -->
 
         <div class="panel-body">
-            <ul class="nav nav-tabs underline-tabs success-tabs">
-                <li class="active">
-                    <a href="#Stream1" data-toggle="tab">Stream #1</a>
-                </li>
-                <li>
-                    <a href="#Stream2" data-toggle="tab">Stream #2</a>
-                </li>
-                <li>
-                    <a href="#Stream3" data-toggle="tab">Stream #3</a>
-                </li>
-                <li>
-                    <a href="#Stream4" data-toggle="tab">Stream #4</a>
-                </li>
-            </ul>
+            <?php if (isset($batch_schedules)) { ?>
+                <ul class="nav nav-tabs underline-tabs success-tabs">
+                    <li class="active">
+                        <a href="#Stream1" data-toggle="tab">Stream #1</a>
+                    </li>
+                    <li>
+                        <a href="#Stream2" data-toggle="tab">Stream #2</a>
+                    </li>
+                    <li>
+                        <a href="#Stream3" data-toggle="tab">Stream #3</a>
+                    </li>
+                    <li>
+                        <a href="#Stream4" data-toggle="tab">Stream #4</a>
+                    </li>
+                </ul>
 
-            <div class="tab-content">
-                <?php if (isset($batch_schedules)) { ?>
+                <div class="tab-content">
                     <div class="tab-pane fade in active" id="Stream1">
                         <?php if (isset($batch_schedules->stream_1)) { ?>
                             <?php
@@ -330,13 +329,13 @@
                         }
                         ?>
                     </div>
-                <?php } elseif (isset($error_schedule)) { ?>
-                    <div class="alert alert-danger fade in">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <?php echo $error_schedule; ?>
-                    </div>
-                <?php } ?>
-            </div>
+                </div>
+            <?php } elseif (isset($error_schedule)) { ?>
+                <div class="alert alert-danger fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <?php echo $error_schedule; ?>
+                </div>
+            <?php } ?>
         </div><!-- /.panel-body -->
         <div id="publish-schedule-section" class="panel-footer">
             <?php
