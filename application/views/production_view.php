@@ -107,36 +107,36 @@
                 </form>
             </div>
         </div><!-- /.panel-heading -->
-        <?php if (isset($message)) { ?>
-            <div class="alert alert-success fade in">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <?php echo $message; ?>
-            </div>
-        <?php } ?>
-        <?php if (isset($error_schedule)) { ?>
-            <div class="alert alert-danger fade in">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <?php echo $error_schedule; ?>
-            </div>
-        <?php } ?>
-
         <div class="panel-body">
-            <ul class="nav nav-tabs underline-tabs success-tabs">
-                <li class="active">
-                    <a href="#Stream1" data-toggle="tab">Stream #1</a>
-                </li>
-                <li>
-                    <a href="#Stream2" data-toggle="tab">Stream #2</a>
-                </li>
-                <li>
-                    <a href="#Stream3" data-toggle="tab">Stream #3</a>
-                </li>
-                <li>
-                    <a href="#Stream4" data-toggle="tab">Stream #4</a>
-                </li>
-            </ul>
-
+            <?php if (isset($message)) { ?>
+                <div class="alert alert-success fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <?php echo $message; ?>
+                </div>
+            <?php } ?>
+            <?php if (isset($error_schedule)) { ?>
+                <div class="alert alert-danger fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <?php echo $error_schedule; ?>
+                </div>
+            <?php } ?>
             <?php if (!empty($publish)) { ?>
+                <ul class="nav nav-tabs underline-tabs success-tabs">
+                    <li class="active">
+                        <a href="#Stream1" data-toggle="tab">Stream #1</a>
+                    </li>
+                    <li>
+                        <a href="#Stream2" data-toggle="tab">Stream #2</a>
+                    </li>
+                    <li>
+                        <a href="#Stream3" data-toggle="tab">Stream #3</a>
+                    </li>
+                    <li>
+                        <a href="#Stream4" data-toggle="tab">Stream #4</a>
+                    </li>
+                </ul>
+
+
                 <div class="tab-content">
                     <?php if (isset($batch_schedules)) { ?>
                         <div class="tab-pane fade in active" id="Stream1">
@@ -216,7 +216,7 @@
                                                             ?>
                                                         </td>
                                                     <?php } ?>
-                    <!--<td><?php //echo gmdate("H:i", $schedule->hold_up);                ?></td>-->
+                    <!--<td><?php //echo gmdate("H:i", $schedule->hold_up);                   ?></td>-->
                                                     <td><?php echo sprintf('%02d', floor($schedule->hold_up / 3600)) . gmdate(":i", $schedule->hold_up % 3600); ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
