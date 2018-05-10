@@ -82,7 +82,7 @@ class Login_model extends CI_Model {
 
         $config['newline'] = "\r\n";
 
-        $config['mailtype'] = 'text'; // or html
+        $config['mailtype'] = 'html'; // or text
 
         $config['validation'] = TRUE; // bool whether to validate email or not      
 
