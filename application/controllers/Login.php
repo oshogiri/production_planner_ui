@@ -70,7 +70,7 @@ class Login extends CI_Controller {
         $findemail = $this->login_model->check_forgotpassword_email($email);
         if ($findemail) {
             $this->login_model->send_resetpassword_link($findemail);
-            $data['success_message'] = 'Reset password link send to '.$findemail.' please visite to reset.';
+            //$data['success_message'] = 'Reset password link send to '.$findemail.' please visite to reset.';
            //$this->load->view('forgetpassword_user', $data);
         } else {
             $this->session->set_flashdata('msg', ' Email not found!');
