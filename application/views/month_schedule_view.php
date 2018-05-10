@@ -28,8 +28,8 @@
         <div class="panel-heading">
             <div class="panel-title">
                 <i class="fa fa-eye m-right-5"></i>Batch Plan: <?php
-                if (isset($month)) {
-                    echo $month;
+                if (isset($dispmonth)) {
+                    echo $dispmonth;
                 }
                 ?> 
             </div><!-- /.panel-title -->
