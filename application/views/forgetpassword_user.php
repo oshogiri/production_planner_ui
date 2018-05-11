@@ -29,35 +29,41 @@
         <div class="container">
             <div class="login-wrapper">
                 <div class="text-center">
-                    <img src="<?php echo base_url(); ?>assets/img/login-logo.png" alt="logo">
-                    <!--<h1><strong>Product Schedule</strong></h1>-->
+                    <!--<img src="<?php echo base_url(); ?>assets/img/login-logo.png" alt="logo">-->
+                    <h1><strong>Production Planner</strong></h1>
                 </div><!-- /.logo-wrapper -->
 
                 <div class="panel">
                     <div class="panel-body">
                         <h2>Reset Password</h2>
-                        <?php if (isset($email)) { ?>
-                            <div class="alert alert-danger fade in">
-                                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                                <?php echo 'you are not authorized to access this page'; ?>
-                            </div> 
-                            <form action="<?php echo site_url('login/forgetpassword') ?>" method='post' name='forgetpassword'>
-                                <div class="form-group">
-                                    <div class="input-icon-left">
-                                        <i class="fa fa-user input-icon"></i>
-                                        <input type="password" name="password" class="form-control rounded" placeholder="Enter Password" required>
-                                    </div>
-                                </div><!-- /.form-group -->
-                                <div class="form-group">
-                                    <div class="input-icon-left">
-                                        <i class="fa fa-lock input-icon"></i>
-                                        <input type="password" name="confirmpassword" class="form-control rounded" placeholder="Enter Confirm Password" required>
-                                    </div>
-                                </div><!-- /.form-group -->
+                        <?php //if (isset($email)) { ?>
+                        <!--                            <div class="alert alert-danger fade in">
+                                                        <a href="#" class="close" data-dismiss="alert">&times;</a>
+                        <?php //echo 'you are not authorized to access this page'; ?>
+                                                    </div> -->
+                        <form action="<?php echo site_url('login/insertforgotpassword') ?>" method='post' name='forgetpassword' id="identicalForm">
+                            <div class="form-group">
+                                <div class="input-icon-left">
+                                    <i class="fa fa-user input-icon"></i>
+                                    <?php
+                                    $this->load->library('encryption'); //in controller
+                                    $encemail = $this->encrypt->decode($this->uri->segment(3));
+                                    echo ($encemail);
+                                    
+                                    ?>
+                                    <input type="password" name="password" class="form-control rounded" placeholder="Enter Password" required>
+                                </div>
+                            </div><!-- /.form-group -->
+                            <div class="form-group">
+                                <div class="input-icon-left">
+                                    <i class="fa fa-lock input-icon"></i>
+                                    <input type="password" name="confirmpassword" class="form-control rounded" placeholder="Enter Confirm Password" required>
+                                </div>
+                            </div><!-- /.form-group -->
 
-                                <input type="Submit" value="Reset Password" class="btn btn-primary btn-block rounded" />
-                            </form>
-                        <?php } ?>
+                            <input type="Submit" value="Reset Password" class="btn btn-primary btn-block rounded" />
+                        </form>
+                        <?php //} ?>
                     </div><!-- /.panel-body -->
                 </div><!-- /.panel -->
             </div>
@@ -68,5 +74,28 @@
         <!-- REQUIRED PLUGINS -->
         <script src="<?php echo base_url(); ?>assets/dist/main/plugins/icheck/js/icheck.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/page-login.min.js"></script>
+        <script>
+            $('#identicalForm').bootstrapValidator({
+                framework: 'bootstrap',
+                fields: {
+                    password: {
+                        validators: {
+                            identical: {
+                                field: 'confirmPassword',
+                                message: 'The password and its confirm are not the same'
+                            }
+                        }
+                    },
+                    confirmPassword: {
+                        validators: {
+                            identical: {
+                                field: 'password',
+                                message: 'The password and its confirm are not the same'
+                            }
+                        }
+                    }
+                }
+            });
+        </script>
     </body>
 </html>
