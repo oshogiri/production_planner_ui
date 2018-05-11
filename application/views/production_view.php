@@ -178,20 +178,47 @@
                                                     <td><?php echo $schedule->stage; ?></td>
                                                     <td><?php echo $schedule->product; ?></td>
                                                     <td><?php echo $schedule->batch_number; ?></td>
-                                                    <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
+                                                    <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></p></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <?php $startcomment = $schedule->actual_start_time_comment ?>
+                                                    <?php $endcomment = $schedule->actual_end_time_comment ?>
                                                     <?php if ($this->session->userdata('role') == 'production') { ?>
                                                         <td>
                                                             <?php
                                                             if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
                                                                 if (!empty($schedule->actual_start_time)) {
-                                                                    echo date("d/m/Y H:i", $schedule->actual_start_time);
+                                                                    ?>
+                                                                    <p title="
+                                                                    <?php
+                                                                    if (!empty($startcomment))
+                                                                        echo "Comment";
+                                                                    else
+                                                                        echo "No Comment";
+                                                                    ?>
+                                                                       " 
+                                                                       data-placement="top" 
+                                                                       data-toggle="popover" 
+                                                                       data-trigger="hover" 
+                                                                       data-content="
+                                                                       <?php
+                                                                       if (!empty($startcomment)) {
+                                                                           if (!empty($startcomment->category))
+                                                                               echo $startcomment->category;
+                                                                           if (!empty($startcomment->content))
+                                                                               echo ': ' . $startcomment->content;
+                                                                       } else {
+                                                                           echo 'No Comment!';
+                                                                       }
+                                                                       ?>">
+                                                                           <?php echo date("d/m/Y H:i", $schedule->actual_start_time); ?>
+                                                                    </p>
+                                                                    <?php
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
                                                                     if ($schedule->is_next_type == 'start') {
                                                                         ?>
-                                                                        <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time; ?>">
+                                                                        <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
                                                                         <?php
                                                                     }
                                                                 }
@@ -202,12 +229,31 @@
                                                             <?php
                                                             if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
                                                                 if (!empty($schedule->actual_end_time)) {
-                                                                    echo date("d/m/Y H:i", $schedule->actual_end_time);
-                                                                }
-                                                            } else {
-                                                                if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'end') {
-                                                                        ?>
+                                                                    ?><p title="<?php
+                                                                    if (!empty($endcomment))
+                                                                        echo "Comment";
+                                                                    else
+                                                                        echo "No Comment";
+                                                                    ?>" 
+                                                                       data-placement="top" 
+                                                                       data-toggle="popover" 
+                                                                       data-trigger="hover" 
+                                                                       data-content="
+                                                                       <?php
+                                                                       if (!empty($endcomment)) {
+                                                                           if (!empty($endcomment->category))
+                                                                               echo $endcomment->category;
+                                                                           if (!empty($endcomment->content))
+                                                                               echo ': ' . $endcomment->content;
+                                                                       } else {
+                                                                           echo 'No Comment!';
+                                                                       }
+                                                                       ?>"><?php echo date("d/m/Y H:i", $schedule->actual_end_time); ?></p><?php
+                                                                   }
+                                                               } else {
+                                                                   if (!empty($schedule->is_next)) {
+                                                                       if ($schedule->is_next_type == 'end') {
+                                                                           ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
                                                                     }
@@ -216,7 +262,7 @@
                                                             ?>
                                                         </td>
                                                     <?php } ?>
-                    <!--<td><?php //echo gmdate("H:i", $schedule->hold_up);                   ?></td>-->
+                    <!--<td><?php //echo gmdate("H:i", $schedule->hold_up);                                                 ?></td>-->
                                                     <td><?php echo sprintf('%02d', floor($schedule->hold_up / 3600)) . gmdate(":i", $schedule->hold_up % 3600); ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -267,12 +313,39 @@
                                                     <td><?php echo $schedule->batch_number; ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <?php $startcomment = $schedule->actual_start_time_comment ?>
+                                                    <?php $endcomment = $schedule->actual_end_time_comment ?>
                                                     <?php if ($this->session->userdata('role') == 'production') { ?>
                                                         <td>
                                                             <?php
                                                             if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
                                                                 if (!empty($schedule->actual_start_time)) {
-                                                                    echo date("d/m/Y H:i", $schedule->actual_start_time);
+                                                                    ?>
+                                                                    <p title="
+                                                                    <?php
+                                                                    if (!empty($startcomment))
+                                                                        echo "Comment";
+                                                                    else
+                                                                        echo "No Comment";
+                                                                    ?>
+                                                                       " 
+                                                                       data-placement="top" 
+                                                                       data-toggle="popover" 
+                                                                       data-trigger="hover" 
+                                                                       data-content="
+                                                                       <?php
+                                                                       if (!empty($startcomment)) {
+                                                                           if (!empty($startcomment->category))
+                                                                               echo $startcomment->category;
+                                                                           if (!empty($startcomment->content))
+                                                                               echo ': ' . $startcomment->content;
+                                                                       } else {
+                                                                           echo 'No Comment!';
+                                                                       }
+                                                                       ?>">
+                                                                           <?php echo date("d/m/Y H:i", $schedule->actual_start_time); ?>
+                                                                    </p>
+                                                                    <?php
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
@@ -289,12 +362,31 @@
                                                             <?php
                                                             if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
                                                                 if (!empty($schedule->actual_end_time)) {
-                                                                    echo date("d/m/Y H:i", $schedule->actual_end_time);
-                                                                }
-                                                            } else {
-                                                                if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'end') {
-                                                                        ?>
+                                                                    ?><p title="<?php
+                                                                    if (!empty($endcomment))
+                                                                        echo "Comment";
+                                                                    else
+                                                                        echo "No Comment";
+                                                                    ?>" 
+                                                                       data-placement="top" 
+                                                                       data-toggle="popover" 
+                                                                       data-trigger="hover" 
+                                                                       data-content="
+                                                                       <?php
+                                                                       if (!empty($endcomment)) {
+                                                                           if (!empty($endcomment->category))
+                                                                               echo $endcomment->category;
+                                                                           if (!empty($endcomment->content))
+                                                                               echo ': ' . $endcomment->content;
+                                                                       } else {
+                                                                           echo 'No Comment!';
+                                                                       }
+                                                                       ?>"><?php echo date("d/m/Y H:i", $schedule->actual_end_time); ?></p><?php
+                                                                   }
+                                                               } else {
+                                                                   if (!empty($schedule->is_next)) {
+                                                                       if ($schedule->is_next_type == 'end') {
+                                                                           ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
                                                                     }
@@ -354,12 +446,39 @@
                                                     <td><?php echo $schedule->batch_number; ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <?php $startcomment = $schedule->actual_start_time_comment ?>
+                                                    <?php $endcomment = $schedule->actual_end_time_comment ?>
                                                     <?php if ($this->session->userdata('role') == 'production') { ?>
                                                         <td>
                                                             <?php
                                                             if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
                                                                 if (!empty($schedule->actual_start_time)) {
-                                                                    echo date("d/m/Y H:i", $schedule->actual_start_time);
+                                                                    ?>
+                                                                    <p title="
+                                                                    <?php
+                                                                    if (!empty($startcomment))
+                                                                        echo "Comment";
+                                                                    else
+                                                                        echo "No Comment";
+                                                                    ?>
+                                                                       " 
+                                                                       data-placement="top" 
+                                                                       data-toggle="popover" 
+                                                                       data-trigger="hover" 
+                                                                       data-content="
+                                                                       <?php
+                                                                       if (!empty($startcomment)) {
+                                                                           if (!empty($startcomment->category))
+                                                                               echo $startcomment->category;
+                                                                           if (!empty($startcomment->content))
+                                                                               echo ': ' . $startcomment->content;
+                                                                       } else {
+                                                                           echo 'No Comment!';
+                                                                       }
+                                                                       ?>">
+                                                                           <?php echo date("d/m/Y H:i", $schedule->actual_start_time); ?>
+                                                                    </p>
+                                                                    <?php
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
@@ -376,12 +495,31 @@
                                                             <?php
                                                             if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
                                                                 if (!empty($schedule->actual_end_time)) {
-                                                                    echo date("d/m/Y H:i", $schedule->actual_end_time);
-                                                                }
-                                                            } else {
-                                                                if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'end') {
-                                                                        ?>
+                                                                    ?><p title="<?php
+                                                                    if (!empty($endcomment))
+                                                                        echo "Comment";
+                                                                    else
+                                                                        echo "No Comment";
+                                                                    ?>" 
+                                                                       data-placement="top" 
+                                                                       data-toggle="popover" 
+                                                                       data-trigger="hover" 
+                                                                       data-content="
+                                                                       <?php
+                                                                       if (!empty($endcomment)) {
+                                                                           if (!empty($endcomment->category))
+                                                                               echo $endcomment->category;
+                                                                           if (!empty($endcomment->content))
+                                                                               echo ': ' . $endcomment->content;
+                                                                       } else {
+                                                                           echo 'No Comment!';
+                                                                       }
+                                                                       ?>"><?php echo date("d/m/Y H:i", $schedule->actual_end_time); ?></p><?php
+                                                                   }
+                                                               } else {
+                                                                   if (!empty($schedule->is_next)) {
+                                                                       if ($schedule->is_next_type == 'end') {
+                                                                           ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
                                                                     }
@@ -441,12 +579,39 @@
                                                     <td><?php echo $schedule->batch_number; ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <?php $startcomment = $schedule->actual_start_time_comment ?>
+                                                    <?php $endcomment = $schedule->actual_end_time_comment ?>
                                                     <?php if ($this->session->userdata('role') == 'production') { ?>
                                                         <td>
                                                             <?php
                                                             if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
                                                                 if (!empty($schedule->actual_start_time)) {
-                                                                    echo date("d/m/Y H:i", $schedule->actual_start_time);
+                                                                    ?>
+                                                                    <p title="
+                                                                    <?php
+                                                                    if (!empty($startcomment))
+                                                                        echo "Comment";
+                                                                    else
+                                                                        echo "No Comment";
+                                                                    ?>
+                                                                       " 
+                                                                       data-placement="top" 
+                                                                       data-toggle="popover" 
+                                                                       data-trigger="hover" 
+                                                                       data-content="
+                                                                       <?php
+                                                                       if (!empty($startcomment)) {
+                                                                           if (!empty($startcomment->category))
+                                                                               echo $startcomment->category;
+                                                                           if (!empty($startcomment->content))
+                                                                               echo ': ' . $startcomment->content;
+                                                                       } else {
+                                                                           echo 'No Comment!';
+                                                                       }
+                                                                       ?>">
+                                                                           <?php echo date("d/m/Y H:i", $schedule->actual_start_time); ?>
+                                                                    </p>
+                                                                    <?php
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
@@ -463,12 +628,31 @@
                                                             <?php
                                                             if (!empty($schedule->actual_end_time) || ($this->session->userdata('role') == 'admin')) {
                                                                 if (!empty($schedule->actual_end_time)) {
-                                                                    echo date("d/m/Y H:i", $schedule->actual_end_time);
-                                                                }
-                                                            } else {
-                                                                if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'end') {
-                                                                        ?>
+                                                                    ?><p title="<?php
+                                                                    if (!empty($endcomment))
+                                                                        echo "Comment";
+                                                                    else
+                                                                        echo "No Comment";
+                                                                    ?>" 
+                                                                       data-placement="top" 
+                                                                       data-toggle="popover" 
+                                                                       data-trigger="hover" 
+                                                                       data-content="
+                                                                       <?php
+                                                                       if (!empty($endcomment)) {
+                                                                           if (!empty($endcomment->category))
+                                                                               echo $endcomment->category;
+                                                                           if (!empty($endcomment->content))
+                                                                               echo ': ' . $endcomment->content;
+                                                                       } else {
+                                                                           echo 'No Comment!';
+                                                                       }
+                                                                       ?>"><?php echo date("d/m/Y H:i", $schedule->actual_end_time); ?></p><?php
+                                                                   }
+                                                               } else {
+                                                                   if (!empty($schedule->is_next)) {
+                                                                       if ($schedule->is_next_type == 'end') {
+                                                                           ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
                                                                     }
@@ -493,6 +677,11 @@
                             <?php echo $error_schedule; ?>
                         </div>
                     <?php } ?>
+                </div>
+            <?php } else { ?>
+                <div class="alert alert-danger fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <?php echo 'Schedule not published for this date'; ?>
                 </div>
             <?php } ?>
         </div><!-- /.panel-body -->
@@ -617,5 +806,8 @@
         date = new Date($(this).val()).getTime() / 1000;
         if ($.isNumeric(date))
             location = location.protocol + "//" + location.host + location.pathname + "?date=" + date;
+    });
+    $(document).ready(function () {
+        $('[data-toggle="popover"]').popover();
     });
 </script>
