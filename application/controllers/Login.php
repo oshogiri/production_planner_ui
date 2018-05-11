@@ -11,7 +11,7 @@ class Login extends CI_Controller {
     }
 
     public function index($data = NULL) {
-        if (isset($this->session->flashdata('success_message'))) {
+        if (null !== $this->session->flashdata('success_message')) {
             $data = $this->session->flashdata('success_message');
         } else {
             $data = $this->session->flashdata('error_message');
@@ -61,7 +61,7 @@ class Login extends CI_Controller {
      * Forgetpassword page
      */
 
-    public function forgetpassword($param) {
+    public function forgetpassword() {
         $this->load->view('forgetpassword_user');
     }
 
@@ -74,12 +74,25 @@ class Login extends CI_Controller {
         $findemail = $this->login_model->check_forgotpassword_email($email);
         if ($findemail) {
             $this->login_model->send_resetpassword_link($findemail);
-            $data['error_message'] = 'Reset password link send to ' . $findemail . ' please visite to reset.';
+            $data['error_message'] = 'Reset password link send to ' . $findemail . ' please visit to reset.';
             $this->session->set_flashdata('success_message', $data);
             redirect('login', $data);
         } else {
             $this->session->set_flashdata('msg', ' Email not found!');
             $data['error_message'] = "Email not found!";
+            $this->session->set_flashdata('error_message', $data);
+            redirect('login', $data);
+        }
+    }
+
+    public function insertforgotpassword() {
+        $insert = $this->login_model->insert_forgot_data();
+        if (isset($insert)) {
+            $data['error_message'] = 'Reset password successfully, Please login.';
+            $this->session->set_flashdata('success_message', $data);
+            redirect('login', $data);
+        } else {
+            $data['error_message'] = 'Reset after some time';
             $this->session->set_flashdata('error_message', $data);
             redirect('login', $data);
         }
