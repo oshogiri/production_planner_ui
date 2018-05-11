@@ -115,6 +115,7 @@ class Login_model extends CI_Model {
         $query = $this->db->get('employee');
         //echo '<pre>';print_r($query->row());exit;
         if (!empty($query->row())) {
+            $this->db->where('forgot_pass_tokan', $tokan);
             $data = array('password' => $password);
             $this->db->update('employee', $data);
 
