@@ -74,7 +74,7 @@ class Login extends CI_Controller {
         $findemail = $this->login_model->check_forgotpassword_email($email);
         if ($findemail) {
             $this->login_model->send_resetpassword_link($findemail);
-            $data['error_message'] = 'Reset password link send to ' . $findemail . ' please visit to reset.';
+            $data['success_message'] = 'Reset password link send to '.$findemail['email'].'.';
             $this->session->set_flashdata('success_message', $data);
             redirect('login', $data);
         } else {
@@ -86,13 +86,18 @@ class Login extends CI_Controller {
     }
 
     public function insertforgotpassword() {
+        $data = $this->input->post();
+        
         $insert = $this->login_model->insert_forgot_data();
-        if (isset($insert)) {
-            $data['error_message'] = 'Reset password successfully, Please login.';
+        //print_r($insert);exit;
+        if (!empty($insert)) {
+            $removetokan = array('forgot_pass_tokan' => '');
+            $this->db->update('employee', $removetokan);
+            $data['success_message'] = 'Reset password successfully, Please login.';
             $this->session->set_flashdata('success_message', $data);
             redirect('login', $data);
         } else {
-            $data['error_message'] = 'Reset after some time';
+            $data['error_message'] = 'Your reset password link is expired.';
             $this->session->set_flashdata('error_message', $data);
             redirect('login', $data);
         }
