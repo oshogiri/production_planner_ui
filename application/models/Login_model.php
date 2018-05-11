@@ -89,32 +89,39 @@ class Login_model extends CI_Model {
         $this->email->initialize($config);
 
         $email = $findemail['email'];
-        $encemail = md5($email);
+        $tokan = uniqid();
+
+        $data = array(
+            'forgot_pass_tokan' => $tokan
+        );
+
+        $this->db->where('email', $email);
+        $this->db->update('employee', $data);
 
         $this->email->from("productionplanner@cybit.com", "Cybit");
         $this->email->to($email);
         $this->email->subject("Reset your Password");
         $message = "<p>This email has been sent as a request to reset our password</p>";
-        $message .= "<p><a href='" . base_url() . "login/forgetpassword/$encemail'>Click here </a>if you want to reset your password, if not, then ignore</p>";
+        $message .= "<p><a href='" . base_url() . "login/forgetpassword/$tokan'>Click here </a>if you want to reset your password, if not, then ignore</p>";
         $this->email->message($message);
         $this->email->send();
     }
 
     public function insert_forgot_data() {
-        $email = $this->security->xss_clean($this->input->post('email'));
         $password = md5($this->security->xss_clean($this->input->post('password')));
-        
-        print_r($email);//exit;
-        print_r($password);exit;
+        $tokan = $this->security->xss_clean($this->input->post('tokan'));
 
-        $this->db->where('email', $email);
+        $this->db->where('forgot_pass_tokan', $tokan);
+        $query = $this->db->get('employee');
+        //echo '<pre>';print_r($query->row());exit;
+        if (!empty($query->row())) {
+            $data = array('password' => $password);
+            $this->db->update('employee', $data);
 
-        $data = array(
-            'password' => $password
-        );
-
-        $this->db->update('employee', $data);
-        
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
 }
