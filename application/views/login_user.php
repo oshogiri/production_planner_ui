@@ -57,7 +57,7 @@
         <div class="container">
             <div class="login-wrapper">
                 <div class="text-center">
-                    <!--<img src="<?php // echo base_url();     ?>assets/img/login-logo.png" alt="logo">-->
+                    <!--<img src="<?php // echo base_url();       ?>assets/img/login-logo.png" alt="logo">-->
                     <h1><strong>Production Scheduler</strong></h1>
                 </div><!-- /.logo-wrapper -->
 
@@ -68,6 +68,11 @@
                             <div class="alert alert-danger fade in">
                                 <a href="#" class="close" data-dismiss="alert">&times;</a>
                                 <?php echo $error_message; ?>
+                            </div> 
+                        <?php } elseif (isset($success_message)) { ?>
+                            <div class="alert alert-success fade in">
+                                <a href="#" class="close" data-dismiss="alert">&times;</a>
+                                <?php echo $success_message; ?>
                             </div> 
                         <?php } ?>
                         <form action="<?php echo site_url('login/process') ?>" method='post' name='process'>
@@ -83,14 +88,14 @@
                                     <input type="password" name="password" class="form-control rounded" placeholder="Enter Password" required>
                                 </div>
                             </div><!-- /.form-group -->
-<!--                            <div class="form-group">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" class="icheck-minimal-grey">
-                                        Remember me
-                                    </label>
-                                </div>
-                            </div> /.form-group -->
+                            <!--                            <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" class="icheck-minimal-grey">
+                                                                    Remember me
+                                                                </label>
+                                                            </div>
+                                                        </div> /.form-group -->
 
                             <input type="Submit" value="SIGN IN" class="btn btn-primary btn-block rounded" />
                             <a href="#" class="m-top-5" data-toggle="modal" data-target="#modal-forgotPass">Forgot Password?</a>
@@ -98,7 +103,7 @@
                     </div><!-- /.panel-body -->
 
                     <!--                    <div class="panel-footer">
-                                            <a href="<?php //echo site_url('login/register_view')      ?>">CREATE AN ACCOUNT</a>
+                                            <a href="<?php //echo site_url('login/register_view')        ?>">CREATE AN ACCOUNT</a>
                                         </div> /.panel-footer -->
                 </div><!-- /.panel -->
             </div>
@@ -116,7 +121,7 @@
         <script src="<?php echo base_url(); ?>assets/dist/material/js/main.min.js"></script>
         <!-- admin.min.js - GENERAL CONFIGURATION SCRIPT FOR THE PAGES -->
         <script src="<?php echo base_url(); ?>assets/js/admin.min.js"></script>
-        
+
         <script src="<?php echo base_url(); ?>assets/dist/main/plugins/icheck/js/icheck.min.js"></script>
         <script src="<?php echo base_url(); ?>assets/js/page-login.min.js"></script>
     </body>
