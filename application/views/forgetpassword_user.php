@@ -45,13 +45,8 @@
                             <div class="form-group">
                                 <div class="input-icon-left">
                                     <i class="fa fa-user input-icon"></i>
-                                    <?php
-                                    $this->load->library('encryption'); //in controller
-                                    $encemail = $this->encrypt->decode($this->uri->segment(3));
-                                    echo ($encemail);
-                                    
-                                    ?>
                                     <input type="password" name="password" class="form-control rounded" placeholder="Enter Password" required>
+                                    <input type="hidden" name="tokan" value="<?php echo $this->uri->segment(3); ?>">
                                 </div>
                             </div><!-- /.form-group -->
                             <div class="form-group">
@@ -63,7 +58,7 @@
 
                             <input type="Submit" value="Reset Password" class="btn btn-primary btn-block rounded" />
                         </form>
-                        <?php //} ?>
+                        <?php //}  ?>
                     </div><!-- /.panel-body -->
                 </div><!-- /.panel -->
             </div>
