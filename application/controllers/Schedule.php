@@ -41,7 +41,7 @@ class Schedule extends CI_Controller {
         date_default_timezone_set('Asia/Kolkata');
 
         //  Setting URL To Fetch Data From
-        $this->curl->create('http://172.16.0.22:1313/api/v1/batch_plans/get_planned_batches');
+        $this->curl->create('http://172.16.20.19:3000/api/v1/batch_plans/get_planned_batches');
 
         //  To Temporarily Store Data Received From Server
         $this->curl->option('buffersize', 10);
@@ -118,7 +118,7 @@ class Schedule extends CI_Controller {
         $sequence = array(
             'batch_sequence' => $data
         );
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/generate_schedule';
+        $url = 'http://172.16.20.19:3000/api/v1/schedules/generate_schedule';
 //        $url = '172.16.20.19:3000/api/v1/schedules/generate_schedule';
 
         $responce = $this->postCURL($url, $sequence);
@@ -132,7 +132,7 @@ class Schedule extends CI_Controller {
         //$get_batch = $this->input->post();
         $batch_number = $this->input->post('batch_number');
         $uuid = $this->input->post('uuid');
-        $url = 'http://172.16.0.22:1313/api/v1/batches/' . $uuid . '/set_batch_number';
+        $url = 'http://172.16.20.19:3000/api/v1/batches/' . $uuid . '/set_batch_number';
         $responce = $this->postCURL($url, array('batch_number' => $batch_number));
         echo $responce;
     }
@@ -162,13 +162,13 @@ class Schedule extends CI_Controller {
     }
 
     public function publish_schedule() {
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/publish_schedule';
+        $url = 'http://172.16.20.19:3000/api/v1/schedules/publish_schedule';
         $responce = $this->postCURL($url, array());
         echo $responce;
     }
 
     public function unpublish_schedule() {
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/unpublish_schedule';
+        $url = 'http://172.16.20.19:3000/api/v1/schedules/unpublish_schedule';
         $responce = $this->postCURL($url, array());
         echo $responce;
     }
@@ -185,7 +185,7 @@ class Schedule extends CI_Controller {
             $date = null;
 //        echo '<pre>';print_r($date);die();
 
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/get_schedule';
+        $url = 'http://172.16.20.19:3000/api/v1/schedules/get_schedule';
         if (isset($date))
             $url = $url . '?schedule_date=' . $date;
 
@@ -264,7 +264,7 @@ class Schedule extends CI_Controller {
         );
         //echo '<pre>';print_r($data);//die();
 
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/' . $uuid . '/set_actual_time';
+        $url = 'http://172.16.20.19:3000/api/v1/schedules/' . $uuid . '/set_actual_time';
 //        $url = '172.16.20.19:3000/api/v1/schedules/' . $uuid . '/set_actual_time';
 
         $responce = $this->postCURL($url, $data);

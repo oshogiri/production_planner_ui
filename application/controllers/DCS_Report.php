@@ -62,7 +62,7 @@ class DCS_Report extends CI_Controller {
             $filedata = new CURLFile($fullpath, $filetype, $file_name);
             $post = array('batch_plan' => $filedata);
 
-            $target_url = 'http://172.16.0.22:1313/api/v1/batch_plans/upload_batch_plan';
+            $target_url = 'http://172.16.20.19:3000/api/v1/batch_plans/upload_batch_plan';
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
