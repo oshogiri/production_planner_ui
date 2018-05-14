@@ -68,9 +68,9 @@ class Login_model extends CI_Model {
 
         $config['protocol'] = 'smtp';
 
-        $config['smtp_host'] = 'ssl://smtp.gmail.com';
+        $config['smtp_host'] = 'ssl://smtp.googlemail.com';
 
-        $config['smtp_port'] = '587';
+        $config['smtp_port'] = '465';
 
         $config['smtp_timeout'] = '7';
 
@@ -98,7 +98,7 @@ class Login_model extends CI_Model {
         $this->db->where('email', $email);
         $this->db->update('employee', $data);
 
-        $this->email->from("productionplanner@cybit.com", "Cybit");
+        $this->email->from("info@productionplanner.com", "Production Planner");
         $this->email->to($email);
         $this->email->subject("Reset your Password");
         $message = "<p>This email has been sent as a request to reset our password</p>";
