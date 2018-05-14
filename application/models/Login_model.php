@@ -70,13 +70,13 @@ class Login_model extends CI_Model {
 
         $config['smtp_host'] = 'ssl://smtp.gmail.com';
 
-        $config['smtp_port'] = '465';
+        $config['smtp_port'] = '587';
 
         $config['smtp_timeout'] = '7';
 
-        $config['smtp_user'] = 'tushar@linkwok.com';
+        $config['smtp_user'] = 'testuser@linkwok.com';
 
-        $config['smtp_pass'] = '99789tushar@';
+        $config['smtp_pass'] = 'q7by<F5%@R';
 
         $config['charset'] = 'utf-8';
 
