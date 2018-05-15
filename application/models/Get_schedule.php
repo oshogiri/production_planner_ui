@@ -6,7 +6,7 @@ class Get_schedule extends CI_Model {
 
     public function get_schedule_actual_time() {
         //  Setting URL To Fetch Data From
-        $this->curl->create('http://172.16.20.19:3000/api/v1/schedules/get_schedule');
+        $this->curl->create('http://172.16.0.22:1313/api/v1/schedules/get_schedule');
 
         //  To Temporarily Store Data Received From Server
         $this->curl->option('buffersize', 10);

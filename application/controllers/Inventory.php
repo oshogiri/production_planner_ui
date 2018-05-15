@@ -42,11 +42,14 @@ class Inventory extends CI_Controller {
     }
 
     public function upload_inventory() {
-        $config['upload_path'] = './uploads/';
+        //$config['upload_path'] = './uploads/';
+        $filepath = './uploads/';
+        $config['upload_path'] = $filepath;
         $config['allowed_types'] = 'csv|xls|xlsx';
         $config['max_size'] = 100;
 
-        $this->load->library('upload', $config);
+//        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
         if (!$this->upload->do_upload('file')) {
 
             $error = array('error' => $this->upload->display_errors());
@@ -62,7 +65,7 @@ class Inventory extends CI_Controller {
             $filedata = new CURLFile($fullpath, $filetype, $file_name);
             $post = array('inventory' => $filedata);
 
-            $target_url = 'http://172.16.20.19:3000/api/v1/inventories/upload_inventory';
+            $target_url = 'http://172.16.0.22:1313/api/v1/inventories/upload_inventory';
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
