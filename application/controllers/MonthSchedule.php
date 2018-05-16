@@ -38,7 +38,8 @@ class MonthSchedule extends CI_Controller {
 
         $get_inventories = $this->Month_Schedule->get_inventories($month);
         $get_batch_plan = $this->Month_Schedule->get_batch_plans($month);
-        //echo '<pre>';print_r($month);die();
+        $generate_batch_plan = $this->session->flashdata('generate_batch_plan');
+//        echo '<pre>';print_r($generate_batch_plan);die();
 
         if (isset($month)) {
             $condate = date('d F Y', $month);
@@ -49,16 +50,23 @@ class MonthSchedule extends CI_Controller {
         }
         $view_data['month'] = $condate;
         $view_data['dispmonth'] = $dispdate;
-        //echo '<pre>';print_r($get_inventories);die();
+//        echo '<pre>';print_r($get_inventories);//die();
         //echo '<pre>';print_r($get_batch_plan);die();
 
         if (isset($get_inventories)) {
-            if (!empty($get_inventories->success) && !empty($get_batch_plan['success'])) {
+            if (!empty($get_inventories->success)) {
                 //echo '<pre>';print_r($get_inventories->inventories);die();
-                $view_data['batch_plans'] = $get_batch_plan['batch_plans'];
+                if (!empty($get_batch_plan['success'])) {
+                    $view_data['batch_plans'] = $get_batch_plan['batch_plans'];
+                    $view_data['is_success'] = $get_batch_plan['success'];
+                    $view_data['publish'] = $get_batch_plan['published'];
+                    $view_data['generate_batch_plan'] = $generate_batch_plan;
+                    $view_data['date_header_array'] = $get_batch_plan['date_range'];
+                } else {
+                    $view_data['error_message'] = $get_batch_plan['message'];
+                    $view_data['is_success'] = $get_batch_plan['success'];
+                }
                 $view_data['inventories'] = $get_inventories->inventories;
-
-                $view_data['date_header_array'] = $get_batch_plan['date_range'];
                 $this->load->view('month_schedule_view', $view_data);
             } else {
                 $view_data['date_header_array'] = '';
@@ -74,6 +82,37 @@ class MonthSchedule extends CI_Controller {
             $view_data['error_message'] = 'No Responce';
             $this->load->view('month_schedule_view', $view_data);
         }
+    }
+
+    public function generate_batch_plan() {
+        $generate_batch_plan = $this->Month_Schedule->get_generate_batch_plan();
+        
+        if (isset($generate_batch_plan)) {
+            if (!empty($generate_batch_plan->success)) {
+                $this->session->set_flashdata('generate_batch_plan', $generate_batch_plan->message);
+                redirect('MonthSchedule/month_schedule', 'refresh');
+            } else {
+                $this->session->set_flashdata('generate_batch_plan', $generate_batch_plan->message);
+                redirect('MonthSchedule/month_schedule', 'refresh');
+            }
+        }
+    }
+    
+    public function Publish_batchplan() {
+        $publish = $this->Month_Schedule->publish_batch_plan();
+        echo $publish;
+    }
+    
+    public function Unpublish_batchplan() {
+        $unpublish = $this->Month_Schedule->unpublish_batch_plan();
+        echo $unpublish;
+    }
+    
+    public function generate_is_success() {
+        $get_batch_plan = $this->Month_Schedule->get_batch_plans();
+//        $view_data['is_success'] = $get_batch_plan['success'];
+//        print_r($view_data['is_success']);        die();
+        echo json_encode($get_batch_plan);
     }
 
 }

@@ -6,10 +6,10 @@ class Month_schedule extends CI_Model {
 
     public function get_batch_plans($month = null) {
         date_default_timezone_set('Asia/Kolkata');
-        
+
         $url = 'http://172.16.0.22:1313/api/v1/batch_plans/get_batch_plans';
-        if(isset($month))
-            $url = $url.'?batch_plan_date='.$month;
+        if (isset($month))
+            $url = $url . '?batch_plan_date=' . $month;
 
         //  Setting URL To Fetch Data From
         $this->curl->create($url);
@@ -34,15 +34,15 @@ class Month_schedule extends CI_Model {
 
         $decode_data = json_decode($data, true);
         //echo '<pre>';print_r($decode_data);die();
-        
+
         return $decode_data;
     }
-    
+
     public function get_inventories($month = null) {
         $url = 'http://172.16.0.22:1313/api/v1/inventories/get_inventories';
-        if(isset($month))
-            $url = $url.'?inventory_date='.$month;
-        
+        if (isset($month))
+            $url = $url . '?inventory_date=' . $month;
+
         //  Setting URL To Fetch Data From
         $this->curl->create($url);
 
@@ -68,6 +68,49 @@ class Month_schedule extends CI_Model {
 //        echo '<pre>';print_r($url);die();
 
         return $decode_data;
+    }
+
+    public function get_generate_batch_plan() {
+        $url = 'http://172.16.0.22:1313/api/v1/batch_plans/generate_batch_plan';
+        $responce = $this->postCURL($url, array());
+        $decode_data = json_decode($responce);
+        return $decode_data;
+    }
+    
+    public function postCURL($_url, $_param) {
+
+        $postData = '';
+        //create name value pairs seperated by &
+        foreach ($_param as $k => $v) {
+            $postData .= $k . '=' . $v . '&';
+        }
+        rtrim($postData, '&');
+
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $_url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_POST, count($postData));
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
+
+        $output = curl_exec($ch);
+
+        curl_close($ch);
+
+        return $output;
+    }
+    
+    public function publish_batch_plan() {
+        $url = 'http://172.16.0.22:1313/api/v1/batch_plans/publish_batch_plan';
+        $responce = $this->postCURL($url, array());
+        echo $responce;
+    }
+
+    public function unpublish_batch_plan() {
+        $url = 'http://172.16.0.22:1313/api/v1/batch_plans/unpublish_batch_plan';
+        $responce = $this->postCURL($url, array());
+        echo $responce;
     }
 
 }

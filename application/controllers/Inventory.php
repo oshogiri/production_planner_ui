@@ -48,7 +48,8 @@ class Inventory extends CI_Controller {
         $config['allowed_types'] = 'csv|xls|xlsx';
         $config['max_size'] = 100;
 
-        $this->load->library('upload', $config);
+//        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
         if (!$this->upload->do_upload('file')) {
 
             $error = array('error' => $this->upload->display_errors());
