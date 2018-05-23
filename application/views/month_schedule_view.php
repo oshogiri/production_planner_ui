@@ -35,7 +35,7 @@
             </div><!-- /.panel-title -->
             <div class="panel-tools">
                 <form class="form-inline">
-                    <?php if (isset($batch_plans) && empty($publish)) { ?>
+                    <?php if (isset($inventories) && empty($publish)) { ?>
                         <a href="<?php echo site_url('MonthSchedule/generate_batch_plan'); ?>" class="btn btn-info btn-sm rippler" id="generate_batch_plan_id">
                             <span>
                                 Generate Batch Plan
