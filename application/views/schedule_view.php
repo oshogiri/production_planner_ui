@@ -366,9 +366,17 @@
         });
 
         $('#submit_seq').click(function () {
+            var data = '';
             var data12 = $('#sortable12').sortable('toArray');
             var data34 = $('#sortable34').sortable('toArray');
-            $('#batch_sequence').val(data12.toString() + ',' + data34.toString());
+            if(data12.length > 0)
+                data = data + data12;
+            if(data12.length > 0 && data34.length > 0)
+                data = data + ','
+            if(data34.length > 0)
+                data = data + data34;
+            
+            $('#batch_sequence').val(data);
         });
 
         $('.batch_number_input').change(function () {
