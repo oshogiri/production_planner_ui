@@ -96,7 +96,7 @@
                 </div>
             <?php } ?>
             <div class="panel-footer">
-                <?php if (!empty($get_planned_batches->stream_1_2) && !empty($get_planned_batches->stream_3_4)) { ?>
+                <?php if (!empty($get_planned_batches->stream_1_2) || !empty($get_planned_batches->stream_3_4)) { ?>
                     <form method="post" id="generate_schedule_form" action="<?php echo site_url('schedule/generate_schedule') ?>">
                         <input type="hidden" name="batch_sequence" id="batch_sequence"/>
                         <button type="submit" class="btn btn-info rounded" id="submit_seq">Submit</button>
