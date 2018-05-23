@@ -151,7 +151,7 @@
                                                 <th rowspan="2">Product</th>
                                                 <th rowspan="2">Batch Number</th>
                                                 <th colspan="2">Plan</th>
-                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                     <th colspan="2">Actual</th>
                                                 <?php } ?>
                                                 <th rowspan="2">Delay</th>
@@ -160,7 +160,7 @@
                                             <tr>
                                                 <th>Start Time</th>
                                                 <th>End Time</th>
-                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                     <th>Start Time</th>
                                                     <th>End Time</th>
                                                 <?php } ?>
@@ -182,7 +182,7 @@
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
                                                     <?php $startcomment = $schedule->actual_start_time_comment ?>
                                                     <?php $endcomment = $schedule->actual_end_time_comment ?>
-                                                    <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                         <td>
                                                             <?php
                                                             if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
@@ -216,7 +216,7 @@
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'start') {
+                                                                    if ($schedule->is_next_type == 'start' && !$this->session->userdata('role') == 'planner') {
                                                                         ?>
                                                                         <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
                                                                         <?php
@@ -252,7 +252,7 @@
                                                                    }
                                                                } else {
                                                                    if (!empty($schedule->is_next)) {
-                                                                       if ($schedule->is_next_type == 'end') {
+                                                                       if ($schedule->is_next_type == 'end' && !$this->session->userdata('role') == 'planner') {
                                                                            ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
@@ -284,7 +284,7 @@
                                                 <th rowspan="2">Product</th>
                                                 <th rowspan="2">Batch Number</th>
                                                 <th colspan="2">Plan</th>
-                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                     <th colspan="2">Actual</th>
                                                 <?php } ?>
                                                 <th rowspan="2">Delay</th>
@@ -293,7 +293,7 @@
                                             <tr>
                                                 <th>Start Time</th>
                                                 <th>End Time</th>
-                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                     <th>Start Time</th>
                                                     <th>End Time</th>
                                                 <?php } ?>
@@ -315,7 +315,7 @@
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
                                                     <?php $startcomment = $schedule->actual_start_time_comment ?>
                                                     <?php $endcomment = $schedule->actual_end_time_comment ?>
-                                                    <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                         <td>
                                                             <?php
                                                             if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
@@ -349,7 +349,7 @@
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'start') {
+                                                                    if ($schedule->is_next_type == 'start' && !$this->session->userdata('role') == 'planner') {
                                                                         ?>
                                                                         <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
                                                                         <?php
@@ -385,7 +385,7 @@
                                                                    }
                                                                } else {
                                                                    if (!empty($schedule->is_next)) {
-                                                                       if ($schedule->is_next_type == 'end') {
+                                                                       if ($schedule->is_next_type == 'end' && !$this->session->userdata('role') == 'planner') {
                                                                            ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
@@ -417,7 +417,7 @@
                                                 <th rowspan="2">Product</th>
                                                 <th rowspan="2">Batch Number</th>
                                                 <th colspan="2">Plan</th>
-                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                     <th colspan="2">Actual</th>
                                                 <?php } ?>
                                                 <th rowspan="2">Delay</th>
@@ -426,7 +426,7 @@
                                             <tr>
                                                 <th>Start Time</th>
                                                 <th>End Time</th>
-                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                     <th>Start Time</th>
                                                     <th>End Time</th>
                                                 <?php } ?>
@@ -448,7 +448,7 @@
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
                                                     <?php $startcomment = $schedule->actual_start_time_comment ?>
                                                     <?php $endcomment = $schedule->actual_end_time_comment ?>
-                                                    <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                         <td>
                                                             <?php
                                                             if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
@@ -482,7 +482,7 @@
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'start') {
+                                                                    if ($schedule->is_next_type == 'start' && !$this->session->userdata('role') == 'planner') {
                                                                         ?>
                                                                         <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
                                                                         <?php
@@ -518,7 +518,7 @@
                                                                    }
                                                                } else {
                                                                    if (!empty($schedule->is_next)) {
-                                                                       if ($schedule->is_next_type == 'end') {
+                                                                       if ($schedule->is_next_type == 'end' && !$this->session->userdata('role') == 'planner') {
                                                                            ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
@@ -550,7 +550,7 @@
                                                 <th rowspan="2">Product</th>
                                                 <th rowspan="2">Batch Number</th>
                                                 <th colspan="2">Plan</th>
-                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                     <th colspan="2">Actual</th>
                                                 <?php } ?>
                                                 <th rowspan="2">Delay</th>
@@ -559,7 +559,7 @@
                                             <tr>
                                                 <th>Start Time</th>
                                                 <th>End Time</th>
-                                                <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                     <th>Start Time</th>
                                                     <th>End Time</th>
                                                 <?php } ?>
@@ -581,7 +581,7 @@
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
                                                     <?php $startcomment = $schedule->actual_start_time_comment ?>
                                                     <?php $endcomment = $schedule->actual_end_time_comment ?>
-                                                    <?php if ($this->session->userdata('role') == 'production') { ?>
+                                                    <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
                                                         <td>
                                                             <?php
                                                             if (!empty($schedule->actual_start_time) || ($this->session->userdata('role') == 'admin')) {
@@ -615,7 +615,7 @@
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'start') {
+                                                                    if ($schedule->is_next_type == 'start' && !$this->session->userdata('role') == 'planner') {
                                                                         ?>
                                                                         <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
                                                                         <?php
@@ -651,7 +651,7 @@
                                                                    }
                                                                } else {
                                                                    if (!empty($schedule->is_next)) {
-                                                                       if ($schedule->is_next_type == 'end') {
+                                                                       if ($schedule->is_next_type == 'end' && !$this->session->userdata('role') == 'planner') {
                                                                            ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
@@ -692,8 +692,10 @@
 <?php require_once 'footer.php'; ?>
 <script type="text/javascript">
     $(function () {
+        <?php if(!$this->session->userdata('role') == 'planner'){ ?>
         $('.start-time-picker').datetimepicker({minuteStep: 1});
         $('.end-time-picker').datetimepicker({minuteStep: 1});
+        <?php } ?>
 
         function validate_punch(picker) {
             console.log('called');
