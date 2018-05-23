@@ -50,6 +50,7 @@ class MonthSchedule extends CI_Controller {
         }
         $view_data['month'] = $condate;
         $view_data['dispmonth'] = $dispdate;
+        $view_data['publish'] = "";
 //        echo '<pre>';print_r($get_inventories);//die();
         //echo '<pre>';print_r($get_batch_plan);die();
 
