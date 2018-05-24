@@ -63,7 +63,7 @@ class DemandSheet extends CI_Controller {
             $filedata = new CURLFile($fullpath, $filetype, $file_name);
             $post = array('demand_sheet' => $filedata);
 
-            $target_url = 'https://production-planner.herokuapp.com/api/v1/demand_sheets/upload_demand_sheet';
+            $target_url = 'http://172.16.0.22:1313/api/v1/demand_sheets/upload_demand_sheet';
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);

@@ -7,7 +7,7 @@ class Month_schedule extends CI_Model {
     public function get_batch_plans($month = null) {
         date_default_timezone_set('Asia/Kolkata');
 
-        $url = 'https://production-planner.herokuapp.com/api/v1/batch_plans/get_batch_plans';
+        $url = 'http://172.16.0.22:1313/api/v1/batch_plans/get_batch_plans';
         if (isset($month))
             $url = $url . '?batch_plan_date=' . $month;
 
@@ -39,7 +39,7 @@ class Month_schedule extends CI_Model {
     }
 
     public function get_inventories($month = null) {
-        $url = 'https://production-planner.herokuapp.com/api/v1/inventories/get_inventories';
+        $url = 'http://172.16.0.22:1313/api/v1/inventories/get_inventories';
         if (isset($month))
             $url = $url . '?inventory_date=' . $month;
 
@@ -71,7 +71,7 @@ class Month_schedule extends CI_Model {
     }
 
     public function get_generate_batch_plan() {
-        $url = 'https://production-planner.herokuapp.com/api/v1/batch_plans/generate_batch_plan';
+        $url = 'http://172.16.0.22:1313/api/v1/batch_plans/generate_batch_plan';
         $responce = $this->postCURL($url, array());
         $decode_data = json_decode($responce);
         return $decode_data;
@@ -102,13 +102,13 @@ class Month_schedule extends CI_Model {
     }
     
     public function publish_batch_plan() {
-        $url = 'https://production-planner.herokuapp.com/api/v1/batch_plans/publish_batch_plan';
+        $url = 'http://172.16.0.22:1313/api/v1/batch_plans/publish_batch_plan';
         $responce = $this->postCURL($url, array());
         echo $responce;
     }
 
     public function unpublish_batch_plan() {
-        $url = 'https://production-planner.herokuapp.com/api/v1/batch_plans/unpublish_batch_plan';
+        $url = 'http://172.16.0.22:1313/api/v1/batch_plans/unpublish_batch_plan';
         $responce = $this->postCURL($url, array());
         echo $responce;
     }

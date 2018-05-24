@@ -216,7 +216,7 @@
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'start' && !$this->session->userdata('role') == 'planner') {
+                                                                    if ($schedule->is_next_type == 'start' && $this->session->userdata('role') == 'production') {
                                                                         ?>
                                                                         <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
                                                                         <?php
@@ -252,7 +252,7 @@
                                                                    }
                                                                } else {
                                                                    if (!empty($schedule->is_next)) {
-                                                                       if ($schedule->is_next_type == 'end' && !$this->session->userdata('role') == 'planner') {
+                                                                       if ($schedule->is_next_type == 'end' && $this->session->userdata('role') == 'production') {
                                                                            ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
@@ -349,7 +349,7 @@
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'start' && !$this->session->userdata('role') == 'planner') {
+                                                                    if ($schedule->is_next_type == 'start' && $this->session->userdata('role') == 'production') {
                                                                         ?>
                                                                         <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
                                                                         <?php
@@ -385,7 +385,7 @@
                                                                    }
                                                                } else {
                                                                    if (!empty($schedule->is_next)) {
-                                                                       if ($schedule->is_next_type == 'end' && !$this->session->userdata('role') == 'planner') {
+                                                                       if ($schedule->is_next_type == 'end' && $this->session->userdata('role') == 'production') {
                                                                            ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
@@ -482,7 +482,7 @@
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'start' && !$this->session->userdata('role') == 'planner') {
+                                                                    if ($schedule->is_next_type == 'start' && $this->session->userdata('role') == 'production') {
                                                                         ?>
                                                                         <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
                                                                         <?php
@@ -518,7 +518,7 @@
                                                                    }
                                                                } else {
                                                                    if (!empty($schedule->is_next)) {
-                                                                       if ($schedule->is_next_type == 'end' && !$this->session->userdata('role') == 'planner') {
+                                                                       if ($schedule->is_next_type == 'end' && $this->session->userdata('role') == 'production') {
                                                                            ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
@@ -615,7 +615,7 @@
                                                                 }
                                                             } else {
                                                                 if (!empty($schedule->is_next)) {
-                                                                    if ($schedule->is_next_type == 'start' && !$this->session->userdata('role') == 'planner') {
+                                                                    if ($schedule->is_next_type == 'start' && $this->session->userdata('role') == 'production') {
                                                                         ?>
                                                                         <input type="text" value="" class="form-control start-time-picker" readonly data-type="start" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planstarttime="<?php echo $schedule->start_time ?>">
                                                                         <?php
@@ -651,7 +651,7 @@
                                                                    }
                                                                } else {
                                                                    if (!empty($schedule->is_next)) {
-                                                                       if ($schedule->is_next_type == 'end' && !$this->session->userdata('role') == 'planner') {
+                                                                       if ($schedule->is_next_type == 'end' && $this->session->userdata('role') == 'production') {
                                                                            ?>
                                                                         <input type="text" value="" class="form-control end-time-picker" readonly data-type="end" data-time="<?php echo $schedule->min_time; ?>" data-uuid="<?php echo $schedule->uuid; ?>" data-planendtime="<?php echo $schedule->end_time; ?>">
                                                                         <?php
@@ -692,7 +692,7 @@
 <?php require_once 'footer.php'; ?>
 <script type="text/javascript">
     $(function () {
-        <?php if(!$this->session->userdata('role') == 'planner'){ ?>
+        <?php if($this->session->userdata('role') == 'production'){ ?>
         $('.start-time-picker').datetimepicker({minuteStep: 1});
         $('.end-time-picker').datetimepicker({minuteStep: 1});
         <?php } ?>
