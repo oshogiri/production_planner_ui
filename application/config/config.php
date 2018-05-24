@@ -37,7 +37,7 @@ $config['base_url'] = 'https://production-planner-dashboard.herokuapp.com/';
 | variable so that it is blank.
 |
 */
-$config['index_page'] = 'views/login_user.php';
+$config['index_page'] = '';
 
 /*
 |--------------------------------------------------------------------------
