@@ -76,7 +76,7 @@ class Month_schedule extends CI_Model {
         $decode_data = json_decode($responce);
         return $decode_data;
     }
-    
+
     public function postCURL($_url, $_param) {
 
         $postData = '';
@@ -100,7 +100,7 @@ class Month_schedule extends CI_Model {
 
         return $output;
     }
-    
+
     public function publish_batch_plan() {
         $url = 'http://172.16.0.22:1313/api/v1/batch_plans/publish_batch_plan';
         $responce = $this->postCURL($url, array());
@@ -111,6 +111,16 @@ class Month_schedule extends CI_Model {
         $url = 'http://172.16.0.22:1313/api/v1/batch_plans/unpublish_batch_plan';
         $responce = $this->postCURL($url, array());
         echo $responce;
+    }
+
+    public function update_nobatch($get_nobatch = null) {
+        $uuid = $get_nobatch['prod_uuid'];
+        $number_of_batches = $get_nobatch['prod_batch'];
+        $data = array('uuid' => $uuid, 'number_of_batches' => $number_of_batches);
+        $url = 'http://172.16.0.22:1313/api/v1/batch_plans/update_batch_plan';
+        $responce = $this->postCURL($url, $data);
+        $decode_data = json_decode($responce);
+        return $decode_data;
     }
 
 }
