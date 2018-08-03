@@ -55,6 +55,12 @@
                 </div>
                 <?php
             }
+            if(isset($get_nobatch_responce)){ ?>
+                <div class="alert alert-info">
+                    <?php echo $get_nobatch_responce->message; ?>
+                </div>
+                <?php
+            }
             if (isset($error_message)) {
                 ?>
                 <div class="alert alert-danger">
@@ -72,9 +78,9 @@
             if (isset($inventories)) {
                 ?>
                 <div id="inventory-table" class="table-scroll">
-                    <table class="table table-bordered table-condensed">
+                    <table class="table table-bordered table-condensed" id="btcount">
                         <thead>
-                            <tr>
+                            <tr class="titlerow">
                                 <th>Demand<br>Quantity<br/>(MT)</th>
                                 <th>Inventory<br/>(MT)</th>
                                 <th>WIP<br/>(MT)</th>
@@ -144,16 +150,16 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 1'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td><?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="#modal-batch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td></td><?php
+                                                        ?><td class="total"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
+                                                    }
                                                 }
                                             }
-                                        }
-                                        ?>
+                                            ?>
                                     </tr>
                                     <?php
                                 }
@@ -176,16 +182,16 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 2'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td><?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="#modal-batch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td></td><?php
+                                                        ?><td class="total"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
+                                                    }
                                                 }
                                             }
-                                        }
-                                        ?>
+                                            ?>
                                     </tr>
                                     <?php
                                 }
@@ -208,16 +214,16 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 3'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td><?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="#modal-batch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td></td><?php
+                                                        ?><td class="total"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
+                                                    }
                                                 }
                                             }
-                                        }
-                                        ?>
+                                            ?>
                                     </tr>
                                     <?php
                                 }
@@ -240,21 +246,65 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 4'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td><?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="#modal-batch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td></td><?php
+                                                        ?><td class="total"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
+                                                    }
                                                 }
                                             }
-                                        }
-                                        ?>
+                                            ?>
                                     </tr>
                                     <?php
                                 }
                             }
                             ?>
+                            <tr class="totalColumn">
+                                <td style="visibility: hidden;"></td>
+                                <td style="visibility: hidden;"></td>
+                                <td style="visibility: hidden;"></td>
+                                <td style="visibility: hidden;"></td>
+                                <td style="visibility: hidden;"></td>
+                                <td style="visibility: hidden;"></td>
+                                <td style="visibility: hidden;"></td>
+                                <td style="visibility: hidden;"></td>
+                                <td style="visibility: hidden;"></td>
+                                <td style="visibility: hidden;"></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+
+                            </tr>
                         </tbody>
                     </table>
                 </div><!-- /.table-scroll -->
@@ -265,11 +315,11 @@
             if (isset($publish)) {
                 if (empty($publish)) {
                     ?>
-                    <button type="button" class="btn btn-info rounded" id="publish_seq">Publish</button>
+                    <button type="button" class="btn btn-info rounded" id="publish_seq" onclick="this.disabled=true; $(this).text('Publishing...');">Publish</button>
                     <?php
                 } else {
                     ?>
-                    <button type="button" class="btn btn-info rounded" id="unpublish_seq">Unpublish</button>
+                    <button type="button" class="btn btn-info rounded" id="unpublish_seq" onclick="this.disabled=true; $(this).text('Unpublishing...');">Unpublish</button>
                     <?php
                 }
             }
@@ -278,22 +328,72 @@
     </div>
 
 </div>
+
+<div class="modal fade modal-framed" id="modal-batch-plan" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">Edit Batch Entry</h4>
+            </div><!-- .modal-header -->
+            <form class="form-m" action="<?php echo site_url('MonthSchedule/updateNoBatch') ?>" method="post">
+                <div class="modal-body">
+
+                    <div class="panel-body">
+
+                        <div class="form-group m-bottom-30 form-group-primary">
+                            <label for="inputProduct" class="control-label col-sm-3">Product</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="pro-name" disabled>
+                                <span class="line"></span>
+                            </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group m-bottom-30 form-group-primary">
+                            <label for="inputDate" class="control-label col-sm-3">Date</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="pro-date" disabled>
+                                <input type="hidden" id="pro-uuid" name="prod_uuid">
+                                <span class="line"></span>
+                            </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group m-bottom-30 form-group-primary">
+                            <label for="inputNoBatch" class="control-label col-sm-3">No. Batch(s)</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="prod_batch" id="pro-batch">
+                                <span class="line"></span>
+                            </div>
+                        </div><!-- /.form-group -->
+
+                    </div>
+                </div><!-- .modal-body -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save changes" />
+                </div><!-- .modal-footer -->
+            </form>
+        </div>
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <?php require_once 'footer.php'; ?>
 <script>
     $(document).ready(function () {
-        setTimeout(function () {
-            $.ajax({
-                url: '<?php echo base_url('MonthSchedule/generate_is_success') ?>',
-                method: 'POST',
-                dataType: 'json'
-            }).done(function (response) {
-                console.log(response);
-                if ($('#inventory-table').length == 0 || !response['success']) {
-                    //location = location.protocol + "//" + location.host + location.pathname;
-                    location.reload();
-                }
-            });
-        }, 10000);
+        //setTimeout(function () {
+        $.ajax({
+            url: '<?php echo base_url('MonthSchedule/generate_is_success') ?>',
+            method: 'POST',
+            dataType: 'json'
+        }).done(function (response) {
+            console.log(response);
+            //if ($('#inventory-table').length == 0 || !response['success']) {
+            //location = location.protocol + "//" + location.host + location.pathname;
+            //location.reload();
+            //}
+        });
+        //}, 20000);
     });
 
     $(function () {
@@ -301,6 +401,43 @@
             var $table = $('.table');
             var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
             $fixedColumn.find('th:not(:nth-child(1))th:not(:nth-child(2))th:not(:nth-child(3))th:not(:nth-child(4))th:not(:nth-child(5))th:not(:nth-child(6))th:not(:nth-child(7))th:not(:nth-child(8))th:not(:nth-child(9))th:not(:nth-child(10)),td:not(:nth-child(1))td:not(:nth-child(2))td:not(:nth-child(3))td:not(:nth-child(4))td:not(:nth-child(5))td:not(:nth-child(6))td:not(:nth-child(7))td:not(:nth-child(8))td:not(:nth-child(9))td:not(:nth-child(10))').remove();
+            $fixedColumn.find('tr:last').remove();
+
+            $(document).ready(function ()
+            {
+                $('table thead th').each(function (i)
+                {
+                    calculateColumn(i);
+                });
+            });
+
+            function calculateColumn(index)
+            {
+                var total = 0;
+                $('#btcount tr').each(function ()
+                {
+                    var value = parseInt($('td', this).eq(index).text());
+                    if (!isNaN(value))
+                    {
+                        total += value;
+                    }
+                });
+
+                $('table .totalColumn td').eq(index).text(total);
+            }
+
+            $('.total').click(function () {
+                var proname = $(this).data("proname");
+                var nobatch = $(this).data("nobatch");
+                var prodate = $(this).data("prodate");
+                var prouuid = $(this).data("prouuid");
+                $('#pro-name').val(proname);
+                $('#pro-batch').val(nobatch);
+                $('#pro-date').val(prodate);
+                $('#pro-uuid').val(prouuid);
+            });
+
+
 <?php } ?>
         $('.time-picker').datepicker({
             format: 'MM yyyy',
@@ -318,7 +455,8 @@
             }).done(function (response) {
 //                $('#publish_seq').hide();
                 console.log(response['message']);
-                $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+                window.location = window.location.href;
+                //$('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
             });
         });
         $('#unpublish_seq').click(function () {
@@ -329,7 +467,8 @@
             }).done(function (response) {
 //                $('#unpublish_seq').hide();
                 console.log(response['message']);
-                $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+                window.location = window.location.href;
+                //$('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
             });
         });
 
