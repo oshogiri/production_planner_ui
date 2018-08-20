@@ -40,6 +40,7 @@ class MonthSchedule extends CI_Controller {
         $get_batch_plan = $this->Month_Schedule->get_batch_plans($month);
         $generate_batch_plan = $this->session->flashdata('generate_batch_plan');
         $get_nobatch_responce = $this->session->flashdata('get_nobatch_responce');
+        $get_addnobatch_responce = $this->session->flashdata('get_addnobatch_responce');
         
 //        echo '<pre>';print_r($get_nobatch_responce);die();
 
@@ -54,6 +55,7 @@ class MonthSchedule extends CI_Controller {
         $view_data['dispmonth'] = $dispdate;
         $view_data['publish'] = "";
         $view_data['get_nobatch_responce'] = $get_nobatch_responce;
+        $view_data['get_addnobatch_responce'] = $get_nobatch_responce;
 //        echo '<pre>';print_r($get_inventories);//die();
         //echo '<pre>';print_r($get_batch_plan);die();
 
@@ -126,6 +128,14 @@ class MonthSchedule extends CI_Controller {
         $this->session->set_flashdata('get_nobatch_responce', $get_nobatch_responce);
         redirect('/MonthSchedule/month_schedule', 'refresh');
         //echo '<pre>'; print_r($get_nobatch_responce); exit;
+    }
+    
+    public function addNoBatch() {
+        $get_addbatch = $this->input->post();
+        $get_addnobatch_responce = $this->Month_Schedule->add_nobatch($get_addbatch);
+        $this->session->set_flashdata('get_addnobatch_responce', $get_addnobatch_responce);
+        redirect('/MonthSchedule/month_schedule', 'refresh');
+//        echo '<pre>'; print_r($get_addnobatch_responce); exit;
     }
 
 }

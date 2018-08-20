@@ -90,7 +90,10 @@ class Month_schedule extends CI_Model {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($ch, CURLOPT_HEADER, false);
+        $user = $this->session->userdata('employee_id');
+        $headers = ['User-Mail: $user'];
+//        curl_setopt($ch, CURLOPT_HEADER, false);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($ch, CURLOPT_POST, count($postData));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 
@@ -117,6 +120,19 @@ class Month_schedule extends CI_Model {
         $uuid = $get_nobatch['prod_uuid'];
         $number_of_batches = $get_nobatch['prod_batch'];
         $data = array('uuid' => $uuid, 'number_of_batches' => $number_of_batches);
+        $url = 'http://172.16.0.22:1313/api/v1/batch_plans/update_batch_plan';
+        $responce = $this->postCURL($url, $data);
+        $decode_data = json_decode($responce);
+        return $decode_data;
+    }
+    
+    public function add_nobatch($get_addbatch = null) {
+        $proname = $get_addbatch['addproname'];
+        $prodate = $get_addbatch['addprodate'];
+        $stream = $get_addbatch['addstream'];
+        $number_of_batches = $get_addbatch['prod_batch'];
+        
+        $data = array('product' => $proname, 'batch_plan_date' => $prodate, 'stream' => $stream, 'number_of_batches' => $number_of_batches);
         $url = 'http://172.16.0.22:1313/api/v1/batch_plans/update_batch_plan';
         $responce = $this->postCURL($url, $data);
         $decode_data = json_decode($responce);
