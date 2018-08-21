@@ -35,7 +35,7 @@
             </div><!-- /.panel-title -->
             <div class="panel-tools">
                 <form class="form-inline">
-                    <?php if (isset($inventories) && empty($publish)) { ?>
+                    <?php if (isset($inventories) && empty($publish) && $this->session->userdata('role') == 'planner') { ?>
                         <a href="<?php echo site_url('MonthSchedule/generate_batch_plan'); ?>" class="btn btn-info btn-sm rippler" id="generate_batch_plan_id">
                             <span>
                                 Generate Batch Plan
@@ -151,9 +151,9 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 1'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td class="total" data-toggle="modal" data-target="#modal-batch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-batch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td class="total" data-toggle="modal" data-target="#modal-addbatch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 1"></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-addbatch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 1"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
@@ -183,9 +183,9 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 2'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td class="total" data-toggle="modal" data-target="#modal-batch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-batch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td class="total" data-toggle="modal" data-target="#modal-addbatch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 2"></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-addbatch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 2"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
@@ -215,9 +215,9 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 3'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td class="total" data-toggle="modal" data-target="#modal-batch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-batch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td class="total" data-toggle="modal" data-target="#modal-addbatch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 3"></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-addbatch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 3"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
@@ -247,9 +247,9 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 4'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td class="total" data-toggle="modal" data-target="#modal-batch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-batch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td class="total" data-toggle="modal" data-target="#modal-addbatch-plan" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 4"></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-addbatch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 4"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
@@ -313,7 +313,7 @@
         </div>
         <div id="publish-schedule-section" class="panel-footer">
             <?php
-            if (isset($publish)) {
+            if (isset($publish) && $this->session->userdata('role') == 'planner') {
                 if (empty($publish)) {
                     ?>
                     <button type="button" class="btn btn-info rounded" id="publish_seq" onclick="this.disabled=true; $(this).text('Publishing...');">Publish</button>
@@ -552,5 +552,6 @@
         if ($.isNumeric(month))
             location = location.protocol + "//" + location.host + location.pathname + "?month=" + month;
     });
+   
 
 </script>
