@@ -362,7 +362,7 @@
                         <div class="form-group m-bottom-30 form-group-primary">
                             <label for="inputNoBatch" class="control-label col-sm-3">No. Batch(s)</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="prod_batch" id="pro-batch" max="5">
+                                <input type="text" class="form-control" name="prod_batch" id="pro-batch" min="1" max="5">
                                 <span class="line"></span>
                             </div>
                         </div><!-- /.form-group -->
@@ -417,7 +417,7 @@
                         <div class="form-group m-bottom-30 form-group-primary">
                             <label for="inputNoBatch" class="control-label col-sm-3">No. Batch(s)</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="prod_batch" id="addpro-batch" max="5">
+                                <input type="text" class="form-control" name="prod_batch" id="addpro-batch" min="1" max="5">
                                 <span class="line"></span>
                             </div>
                         </div><!-- /.form-group -->
