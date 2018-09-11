@@ -518,10 +518,12 @@
                 method: 'POST',
                 dataType: 'json'
             }).done(function (response) {
-//                $('#publish_seq').hide();
                 console.log(response['message']);
-                window.location = window.location.href;
-//                $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+                if(response['success'] = "true"){
+                    window.location = window.location.href;
+                }else{
+                    $('#publish-schedule-section').html('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+                }
             });
         });
         $('#unpublish_seq').click(function () {
@@ -530,9 +532,8 @@
                 method: 'POST',
                 dataType: 'json'
             }).done(function (response) {
-//                $('#unpublish_seq').hide();
                 console.log(response['success']);
-                if(response['success'] === "true"){
+                if(response['success'] = "true"){
                     window.location = window.location.href;
                 }else{
                     $('#publish-schedule-section').html('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');

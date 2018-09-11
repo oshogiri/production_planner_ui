@@ -342,11 +342,11 @@
             if (isset($publish)) {
                 if (empty($publish)) {
                     ?>
-                    <button type="button" class="btn btn-info rounded" id="publish_seq">Publish</button>
+                    <button type="button" class="btn btn-info rounded" id="publish_seq" onclick="this.disabled=true; $(this).text('Publishing...');">Publish</button>
                     <?php
                 } else {
                     ?>
-                    <button type="button" class="btn btn-info rounded" id="unpublish_seq">Unpublish</button>
+                    <button type="button" class="btn btn-info rounded" id="unpublish_seq" onclick="this.disabled=true; $(this).text('Unpublishing...');">Unpublish</button>
                     <?php
                 }
             }
@@ -369,13 +369,13 @@
             var data = '';
             var data12 = $('#sortable12').sortable('toArray');
             var data34 = $('#sortable34').sortable('toArray');
-            if(data12.length > 0)
+            if (data12.length > 0)
                 data = data + data12;
-            if(data12.length > 0 && data34.length > 0)
+            if (data12.length > 0 && data34.length > 0)
                 data = data + ','
-            if(data34.length > 0)
+            if (data34.length > 0)
                 data = data + data34;
-            
+
             $('#batch_sequence').val(data);
         });
 
@@ -404,7 +404,11 @@
             }).done(function (response) {
 //                $('#publish_seq').hide();
                 console.log(response['message']);
-                $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+                if (response['success'] = "true") {
+                    window.location = window.location.href;
+                } else {
+                    $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+                }
             });
         });
         $('#unpublish_seq').click(function () {
@@ -415,7 +419,11 @@
             }).done(function (response) {
 //                $('#unpublish_seq').hide();
                 console.log(response['message']);
-                $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+                if (response['success'] = "true") {
+                    window.location = window.location.href;
+                } else {
+                    $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+                }
             });
         });
     });

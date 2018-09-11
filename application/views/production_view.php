@@ -2,6 +2,7 @@
 
 <?php require_once 'header.php'; ?>
 <?php require_once 'sidebar.php'; ?>
+<style>th {text-align: center;}</style>
 
 <div class="modal fade" id="modal-startcomment" tabindex="-1">
     <div class="modal-dialog">
@@ -145,22 +146,24 @@
                                     <table class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th rowspan="2">BCT</th>
-                                                <th rowspan="2">Reactor</th>
-                                                <th rowspan="2">Process</th>
-                                                <th rowspan="2">Product</th>
-                                                <th rowspan="2">Batch Number</th>
-                                                <th colspan="2">Plan</th>
+                                                <th colspan="7">Plan</th>
                                                 <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
-                                                    <th colspan="2">Actual</th>
+                                                    <th colspan="4">Actual</th>
                                                 <?php } ?>
                                                 <th rowspan="2">Delay</th>
                                                 <!--<th rowspan="2">Comment</th>-->
                                             </tr>
                                             <tr>
+                                                <th>BCT</th>
+                                                <th>Reactor</th>
+                                                <th>Process</th>
+                                                <th>Product</th>
+                                                <th>Batch Number</th>
                                                 <th>Start Time</th>
                                                 <th>End Time</th>
                                                 <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
+                                                    <th>Batch Number</th>
+                                                    <th>Reactor</th>    
                                                     <th>Start Time</th>
                                                     <th>End Time</th>
                                                 <?php } ?>
@@ -180,6 +183,8 @@
                                                     <td><?php echo $schedule->batch_number; ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></p></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <td class="actual_batchnumber" data-proname="<?php echo $schedule->product; ?>" data-prouuid="<?php echo $schedule->uuid; ?>" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'production' ? '#modal-actual-batchnumber' : 'none') ?>"><?php echo $schedule->actual_batch_number; ?></td>
+                                                    <td class="actual_reactor" data-proname="<?php echo $schedule->product; ?>" data-prouuid="<?php echo $schedule->uuid; ?>" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'production' ? '#modal-actual-reactor' : 'none') ?>"><?php echo $schedule->actual_reactor; ?></td>
                                                     <?php $startcomment = $schedule->actual_start_time_comment ?>
                                                     <?php $endcomment = $schedule->actual_end_time_comment ?>
                                                     <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
@@ -262,7 +267,7 @@
                                                             ?>
                                                         </td>
                                                     <?php } ?>
-                    <!--<td><?php //echo gmdate("H:i", $schedule->hold_up);                                                 ?></td>-->
+                    <!--<td><?php //echo gmdate("H:i", $schedule->hold_up);                                                  ?></td>-->
                                                     <td><?php echo sprintf('%02d', floor($schedule->hold_up / 3600)) . gmdate(":i", $schedule->hold_up % 3600); ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -278,22 +283,24 @@
                                     <table class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th rowspan="2">BCT</th>
-                                                <th rowspan="2">Reactor</th>
-                                                <th rowspan="2">Process</th>
-                                                <th rowspan="2">Product</th>
-                                                <th rowspan="2">Batch Number</th>
-                                                <th colspan="2">Plan</th>
+                                                <th colspan="7">Plan</th>
                                                 <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
-                                                    <th colspan="2">Actual</th>
+                                                    <th colspan="4">Actual</th>
                                                 <?php } ?>
                                                 <th rowspan="2">Delay</th>
                                                 <!--<th rowspan="2">Comment</th>-->
                                             </tr>
                                             <tr>
+                                                <th>BCT</th>
+                                                <th>Reactor</th>
+                                                <th>Process</th>
+                                                <th>Product</th>
+                                                <th>Batch Number</th>
                                                 <th>Start Time</th>
                                                 <th>End Time</th>
                                                 <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
+                                                    <th>Batch Number</th>
+                                                    <th>Reactor</th>    
                                                     <th>Start Time</th>
                                                     <th>End Time</th>
                                                 <?php } ?>
@@ -313,6 +320,8 @@
                                                     <td><?php echo $schedule->batch_number; ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <td class="actual_batchnumber" data-proname="<?php echo $schedule->product; ?>" data-prouuid="<?php echo $schedule->uuid; ?>" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'production' ? '#modal-actual-batchnumber' : 'none') ?>"><?php echo $schedule->actual_batch_number; ?></td>
+                                                    <td class="actual_reactor" data-proname="<?php echo $schedule->product; ?>" data-prouuid="<?php echo $schedule->uuid; ?>" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'production' ? '#modal-actual-reactor' : 'none') ?>"><?php echo $schedule->actual_reactor; ?></td>
                                                     <?php $startcomment = $schedule->actual_start_time_comment ?>
                                                     <?php $endcomment = $schedule->actual_end_time_comment ?>
                                                     <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
@@ -411,22 +420,24 @@
                                     <table class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th rowspan="2">BCT</th>
-                                                <th rowspan="2">Reactor</th>
-                                                <th rowspan="2">Process</th>
-                                                <th rowspan="2">Product</th>
-                                                <th rowspan="2">Batch Number</th>
-                                                <th colspan="2">Plan</th>
+                                                <th colspan="7">Plan</th>
                                                 <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
-                                                    <th colspan="2">Actual</th>
+                                                    <th colspan="4">Actual</th>
                                                 <?php } ?>
                                                 <th rowspan="2">Delay</th>
                                                 <!--<th rowspan="2">Comment</th>-->
                                             </tr>
                                             <tr>
+                                                <th>BCT</th>
+                                                <th>Reactor</th>
+                                                <th>Process</th>
+                                                <th>Product</th>
+                                                <th>Batch Number</th>
                                                 <th>Start Time</th>
                                                 <th>End Time</th>
                                                 <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
+                                                    <th>Batch Number</th>
+                                                    <th>Reactor</th>    
                                                     <th>Start Time</th>
                                                     <th>End Time</th>
                                                 <?php } ?>
@@ -446,6 +457,8 @@
                                                     <td><?php echo $schedule->batch_number; ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <td class="actual_batchnumber" data-proname="<?php echo $schedule->product; ?>" data-prouuid="<?php echo $schedule->uuid; ?>" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'production' ? '#modal-actual-batchnumber' : 'none') ?>"><?php echo $schedule->actual_batch_number; ?></td>
+                                                    <td class="actual_reactor" data-proname="<?php echo $schedule->product; ?>" data-prouuid="<?php echo $schedule->uuid; ?>" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'production' ? '#modal-actual-reactor' : 'none') ?>"><?php echo $schedule->actual_reactor; ?></td>
                                                     <?php $startcomment = $schedule->actual_start_time_comment ?>
                                                     <?php $endcomment = $schedule->actual_end_time_comment ?>
                                                     <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
@@ -544,22 +557,24 @@
                                     <table class="table table-striped table-bordered">
                                         <thead>
                                             <tr>
-                                                <th rowspan="2">BCT</th>
-                                                <th rowspan="2">Reactor</th>
-                                                <th rowspan="2">Process</th>
-                                                <th rowspan="2">Product</th>
-                                                <th rowspan="2">Batch Number</th>
-                                                <th colspan="2">Plan</th>
+                                                <th colspan="7">Plan</th>
                                                 <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
-                                                    <th colspan="2">Actual</th>
+                                                    <th colspan="4">Actual</th>
                                                 <?php } ?>
                                                 <th rowspan="2">Delay</th>
                                                 <!--<th rowspan="2">Comment</th>-->
                                             </tr>
                                             <tr>
+                                                <th>BCT</th>
+                                                <th>Reactor</th>
+                                                <th>Process</th>
+                                                <th>Product</th>
+                                                <th>Batch Number</th>
                                                 <th>Start Time</th>
                                                 <th>End Time</th>
                                                 <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
+                                                    <th>Batch Number</th>
+                                                    <th>Reactor</th>    
                                                     <th>Start Time</th>
                                                     <th>End Time</th>
                                                 <?php } ?>
@@ -579,6 +594,8 @@
                                                     <td><?php echo $schedule->batch_number; ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->start_time); ?></td>
                                                     <td><?php echo date("d/m/Y H:i", $schedule->end_time); ?></td>
+                                                    <td class="actual_batchnumber" data-proname="<?php echo $schedule->product; ?>" data-prouuid="<?php echo $schedule->uuid; ?>" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'production' ? '#modal-actual-batchnumber' : 'none') ?>"><?php echo $schedule->actual_batch_number; ?></td>
+                                                    <td class="actual_reactor" data-proname="<?php echo $schedule->product; ?>" data-prouuid="<?php echo $schedule->uuid; ?>" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'production' ? '#modal-actual-reactor' : 'none') ?>"><?php echo $schedule->actual_reactor; ?></td>
                                                     <?php $startcomment = $schedule->actual_start_time_comment ?>
                                                     <?php $endcomment = $schedule->actual_end_time_comment ?>
                                                     <?php if ($this->session->userdata('role') == 'production' || $this->session->userdata('role') == 'planner') { ?>
@@ -689,13 +706,98 @@
     </div><!--/.panel-->
 
 </div>
+
+<div class="modal fade modal-framed" id="modal-actual-reactor" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">Enter reactor</h4>
+            </div><!-- .modal-header -->
+            <form class="form-m" action="<?php echo site_url('Schedule/set_actual_reactor') ?>" method="post">
+                <div class="modal-body">
+
+                    <div class="panel-body">
+
+                        <div class="form-group m-bottom-30 form-group-primary">
+                            <label for="inputProduct" class="control-label col-sm-3">Product</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="pro-name" disabled>
+                                <input type="hidden" id="pro-uuid" name="prod_uuid">
+                                <span class="line"></span>
+                            </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group m-bottom-30 form-group-primary">
+                            <label for="inputReactor" class="control-label col-sm-3">Enter Reactor</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="actual_reactor" id="actual_reactor" required>
+                                <span class="line"></span>
+                            </div>
+                        </div><!-- /.form-group -->
+
+                    </div>
+                </div><!-- .modal-body -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save changes" />
+                </div><!-- .modal-footer -->
+            </form>
+        </div>
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<div class="modal fade modal-framed" id="modal-actual-batchnumber" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">Enter Batch Number</h4>
+            </div><!-- .modal-header -->
+            <form class="form-m" action="<?php echo site_url('Schedule/set_actual_batchnumber') ?>" method="post">
+                <div class="modal-body">
+
+                    <div class="panel-body">
+
+                        <div class="form-group m-bottom-30 form-group-primary">
+                            <label for="inputProduct" class="control-label col-sm-3">Product</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" id="b-pro-name" disabled>
+                                <input type="hidden" id="b-pro-uuid" name="prod_uuid">
+                                <span class="line"></span>
+                            </div>
+                        </div><!-- /.form-group -->
+                        <div class="form-group m-bottom-30 form-group-primary">
+                            <label for="inputBatchnumber" class="control-label col-sm-3">Enter Batch Number</label>
+                            <div class="col-sm-9">
+                                <input type="text" class="form-control" name="actual_batchnumber" id="actual_batchnumber" required>
+                                <span class="line"></span>
+                            </div>
+                        </div><!-- /.form-group -->
+
+                    </div>
+                </div><!-- .modal-body -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <input type="submit" class="btn btn-primary" value="Save changes" />
+                </div><!-- .modal-footer -->
+            </form>
+        </div>
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
 <?php require_once 'footer.php'; ?>
 <script type="text/javascript">
     $(function () {
-        <?php if($this->session->userdata('role') == 'production'){ ?>
-        $('.start-time-picker').datetimepicker({minuteStep: 1});
-        $('.end-time-picker').datetimepicker({minuteStep: 1});
-        <?php } ?>
+<?php if ($this->session->userdata('role') == 'production') { ?>
+            $('.start-time-picker').datetimepicker({minuteStep: 1});
+            $('.end-time-picker').datetimepicker({minuteStep: 1});
+<?php } ?>
 
         function validate_punch(picker) {
             console.log('called');
@@ -802,6 +904,22 @@
             format: 'dd M yyyy',
             endDate: new Date()
         }).datepicker('update', new Date('<?php echo $date; ?>'));
+
+        $('.actual_reactor').click(function () {
+            var proname = $(this).data("proname");
+            var prouuid = $(this).data("prouuid");
+            
+            $('#pro-name').val(proname);
+            $('#pro-uuid').val(prouuid);
+        });
+        
+        $('.actual_batchnumber').click(function () {
+            var proname = $(this).data("proname");
+            var prouuid = $(this).data("prouuid");
+            
+            $('#b-pro-name').val(proname);
+            $('#b-pro-uuid').val(prouuid);
+        });
     });
 
     $(document).on('changeDate', '.time-picker', function () {
@@ -812,4 +930,6 @@
     $(document).ready(function () {
         $('[data-toggle="popover"]').popover();
     });
+
+
 </script>

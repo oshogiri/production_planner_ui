@@ -152,7 +152,7 @@ class Schedule extends CI_Controller {
         curl_setopt($ch, CURLOPT_URL, $_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_POST, count($postData));
+//        curl_setopt($ch, CURLOPT_POST, count($postData));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 
         $output = curl_exec($ch);
@@ -214,8 +214,10 @@ class Schedule extends CI_Controller {
         $data = $this->curl->execute();
 
         $decode_data = json_decode($data);
-        //echo '<pre>';print_r($decode_data);die();
+//        echo '<pre>';print_r($decode_data);die();
         $set_actual_time = $this->session->flashdata('set_actual_time');
+        $set_actual_reactor = $this->session->flashdata('set_actual_reactor');
+        $set_actual_batchnumber = $this->session->flashdata('set_actual_batchnumber');
         //echo '<pre>';print_r($set_actual_time);die();
 
         if (isset($date))
@@ -237,6 +239,12 @@ class Schedule extends CI_Controller {
                 $batch_schedules = $decode_data->batch_schedules;
                 if (isset($set_actual_time)) {
                     $view_data['message'] = $set_actual_time->message;
+                }
+                if (isset($set_actual_reactor)) {
+                    $view_data['message'] = $set_actual_reactor->message;
+                }
+                if (isset($set_actual_batchnumber)) {
+                    $view_data['message'] = $set_actual_batchnumber->message;
                 }
                 $view_data['batch_schedules'] = $batch_schedules;
                 $view_data['publish'] = $decode_data->published;
@@ -272,6 +280,35 @@ class Schedule extends CI_Controller {
         $decode_data = json_decode($responce);
         //echo '<pre>';print_r($decode_data);die();
         $this->session->set_flashdata('set_actual_time', $decode_data);
+        redirect('schedule/get_schedule', 'refresh');
+    }
+    
+    public function set_actual_reactor() {
+        $set_actual_reactor = $this->input->post();
+        $uuid = $set_actual_reactor['prod_uuid'];
+        
+        $data = array('actual_reactor' => $set_actual_reactor['actual_reactor']);
+//        echo '<pre>';print_r($data);die();
+        $url = 'http://172.16.0.22:1313/api/v1/schedules/' . $uuid . '/set_actual_time';
+        $responce = $this->postCURL($url, $data);
+        $decode_data = json_decode($responce);
+//        echo '<pre>';print_r($decode_data);die();
+        $this->session->set_flashdata('set_actual_reactor', $decode_data);
+        redirect('schedule/get_schedule', 'refresh');
+
+    }
+    
+    public function set_actual_batchnumber() {
+        $set_actual_batchnumber = $this->input->post();
+        $uuid = $set_actual_batchnumber['prod_uuid'];
+        
+        $data = array('actual_batch_number' => $set_actual_batchnumber['actual_batchnumber']);
+//        echo '<pre>';print_r($uuid);die();
+        $url = 'http://172.16.0.22:1313/api/v1/schedules/' . $uuid . '/set_actual_time';
+        $responce = $this->postCURL($url, $data);
+        $decode_data = json_decode($responce);
+//        echo '<pre>';print_r($decode_data);die();
+        $this->session->set_flashdata('set_actual_batchnumber', $decode_data);
         redirect('schedule/get_schedule', 'refresh');
     }
 
