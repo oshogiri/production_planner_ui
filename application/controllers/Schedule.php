@@ -13,6 +13,7 @@ class Schedule extends CI_Controller {
 
         $this->load->model('planned_batches');
         $this->load->model('get_schedule');
+        $this->load->model('Month_Schedule');
     }
 
     public function index() {
@@ -41,7 +42,7 @@ class Schedule extends CI_Controller {
         date_default_timezone_set('Asia/Kolkata');
 
         //  Setting URL To Fetch Data From
-        $this->curl->create('http://172.16.0.22:1313/api/v1/batch_plans/get_planned_batches');
+        $this->curl->create($this->config->item('api_Address').'/api/v1/batch_plans/get_planned_batches');
 
         //  To Temporarily Store Data Received From Server
         $this->curl->option('buffersize', 10);
@@ -119,7 +120,7 @@ class Schedule extends CI_Controller {
             'batch_sequence' => $data
         );
         //print_r($sequence);exit;
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/generate_schedule';
+        $url = $this->config->item('api_Address').'/api/v1/schedules/generate_schedule';
 //        $url = '172.16.0.22:1313/api/v1/schedules/generate_schedule';
 
         $responce = $this->postCURL($url, $sequence);
@@ -133,7 +134,7 @@ class Schedule extends CI_Controller {
         //$get_batch = $this->input->post();
         $batch_number = $this->input->post('batch_number');
         $uuid = $this->input->post('uuid');
-        $url = 'http://172.16.0.22:1313/api/v1/batches/' . $uuid . '/set_batch_number';
+        $url = $this->config->item('api_Address').'/api/v1/batches/' . $uuid . '/set_batch_number';
         $responce = $this->postCURL($url, array('batch_number' => $batch_number));
         echo $responce;
     }
@@ -163,13 +164,13 @@ class Schedule extends CI_Controller {
     }
 
     public function publish_schedule() {
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/publish_schedule';
+        $url = $this->config->item('api_Address').'/api/v1/schedules/publish_schedule';
         $responce = $this->postCURL($url, array());
         echo $responce;
     }
 
     public function unpublish_schedule() {
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/unpublish_schedule';
+        $url = $this->config->item('api_Address').'/api/v1/schedules/unpublish_schedule';
         $responce = $this->postCURL($url, array());
         echo $responce;
     }
@@ -186,7 +187,7 @@ class Schedule extends CI_Controller {
             $date = null;
 //        echo '<pre>';print_r($date);die();
 
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/get_schedule';
+        $url = $this->config->item('api_Address').'/api/v1/schedules/get_schedule';
         if (isset($date))
             $url = $url . '?schedule_date=' . $date;
 
@@ -273,7 +274,7 @@ class Schedule extends CI_Controller {
         );
         //echo '<pre>';print_r($data);//die();
 
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/' . $uuid . '/set_actual_time';
+        $url = $this->config->item('api_Address').'/api/v1/schedules/' . $uuid . '/set_actual_time';
 //        $url = '172.16.0.22:1313/api/v1/schedules/' . $uuid . '/set_actual_time';
 
         $responce = $this->postCURL($url, $data);
@@ -282,29 +283,28 @@ class Schedule extends CI_Controller {
         $this->session->set_flashdata('set_actual_time', $decode_data);
         redirect('schedule/get_schedule', 'refresh');
     }
-    
+
     public function set_actual_reactor() {
         $set_actual_reactor = $this->input->post();
         $uuid = $set_actual_reactor['prod_uuid'];
-        
+
         $data = array('actual_reactor' => $set_actual_reactor['actual_reactor']);
 //        echo '<pre>';print_r($data);die();
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/' . $uuid . '/set_actual_time';
+        $url = $this->config->item('api_Address').'/api/v1/schedules/' . $uuid . '/set_actual_time';
         $responce = $this->postCURL($url, $data);
         $decode_data = json_decode($responce);
 //        echo '<pre>';print_r($decode_data);die();
         $this->session->set_flashdata('set_actual_reactor', $decode_data);
         redirect('schedule/get_schedule', 'refresh');
-
     }
-    
+
     public function set_actual_batchnumber() {
         $set_actual_batchnumber = $this->input->post();
         $uuid = $set_actual_batchnumber['prod_uuid'];
-        
+
         $data = array('actual_batch_number' => $set_actual_batchnumber['actual_batchnumber']);
 //        echo '<pre>';print_r($uuid);die();
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/' . $uuid . '/set_actual_time';
+        $url = $this->config->item('api_Address').'/api/v1/schedules/' . $uuid . '/set_actual_time';
         $responce = $this->postCURL($url, $data);
         $decode_data = json_decode($responce);
 //        echo '<pre>';print_r($decode_data);die();
@@ -312,4 +312,27 @@ class Schedule extends CI_Controller {
         redirect('schedule/get_schedule', 'refresh');
     }
 
+    public function Unpublish_batchplan_and_schedule() {
+        $url = $this->config->item('api_Address').'/api/v1/batch_plans/production_unpublish';
+        $responce = $this->postCURL($url, array());
+        $decode_data = json_decode($responce);
+
+        if (isset($decode_data->success)) {
+            redirect('/MonthSchedule/month_schedule', 'refresh');
+        } else {
+            redirect('/Schedule/get_schedule', 'refresh');
+        }
+    }
+
+    public function Publish_batchplan_and_schedule() {
+        $url = $this->config->item('api_Address').'/api/v1/batch_plans/production_publish';
+        $responce = $this->postCURL($url, array());
+        $decode_data = json_decode($responce);
+
+        if (isset($decode_data->success)) {
+            redirect('/Schedule/get_schedule', 'refresh');
+        } else {
+            redirect('/MonthSchedule/month_schedule', 'refresh');
+        }
+    }
 }

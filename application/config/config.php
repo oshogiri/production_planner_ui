@@ -23,9 +23,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://172.16.0.22:8080';
-//$config['base_url'] = 'https://production-planner-dashboard.herokuapp.com/';
-//$config['base_url'] = ' http://localhost/production_planner_ui/';
+//$config['base_url'] = 'http://172.16.0.22:8080';
+//$config['base_url'] = 'http://localhost/production_planner_ui/';
+$config['base_url'] = ' http://172.16.17.248/production_planner_ui/';
+//$config['api_Address']= 'http://0.0.0.0:3000';
+$config['api_Address']= 'http://172.16.0.22:1313';
 
 /*
 |--------------------------------------------------------------------------

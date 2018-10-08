@@ -267,7 +267,7 @@
                                                             ?>
                                                         </td>
                                                     <?php } ?>
-                    <!--<td><?php //echo gmdate("H:i", $schedule->hold_up);                                                  ?></td>-->
+                    <!--<td><?php //echo gmdate("H:i", $schedule->hold_up);                                                                    ?></td>-->
                                                     <td><?php echo sprintf('%02d', floor($schedule->hold_up / 3600)) . gmdate(":i", $schedule->hold_up % 3600); ?></td>
                                                 </tr>
                                             <?php endforeach; ?>
@@ -702,6 +702,14 @@
                 </div>
             <?php } ?>
         </div><!-- /.panel-body -->
+        <?php if (isset($publish) && $this->session->userdata('role') == 'production') {
+                ?>
+        <div class="panel-footer">
+            <form action="<?php echo site_url('Schedule/Unpublish_batchplan_and_schedule')?>" method="post">
+                <input type="submit" value="Change Plan" class="btn btn-info rounded">
+            </form>
+        </div>
+        <?php } ?>
 
     </div><!--/.panel-->
 
@@ -774,7 +782,7 @@
                         <div class="form-group m-bottom-30 form-group-primary">
                             <label for="inputBatchnumber" class="control-label col-sm-3">Enter Batch Number</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" name="actual_batchnumber" id="actual_batchnumber" required>
+                                <input type="number" class="form-control" name="actual_batchnumber" id="actual_batchnumber" required>
                                 <span class="line"></span>
                             </div>
                         </div><!-- /.form-group -->
@@ -908,15 +916,15 @@
         $('.actual_reactor').click(function () {
             var proname = $(this).data("proname");
             var prouuid = $(this).data("prouuid");
-            
+
             $('#pro-name').val(proname);
             $('#pro-uuid').val(prouuid);
         });
-        
+
         $('.actual_batchnumber').click(function () {
             var proname = $(this).data("proname");
             var prouuid = $(this).data("prouuid");
-            
+
             $('#b-pro-name').val(proname);
             $('#b-pro-uuid').val(prouuid);
         });

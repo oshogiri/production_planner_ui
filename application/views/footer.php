@@ -53,5 +53,10 @@
 <script src="<?php echo base_url(); ?>assets/dist/material/plugins/clockface/js/clockface.js"></script>
 <script src="<?php echo base_url(); ?>assets/js/demo/demo-plugins-bootstrap-date-time-pickers.js"></script>
 
+<script src="<?php echo base_url(); ?>assets/js/demo/demo-plugin-datatables-extensions.js"></script>
+
+<!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
+
 </body>
 </html>

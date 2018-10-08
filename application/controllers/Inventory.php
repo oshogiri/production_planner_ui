@@ -65,7 +65,7 @@ class Inventory extends CI_Controller {
             $filedata = new CURLFile($fullpath, $filetype, $file_name);
             $post = array('inventory' => $filedata);
 
-            $target_url = 'http://172.16.0.22:1313/api/v1/inventories/upload_inventory';
+            $target_url = $this->config->item('api_Address').'/api/v1/inventories/upload_inventory';
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);

@@ -9,6 +9,30 @@
                 <span>Dashboard</span>
             </a>
         </li>
+        <?php if ($this->session->userdata('role') == 'admin') { ?>
+            <li class="title">Batch Plan</li>
+            <li class="dropdown">
+                <a href="<?php echo site_url('MonthSchedule/month_schedule') ?>">
+                    <i class="fa fa-eye"></i>
+                    <span>View Batch Plan</span>
+                </a>
+            </li>
+            <li class="title">Schedule</li>
+            <li class="dropdown">
+                <a href="<?php echo site_url('schedule/get_schedule') ?>">
+                    <i class="fa fa-eye"></i>
+                    <span>View Schedule</span>
+                </a>
+            </li>
+            <li class="title">Report</li>
+            <li class="dropdown">
+                <a href="<?php echo site_url('ReportSearch') ?>">
+                    <i class="fa fa-eye"></i>
+                    <span>Report</span>
+                </a>
+            </li>
+        <?php } ?>
+        
         <?php if ($this->session->userdata('role') == 'planner') { ?>
             <li class="title">Demand Sheet</li>
             <li class="dropdown">

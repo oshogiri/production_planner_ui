@@ -6,7 +6,7 @@ class Planned_batches extends CI_Model {
 
     public function resequence_planned_batches() {
         //  Setting URL To Fetch Data From
-        $this->curl->create('http://172.16.0.22:1313/api/v1/batch_plans/get_planned_batches');
+        $this->curl->create($this->config->item('api_Address').'/api/v1/batch_plans/get_planned_batches');
 
         //  To Temporarily Store Data Received From Server
         $this->curl->option('buffersize', 10);

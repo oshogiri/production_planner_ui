@@ -39,7 +39,7 @@
                 <div class="tab-content">
                     <div class="tab-pane fade in active" id="Stream12">
                         <?php if (isset($get_planned_batches->stream_1_2)) { ?>
-                            <table class="table table-bordered" >
+                            <table class="table table-bordered order-lists12" >
                                 <thead>
                                     <tr>
                                         <th>Stream</th>
@@ -59,12 +59,21 @@
                                         </tr>
                                     <?php } ?>
                                 </tbody>
+<!--                                <tfoot>
+                                    <tr>
+                                        <td colspan="3" style="text-align: left;">
+                                            <input type="button" class="btn btn-lg btn-block btn-default" id="addrow12" value="Add Row" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                </tfoot>-->
                             </table>
                         <?php } ?>
                     </div>
                     <div class="tab-pane fade in" id="Stream34">
                         <?php if (isset($get_planned_batches->stream_3_4)) { ?>
-                            <table class="table table-bordered" >
+                            <table class="table table-bordered order-lists34" >
                                 <thead>
                                     <tr>
                                         <th>Stream</th>
@@ -83,8 +92,17 @@
                                         </tr>
                                     <?php } ?>
                                 </tbody>
-                            <?php } ?>
-                        </table>
+<!--                                <tfoot>
+                                    <tr>
+                                        <td colspan="3" style="text-align: left;">
+                                            <input type="button" class="btn btn-lg btn-block btn-default" id="addrow34" value="Add Row" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                </tfoot>-->
+                            </table>
+                        <?php } ?>
                     </div>
                 </div>
                 <?php
@@ -342,11 +360,11 @@
             if (isset($publish)) {
                 if (empty($publish)) {
                     ?>
-                    <button type="button" class="btn btn-info rounded" id="publish_seq" onclick="this.disabled=true; $(this).text('Publishing...');">Publish</button>
+                    <button type="button" class="btn btn-info rounded" id="publish_seq" onclick="this.disabled = true; $(this).text('Publishing...');">Publish</button>
                     <?php
                 } else {
                     ?>
-                    <button type="button" class="btn btn-info rounded" id="unpublish_seq" onclick="this.disabled=true; $(this).text('Unpublishing...');">Unpublish</button>
+                    <button type="button" class="btn btn-info rounded" id="unpublish_seq" onclick="this.disabled = true; $(this).text('Unpublishing...');">Unpublish</button>
                     <?php
                 }
             }
@@ -426,5 +444,46 @@
                 }
             });
         });
+        
+        var counter = 0;
+
+//    $("#addrow12").on("click", function () {
+//        var newRow = $("<tr>");
+//        var cols = "";
+//
+//        cols += '<td><input type="text" class="form-control" name="stream' + counter + '"/></td>';
+//        cols += '<td><input type="text" class="form-control" name="product' + counter + '"/></td>';
+//        cols += '<td><input type="text" class="form-control" name="batch_number' + counter + '"/></td>';
+//
+//        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+//        newRow.append(cols);
+//        $("table.order-lists12").append(newRow);
+//        counter++;
+//    });
+//
+//    $("table.order-lists12").on("click", ".ibtnDel", function (event) {
+//        $(this).closest("tr").remove();       
+//        counter -= 1
+//    });
+//    
+//    $("#addrow34").on("click", function () {
+//        var newRow = $("<tr>");
+//        var cols = "";
+//
+//        cols += '<td><input type="text" class="form-control" name="stream' + counter + '"/></td>';
+//        cols += '<td><input type="text" class="form-control" name="product' + counter + '"/></td>';
+//        cols += '<td><input type="text" class="form-control" name="batch_number' + counter + '"/></td>';
+//
+//        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+//        newRow.append(cols);
+//        $("table.order-lists34").append(newRow);
+//        counter++;
+//    });
+//
+//    $("table.order-lists34").on("click", ".ibtnDel", function (event) {
+//        $(this).closest("tr").remove();       
+//        counter -= 1
+//    });
+        
     });
 </script>

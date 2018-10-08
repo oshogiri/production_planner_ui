@@ -33,19 +33,19 @@
                 }
                 ?> 
             </div><!-- /.panel-title -->
-            <div class="panel-tools">
+<!--            <div class="panel-tools">
                 <form class="form-inline">
-                    <?php if (isset($inventories) && empty($publish) && $this->session->userdata('role') == 'planner') { ?>
-                        <a href="<?php echo site_url('MonthSchedule/generate_batch_plan'); ?>" class="btn btn-info btn-sm rippler" id="generate_batch_plan_id">
+                    <?php // if (isset($inventories) && empty($publish) && $this->session->userdata('role') == 'planner') { ?>
+                        <a href="<?php // echo site_url('MonthSchedule/generate_batch_plan'); ?>" class="btn btn-info btn-sm rippler" id="generate_batch_plan_id">
                             <span>
                                 Generate Batch Plan
                             </span>
                         </a>
-                    <?php } ?>
+                    <?php // } ?>
                     <label>Month: </label>
                     <input type="text" class="form-control time-picker" placeholder="Select Month" readonly>
                 </form>
-            </div>
+            </div>-->
         </div><!-- /.panel-heading -->
 
         <div class="panel-body">
@@ -55,7 +55,8 @@
                 </div>
                 <?php
             }
-            if(isset($get_nobatch_responce)){ ?>
+            if (isset($get_nobatch_responce)) {
+                ?>
                 <div class="alert alert-info">
                     <?php echo $get_nobatch_responce->message; ?>
                     <?php echo $get_addnobatch_responce->message; ?>
@@ -79,7 +80,7 @@
             if (isset($inventories)) {
                 ?>
                 <div id="inventory-table" class="table-scroll">
-                    <table class="table table-bordered table-condensed" id="btcount">
+                    <table class="table table-bordered table-condensed" id="datatable-dropdown-import">
                         <thead>
                             <tr class="titlerow">
                                 <th>Demand<br>Quantity<br/>(MT)</th>
@@ -151,9 +152,9 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 1'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-batch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner' ? '#modal-batch-plan' : (date('j M y') == $date_val ? '#modal-batch-plan' : 'none')) ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-addbatch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 1"></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner' ? '#modal-addbatch-plan' : (date('j M y') == $date_val ? '#modal-addbatch-plan' : 'none')) ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 1"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
@@ -183,9 +184,9 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 2'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-batch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner' ? '#modal-batch-plan' : (date('j M y') == $date_val ? '#modal-batch-plan' : 'none')) ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-addbatch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 2"></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner' ? '#modal-addbatch-plan' : (date('j M y') == $date_val ? '#modal-addbatch-plan' : 'none')) ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 2"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
@@ -215,9 +216,9 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 3'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-batch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner' ? '#modal-batch-plan' : (date('j M y') == $date_val ? '#modal-batch-plan' : 'none')) ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-addbatch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 3"></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner' ? '#modal-addbatch-plan' : (date('j M y') == $date_val ? '#modal-addbatch-plan' : 'none')) ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 3"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
@@ -247,9 +248,9 @@
                                             foreach ($date_header_array as $d => $date_val) {
                                                 if (isset($batch_data_array['Stream 4'][$inventory->product][$date_val])) {
                                                     if ($batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches'] > 0) {
-                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-batch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner' ? '#modal-batch-plan' : (date('j M y') == $date_val ? '#modal-batch-plan' : 'none')) ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-nobatch="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?>" data-prouuid="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['uuid']; ?>"><?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?></td><?php
                                                     } else {
-                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner'? '#modal-addbatch-plan':'none') ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 4"></td><?php
+                                                        ?><td class="total" data-toggle="modal" data-target="<?php echo ($this->session->userdata('role') == 'planner' ? '#modal-addbatch-plan' : (date('j M y') == $date_val ? '#modal-addbatch-plan' : 'none')) ?>" data-prodate="<?php echo $date_val; ?>" data-proname="<?php echo $inventory->product; ?>" data-stream="Stream 4"></td><?php
                                                     }
                                                 } else {
                                                     ?><td>NIL</td><?php
@@ -316,14 +317,19 @@
             if (isset($publish) && $this->session->userdata('role') == 'planner') {
                 if (empty($publish)) {
                     ?>
-                    <button type="button" class="btn btn-info rounded" id="publish_seq" onclick="this.disabled=true; $(this).text('Publishing...');">Publish</button>
+                    <button type="button" class="btn btn-info rounded" id="publish_seq" onclick="this.disabled = true; $(this).text('Publishing...');">Publish</button>
                     <?php
                 } else {
                     ?>
-                    <button type="button" class="btn btn-info rounded" id="unpublish_seq" onclick="this.disabled=true; $(this).text('Unpublishing...');">Unpublish</button>
+                    <button type="button" class="btn btn-info rounded" id="unpublish_seq" onclick="this.disabled = true; $(this).text('Unpublishing...');">Unpublish</button>
                     <?php
                 }
-            }
+            } elseif (empty($publish) && $this->session->userdata('role') == 'production') {
+                ?>
+                    <form action="<?php echo site_url('Schedule/Publish_batchplan_and_schedule')?>" method="post">
+                    <input type="submit" class="btn btn-info rounded" value="Publish">
+                </form>
+            <?php }
             ?>
         </div>
     </div>
@@ -470,7 +476,7 @@
             function calculateColumn(index)
             {
                 var total = 0;
-                $('#btcount tr').each(function ()
+                $('table tr').each(function ()
                 {
                     var value = parseInt($('td', this).eq(index).text());
                     if (!isNaN(value))
@@ -487,16 +493,16 @@
                 var nobatch = $(this).data("nobatch");
                 var prodate = $(this).data("prodate");
                 var prouuid = $(this).data("prouuid");
-                
+
                 var addproname = $(this).data("proname");
                 var addprodate = $(this).data("prodate");
                 var stream = $(this).data("stream");
-                
+
                 $('#pro-name').val(proname);
                 $('#pro-batch').val(nobatch);
                 $('#pro-date').val(prodate);
                 $('#pro-uuid').val(prouuid);
-                
+
                 $('#addpro-name').val(addproname);
                 $('#addpro-date').val(addprodate);
                 $('#addstream').val(stream);
@@ -519,9 +525,9 @@
                 dataType: 'json'
             }).done(function (response) {
                 console.log(response['message']);
-                if(response['success'] = "true"){
+                if (response['success'] = "true") {
                     window.location = window.location.href;
-                }else{
+                } else {
                     $('#publish-schedule-section').html('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
                 }
             });
@@ -533,12 +539,12 @@
                 dataType: 'json'
             }).done(function (response) {
                 console.log(response['success']);
-                if(response['success'] = "true"){
+                if (response['success'] = "true") {
                     window.location = window.location.href;
-                }else{
+                } else {
                     $('#publish-schedule-section').html('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
                 }
-              
+
             });
         });
 
@@ -553,6 +559,20 @@
         if ($.isNumeric(month))
             location = location.protocol + "//" + location.host + location.pathname + "?month=" + month;
     });
-   
+
+    $('#datatable-dropdown-import').dataTable({
+        "searching": false,
+        "ordering": false,
+        "paging": false,
+        dom: '<"row" <"col-sm-6" <"inline-block" l><"inline-block" B> > <"col-sm-6" f> >' +
+                '<"row" <"col-sm-12" t> >' +
+                '<"row m-top-10" <"col-sm-6" i> <"col-sm-6" p> >',
+        buttons: [{
+                extend: 'collection',
+                text: 'Export',
+                className: 'btn-default-outline',
+                buttons: ['excel', 'csv']
+            }]
+    });
 
 </script>
