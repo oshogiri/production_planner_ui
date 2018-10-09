@@ -33,19 +33,19 @@
                 }
                 ?> 
             </div><!-- /.panel-title -->
-<!--            <div class="panel-tools">
+            <div class="panel-tools">
                 <form class="form-inline">
                     <?php // if (isset($inventories) && empty($publish) && $this->session->userdata('role') == 'planner') { ?>
-                        <a href="<?php // echo site_url('MonthSchedule/generate_batch_plan'); ?>" class="btn btn-info btn-sm rippler" id="generate_batch_plan_id">
+<!--                        <a href="<?php // echo site_url('MonthSchedule/generate_batch_plan'); ?>" class="btn btn-info btn-sm rippler" id="generate_batch_plan_id">
                             <span>
                                 Generate Batch Plan
                             </span>
-                        </a>
+                        </a>-->
                     <?php // } ?>
                     <label>Month: </label>
                     <input type="text" class="form-control time-picker" placeholder="Select Month" readonly>
                 </form>
-            </div>-->
+            </div>
         </div><!-- /.panel-heading -->
 
         <div class="panel-body">
