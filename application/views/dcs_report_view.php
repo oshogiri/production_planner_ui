@@ -4,13 +4,7 @@
 <?php require_once 'sidebar.php'; ?>
 
 <div class="content">
-    <div class="breadcrumb-wrapper">
-        <ol class="breadcrumb">
-            <li><a href="<?php echo base_url('dashboard'); ?>"><i class="fa fa-home"></i>Home</a></li>
-            <li class="active">Upload Batch Plan</li>
-        </ol>
-    </div><!-- /.breadcrumb-wrapper -->
-
+    
     <div class="page-title-wrapper">
         <h2 class="page-title">Batch Plan</h2>
     </div><!-- /.page-titile-wrapper -->
@@ -20,20 +14,19 @@
     <div class="panel panel-default-light border-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <i class="fa fa-file-o m-right-5"></i> File Input
+                <i class="fa fa-upload m-right-5"></i> Upload
             </div><!-- /.panel-title -->
-            <div class="panel-tools">
-                <a href="<?php echo base_url() . 'uploads/sample.xlsx' ?>" class="btn btn-info btn-sm" download>
+            <div class="panel-tools"> 
+                <a href="<?php echo base_url() . 'sample/sample.xlsx' ?>" class="btn btn-info btn-sm" download>
                     <span>
                         <i class="fa fa-download"></i>
-                        Download Sample File
+                        Download Sample Batch Plan File
                     </span>
                 </a>
             </div>
         </div><!-- /.panel-heading -->
 
         <div class="panel-body">
-            <h2 class="m-bottom-30">Upload</h2>
             <?php if (isset($error)) { ?>
                 <div class="alert alert-danger fade in">
                     <a href="#" class="close" data-dismiss="alert">&times;</a>

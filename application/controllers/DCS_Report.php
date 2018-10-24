@@ -17,7 +17,9 @@ class DCS_Report extends CI_Controller {
             if (isset($do_upload)) {
                 if (empty($do_upload->success)) {
                     $view_data['fail_message'] = $do_upload->message;
-                    $view_data['success_errors'] = $do_upload->errors;
+                    if(isset($do_upload->errors)){
+                        $view_data['success_errors'] = $do_upload->errors;
+                    }
                     $this->load->view('dcs_report_view', $view_data);
                 } else {
                     $view_data['success_message'] = $do_upload->message;
@@ -44,7 +46,8 @@ class DCS_Report extends CI_Controller {
         $config['allowed_types'] = 'csv|xls|xlsx';
         $config['max_size'] = 100;
 
-        $this->load->library('upload', $config);
+//        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
         if (!$this->upload->do_upload('file')) {
 
             $error = array('error' => $this->upload->display_errors());
@@ -60,7 +63,7 @@ class DCS_Report extends CI_Controller {
             $filedata = new CURLFile($fullpath, $filetype, $file_name);
             $post = array('batch_plan' => $filedata);
 
-            $target_url = 'http://172.16.0.22:1313/api/v1/batch_plans/upload_batch_plan';
+            $target_url = $this->config->item('api_Address').'/api/v1/batch_plans/upload_batch_plan';
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 2);
@@ -74,23 +77,10 @@ class DCS_Report extends CI_Controller {
             $result = curl_exec($ch);
             curl_close($ch);
             $decode_data = json_decode($result);
-            //echo '<pre>';print_r($decode_data);die();
+//            echo '<pre>';print_r($decode_data);die();
             $this->session->set_flashdata('do_upload', $decode_data);
             redirect('DCS_Report', 'refresh');
 
-//            if (isset($decode_data)) {
-//                if (empty($decode_data->success)) {
-//                    $view_data['fail_message'] = $decode_data->message;
-//                    $view_data['success_errors'] = $decode_data->errors;
-//                    $this->load->view('dcs_report_view', $view_data);
-//                } else {
-//                    $view_data['success_message'] = $decode_data->message;
-//                    $this->load->view('dcs_report_view', $view_data);
-//                }
-//            } else {
-//                $view_data['fail_message'] = 'No Responce';
-//                $this->load->view('dcs_report_view', $view_data);
-//            }
         }
     }
 

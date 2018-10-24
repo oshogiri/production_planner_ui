@@ -11,36 +11,35 @@
     <div class="panel panel-default-light border-default">
         <div class="panel-heading">
             <div class="panel-title">
-                <i class="fa fa-table m-right-5"></i> Resequence Batches
+                <i class="fa fa-list-ol m-right-5"></i> Resequence Batches
             </div><!-- /.panel-title -->
         </div><!-- /.panel-heading -->
-        <?php if (isset($message_error)) { ?>
-            <div class="alert alert-danger fade in">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <?php echo $message_error; ?>
-            </div>
-        <?php } ?>
-        <?php if (isset($message_success)) { ?>
-            <div class="alert alert-success fade in">
-                <a href="#" class="close" data-dismiss="alert">&times;</a>
-                <?php echo $message_success; ?>
-            </div>
-        <?php } ?>
         <div class="panel-body">
-            <ul class="nav nav-tabs underline-tabs success-tabs">
-                <li class="active">
-                    <a href="#Stream12" data-toggle="tab">Stream 1 & 2</a>
-                </li>
-                <li>
-                    <a href="#Stream34" data-toggle="tab">Stream 3 & 4</a>
-                </li>
-            </ul>
-            <div class="tab-content">
-                <?php //echo '<pre>';print_r($get_planned_batches->stream_1_2);die(); ?>
-                <?php if (isset($get_planned_batches)) { ?>
+            <?php if (isset($message_error)) { ?>
+                <div class="alert alert-danger fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <?php echo $message_error; ?>
+                </div>
+            <?php } ?>
+            <?php if (isset($message_success)) { ?>
+                <div class="alert alert-success fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <?php echo $message_success; ?>
+                </div>
+            <?php } ?>
+            <?php if (isset($get_planned_batches)) { ?>
+                <ul class="nav nav-tabs underline-tabs success-tabs">
+                    <li class="active">
+                        <a href="#Stream12" data-toggle="tab">Stream 1 & 2</a>
+                    </li>
+                    <li>
+                        <a href="#Stream34" data-toggle="tab">Stream 3 & 4</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
                     <div class="tab-pane fade in active" id="Stream12">
                         <?php if (isset($get_planned_batches->stream_1_2)) { ?>
-                            <table class="table table-bordered" >
+                            <table class="table table-bordered order-lists12" >
                                 <thead>
                                     <tr>
                                         <th>Stream</th>
@@ -60,12 +59,21 @@
                                         </tr>
                                     <?php } ?>
                                 </tbody>
+<!--                                <tfoot>
+                                    <tr>
+                                        <td colspan="3" style="text-align: left;">
+                                            <input type="button" class="btn btn-lg btn-block btn-default" id="addrow12" value="Add Row" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                </tfoot>-->
                             </table>
                         <?php } ?>
                     </div>
                     <div class="tab-pane fade in" id="Stream34">
                         <?php if (isset($get_planned_batches->stream_3_4)) { ?>
-                            <table class="table table-bordered" >
+                            <table class="table table-bordered order-lists34" >
                                 <thead>
                                     <tr>
                                         <th>Stream</th>
@@ -84,23 +92,37 @@
                                         </tr>
                                     <?php } ?>
                                 </tbody>
-                            <?php } ?>
-                        </table>
+<!--                                <tfoot>
+                                    <tr>
+                                        <td colspan="3" style="text-align: left;">
+                                            <input type="button" class="btn btn-lg btn-block btn-default" id="addrow34" value="Add Row" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                    </tr>
+                                </tfoot>-->
+                            </table>
+                        <?php } ?>
                     </div>
-                <?php } elseif (isset($error_batch)) { ?>
-                    <div class="alert alert-danger fade in">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <?php echo $error_batch; ?>
-                    </div>
+                </div>
+                <?php
+            } elseif (isset($error_batch)) {
+                ?>
+                <div class="alert alert-danger fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <?php echo $error_batch; ?>
+                </div>
+            <?php } ?>
+            <div class="panel-footer">
+                <?php if (!empty($get_planned_batches->stream_1_2) || !empty($get_planned_batches->stream_3_4)) { ?>
+                    <form method="post" id="generate_schedule_form" action="<?php echo site_url('schedule/generate_schedule') ?>">
+                        <input type="hidden" name="batch_sequence" id="batch_sequence"/>
+                        <button type="submit" class="btn btn-info rounded" id="submit_seq">Submit</button>
+                    </form>
                 <?php } ?>
             </div>
         </div><!-- /.panel-body -->
-        <div class="panel-footer">
-            <form method="post" id="generate_schedule_form" action="<?php echo site_url('schedule/generate_schedule') ?>">
-                <input type="hidden" name="batch_sequence" id="batch_sequence"/>
-                <button type="submit" class="btn btn-info rounded" id="submit_seq">Submit</button>
-            </form>
-        </div>
+
     </div><!--/.panel-->
 
     <div class="panel panel-default-light border-default">
@@ -116,23 +138,23 @@
         </div><!-- /.panel-heading -->
 
         <div class="panel-body">
-            <ul class="nav nav-tabs underline-tabs success-tabs">
-                <li class="active">
-                    <a href="#Stream1" data-toggle="tab">Stream #1</a>
-                </li>
-                <li>
-                    <a href="#Stream2" data-toggle="tab">Stream #2</a>
-                </li>
-                <li>
-                    <a href="#Stream3" data-toggle="tab">Stream #3</a>
-                </li>
-                <li>
-                    <a href="#Stream4" data-toggle="tab">Stream #4</a>
-                </li>
-            </ul>
+            <?php if (isset($batch_schedules)) { ?>
+                <ul class="nav nav-tabs underline-tabs success-tabs">
+                    <li class="active">
+                        <a href="#Stream1" data-toggle="tab">Stream #1</a>
+                    </li>
+                    <li>
+                        <a href="#Stream2" data-toggle="tab">Stream #2</a>
+                    </li>
+                    <li>
+                        <a href="#Stream3" data-toggle="tab">Stream #3</a>
+                    </li>
+                    <li>
+                        <a href="#Stream4" data-toggle="tab">Stream #4</a>
+                    </li>
+                </ul>
 
-            <div class="tab-content">
-                <?php if (isset($batch_schedules)) { ?>
+                <div class="tab-content">
                     <div class="tab-pane fade in active" id="Stream1">
                         <?php if (isset($batch_schedules->stream_1)) { ?>
                             <?php
@@ -325,22 +347,24 @@
                         }
                         ?>
                     </div>
-                <?php } elseif (isset($error_schedule)) { ?>
-                    <div class="alert alert-danger fade in">
-                        <a href="#" class="close" data-dismiss="alert">&times;</a>
-                        <?php echo $error_schedule; ?>
-                    </div>
-                <?php } ?>
-            </div>
+                </div>
+            <?php } elseif (isset($error_schedule)) { ?>
+                <div class="alert alert-danger fade in">
+                    <a href="#" class="close" data-dismiss="alert">&times;</a>
+                    <?php echo $error_schedule; ?>
+                </div>
+            <?php } ?>
         </div><!-- /.panel-body -->
         <div id="publish-schedule-section" class="panel-footer">
             <?php
             if (isset($publish)) {
                 if (empty($publish)) {
                     ?>
-
-                    <button type="button" class="btn btn-info rounded" id="publish_seq">Publish</button>
-
+                    <button type="button" class="btn btn-info rounded" id="publish_seq" onclick="this.disabled = true; $(this).text('Publishing...');">Publish</button>
+                    <?php
+                } else {
+                    ?>
+                    <button type="button" class="btn btn-info rounded" id="unpublish_seq" onclick="this.disabled = true; $(this).text('Unpublishing...');">Unpublish</button>
                     <?php
                 }
             }
@@ -360,9 +384,17 @@
         });
 
         $('#submit_seq').click(function () {
+            var data = '';
             var data12 = $('#sortable12').sortable('toArray');
             var data34 = $('#sortable34').sortable('toArray');
-            $('#batch_sequence').val(data12.toString() + ',' + data34.toString());
+            if (data12.length > 0)
+                data = data + data12;
+            if (data12.length > 0 && data34.length > 0)
+                data = data + ','
+            if (data34.length > 0)
+                data = data + data34;
+
+            $('#batch_sequence').val(data);
         });
 
         $('.batch_number_input').change(function () {
@@ -388,10 +420,70 @@
                 method: 'POST',
                 dataType: 'json'
             }).done(function (response) {
-                $('#publish_seq').hide();
+//                $('#publish_seq').hide();
                 console.log(response['message']);
-				$('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>')
+                if (response['success'] = "true") {
+                    window.location = window.location.href;
+                } else {
+                    $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+                }
             });
         });
+        $('#unpublish_seq').click(function () {
+            $.ajax({
+                url: '<?php echo base_url('schedule/unpublish_schedule') ?>',
+                method: 'POST',
+                dataType: 'json'
+            }).done(function (response) {
+//                $('#unpublish_seq').hide();
+                console.log(response['message']);
+                if (response['success'] = "true") {
+                    window.location = window.location.href;
+                } else {
+                    $('#publish-schedule-section').html('<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+                }
+            });
+        });
+        
+        var counter = 0;
+
+//    $("#addrow12").on("click", function () {
+//        var newRow = $("<tr>");
+//        var cols = "";
+//
+//        cols += '<td><input type="text" class="form-control" name="stream' + counter + '"/></td>';
+//        cols += '<td><input type="text" class="form-control" name="product' + counter + '"/></td>';
+//        cols += '<td><input type="text" class="form-control" name="batch_number' + counter + '"/></td>';
+//
+//        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+//        newRow.append(cols);
+//        $("table.order-lists12").append(newRow);
+//        counter++;
+//    });
+//
+//    $("table.order-lists12").on("click", ".ibtnDel", function (event) {
+//        $(this).closest("tr").remove();       
+//        counter -= 1
+//    });
+//    
+//    $("#addrow34").on("click", function () {
+//        var newRow = $("<tr>");
+//        var cols = "";
+//
+//        cols += '<td><input type="text" class="form-control" name="stream' + counter + '"/></td>';
+//        cols += '<td><input type="text" class="form-control" name="product' + counter + '"/></td>';
+//        cols += '<td><input type="text" class="form-control" name="batch_number' + counter + '"/></td>';
+//
+//        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
+//        newRow.append(cols);
+//        $("table.order-lists34").append(newRow);
+//        counter++;
+//    });
+//
+//    $("table.order-lists34").on("click", ".ibtnDel", function (event) {
+//        $(this).closest("tr").remove();       
+//        counter -= 1
+//    });
+        
     });
 </script>

@@ -94,7 +94,6 @@
                                 </div><!-- /.media -->
                             </li>
 
-                            <li class="divider"></li>
                             <li>
                                 <a href="<?php echo site_url('login/logout') ?>">
                                     <i class="fa fa-sign-out"></i> Sign Out

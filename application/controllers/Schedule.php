@@ -13,11 +13,14 @@ class Schedule extends CI_Controller {
 
         $this->load->model('planned_batches');
         $this->load->model('get_schedule');
+        $this->load->model('Month_Schedule');
     }
 
     public function index() {
         if ($this->session->userdata('employee_id')) {
             $this->load->view('schedule_view');
+        } else {
+            redirect('login/logout', refresh);
         }
     }
 
@@ -29,14 +32,17 @@ class Schedule extends CI_Controller {
     }
 
     public function get_planned_batches() {
-		
-		if($this->session->userdata('role') == 'production'){
+        if (!$this->session->userdata('employee_id')) {
+            redirect('login/logout');
+        }
+
+        if ($this->session->userdata('role') == 'production') {
             redirect('dashboard');
         }
         date_default_timezone_set('Asia/Kolkata');
 
         //  Setting URL To Fetch Data From
-        $this->curl->create('http://172.16.0.22:1313/api/v1/batch_plans/get_planned_batches');
+        $this->curl->create($this->config->item('api_Address').'/api/v1/batch_plans/get_planned_batches');
 
         //  To Temporarily Store Data Received From Server
         $this->curl->option('buffersize', 10);
@@ -60,12 +66,12 @@ class Schedule extends CI_Controller {
         $resequence_data = $this->get_schedule->get_schedule_actual_time();
         $generate_schedule = $this->session->flashdata('generate_schedule');
 //        echo '<pre>';
-//        print_r($decode_data);
+//        print_r($generate_schedule);
 //        die();
 
         if (isset($decode_data)) {
             if (!($decode_data->success)) {
-                if(isset($generate_schedule)){
+                if (isset($generate_schedule)) {
                     $view_data['message_error'] = $generate_schedule->message;
                 }
                 $view_data['message_error'] = $decode_data->message;
@@ -79,10 +85,10 @@ class Schedule extends CI_Controller {
                 } else {
                     $batch_schedules = $resequence_data->batch_schedules;
                     $view_data['batch_schedules'] = $batch_schedules;
+                    $view_data['publish'] = $resequence_data->published;
                 }
-                if(isset($generate_schedule)){
+                if (isset($generate_schedule)) {
                     $view_data['message_success'] = $generate_schedule->message;
-					$view_data['publish'] = $resequence_data->published;
                 }
                 //
                 $batch_sequences = $decode_data->batch_sequences;
@@ -96,13 +102,16 @@ class Schedule extends CI_Controller {
             $view_data['error_batch'] = 'No Responce';
             $this->load->view('schedule_view', $view_data);
         }
-        
+
 //        echo '<pre>';
 //        print_r($generate_schedule);
 //        die();
     }
 
     public function generate_schedule() {
+        if (!$this->session->userdata('employee_id')) {
+            redirect('login/logout');
+        }
         date_default_timezone_set('Asia/Kolkata');
 
         $data = $this->input->post('batch_sequence');
@@ -110,47 +119,22 @@ class Schedule extends CI_Controller {
         $sequence = array(
             'batch_sequence' => $data
         );
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/generate_schedule';
-//        $url = '172.16.20.19:3000/api/v1/schedules/generate_schedule';
+        //print_r($sequence);exit;
+        $url = $this->config->item('api_Address').'/api/v1/schedules/generate_schedule';
+//        $url = '172.16.0.22:1313/api/v1/schedules/generate_schedule';
 
         $responce = $this->postCURL($url, $sequence);
         $decode_data = json_decode($responce);
 
         $this->session->set_flashdata('generate_schedule', $decode_data);
         redirect('schedule/get_planned_batches', 'refresh');
-
-//        if (isset($decode_data)) {
-//            if (!($decode_data->success)) {
-//                $view_data['message'] = $decode_data->message;
-//                $view_data['error_schedule'] = 'Schedule not published for this date...';
-//
-//                $this->load->view('schedule_view', $view_data);
-//            } else {
-//                $resequence_data = $this->planned_batches->resequence_planned_batches();
-//                $batch_sequences = $resequence_data->batch_sequences;
-//                $view_data['get_planned_batches'] = $batch_sequences;
-//
-//                $batch_schedules = $decode_data->batch_schedules;
-//                $view_data['publish'] = $decode_data->published;
-//                $view_data['message'] = $decode_data->message;
-//                //echo '<pre>';print_r($view_data['publish']);die();
-//                $view_data['batch_schedules'] = $batch_schedules;
-//
-//                $this->load->view('schedule_view', $view_data);
-//            }
-//        } else {
-//            $view_data['message'] = $decode_data->message;
-//            $view_data['error_schedule'] = 'No responce';
-//
-//            $this->load->view('schedule_view', $view_data);
-//        }
     }
 
     public function batch_number() {
         //$get_batch = $this->input->post();
         $batch_number = $this->input->post('batch_number');
         $uuid = $this->input->post('uuid');
-        $url = 'http://172.16.0.22:1313/api/v1/batches/' . $uuid . '/set_batch_number';
+        $url = $this->config->item('api_Address').'/api/v1/batches/' . $uuid . '/set_batch_number';
         $responce = $this->postCURL($url, array('batch_number' => $batch_number));
         echo $responce;
     }
@@ -169,7 +153,7 @@ class Schedule extends CI_Controller {
         curl_setopt($ch, CURLOPT_URL, $_url);
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
         curl_setopt($ch, CURLOPT_HEADER, false);
-        curl_setopt($ch, CURLOPT_POST, count($postData));
+//        curl_setopt($ch, CURLOPT_POST, count($postData));
         curl_setopt($ch, CURLOPT_POSTFIELDS, $postData);
 
         $output = curl_exec($ch);
@@ -180,16 +164,37 @@ class Schedule extends CI_Controller {
     }
 
     public function publish_schedule() {
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/publish_schedule';
+        $url = $this->config->item('api_Address').'/api/v1/schedules/publish_schedule';
+        $responce = $this->postCURL($url, array());
+        echo $responce;
+    }
+
+    public function unpublish_schedule() {
+        $url = $this->config->item('api_Address').'/api/v1/schedules/unpublish_schedule';
         $responce = $this->postCURL($url, array());
         echo $responce;
     }
 
     public function get_schedule() {
+        if (!$this->session->userdata('employee_id')) {
+            redirect('login/logout');
+        }
+        parse_str($_SERVER['QUERY_STRING'], $_GET);
+
+        if (isset($_GET['date']))
+            $date = $_GET['date'];
+        else
+            $date = null;
+//        echo '<pre>';print_r($date);die();
+
+        $url = $this->config->item('api_Address').'/api/v1/schedules/get_schedule';
+        if (isset($date))
+            $url = $url . '?schedule_date=' . $date;
+
         date_default_timezone_set('Asia/Kolkata');
 
         //  Setting URL To Fetch Data From
-        $this->curl->create('http://172.16.0.22:1313/api/v1/schedules/get_schedule');
+        $this->curl->create($url);
 
         //  To Temporarily Store Data Received From Server
         $this->curl->option('buffersize', 10);
@@ -210,9 +215,17 @@ class Schedule extends CI_Controller {
         $data = $this->curl->execute();
 
         $decode_data = json_decode($data);
-//         echo '<pre>';print_r($decode_data);die();
+//        echo '<pre>';print_r($decode_data);die();
         $set_actual_time = $this->session->flashdata('set_actual_time');
+        $set_actual_reactor = $this->session->flashdata('set_actual_reactor');
+        $set_actual_batchnumber = $this->session->flashdata('set_actual_batchnumber');
         //echo '<pre>';print_r($set_actual_time);die();
+
+        if (isset($date))
+            $condate = date('d M Y', $date);
+        else
+            $condate = date('d M Y');
+        $view_data['date'] = $condate;
 
         if (isset($decode_data)) {
             if (!($decode_data->success)) {
@@ -228,8 +241,14 @@ class Schedule extends CI_Controller {
                 if (isset($set_actual_time)) {
                     $view_data['message'] = $set_actual_time->message;
                 }
+                if (isset($set_actual_reactor)) {
+                    $view_data['message'] = $set_actual_reactor->message;
+                }
+                if (isset($set_actual_batchnumber)) {
+                    $view_data['message'] = $set_actual_batchnumber->message;
+                }
                 $view_data['batch_schedules'] = $batch_schedules;
-				$view_data['publish'] = $decode_data->published;
+                $view_data['publish'] = $decode_data->published;
                 $this->load->view('production_view', $view_data);
             }
         } else {
@@ -255,33 +274,65 @@ class Schedule extends CI_Controller {
         );
         //echo '<pre>';print_r($data);//die();
 
-        $url = 'http://172.16.0.22:1313/api/v1/schedules/' . $uuid . '/set_actual_time';
-//        $url = '172.16.20.19:3000/api/v1/schedules/' . $uuid . '/set_actual_time';
+        $url = $this->config->item('api_Address').'/api/v1/schedules/' . $uuid . '/set_actual_time';
+//        $url = '172.16.0.22:1313/api/v1/schedules/' . $uuid . '/set_actual_time';
 
         $responce = $this->postCURL($url, $data);
         $decode_data = json_decode($responce);
         //echo '<pre>';print_r($decode_data);die();
         $this->session->set_flashdata('set_actual_time', $decode_data);
         redirect('schedule/get_schedule', 'refresh');
-
-//        if (isset($decode_data)) {
-//            if (isset($decode_data->success)) {
-//                $resequence_data = $this->get_schedule->get_schedule_actual_time();
-//
-//                $batch_schedules = $resequence_data->batch_schedules;
-//
-//                $view_data['batch_schedules'] = $batch_schedules;
-//
-//                $view_data['message'] = $decode_data->message;
-//                $this->load->view('production_view', $view_data);
-//            } else {
-//                $view_data['message'] = 'Timestamp not updated';
-//                $this->load->view('production_view', $view_data);
-//            }
-//        } else {
-//            $view_data['message'] = 'No responce';
-//            $this->load->view('production_view', $view_data);
-//        }
     }
 
+    public function set_actual_reactor() {
+        $set_actual_reactor = $this->input->post();
+        $uuid = $set_actual_reactor['prod_uuid'];
+
+        $data = array('actual_reactor' => $set_actual_reactor['actual_reactor']);
+//        echo '<pre>';print_r($data);die();
+        $url = $this->config->item('api_Address').'/api/v1/schedules/' . $uuid . '/set_actual_time';
+        $responce = $this->postCURL($url, $data);
+        $decode_data = json_decode($responce);
+//        echo '<pre>';print_r($decode_data);die();
+        $this->session->set_flashdata('set_actual_reactor', $decode_data);
+        redirect('schedule/get_schedule', 'refresh');
+    }
+
+    public function set_actual_batchnumber() {
+        $set_actual_batchnumber = $this->input->post();
+        $uuid = $set_actual_batchnumber['prod_uuid'];
+
+        $data = array('actual_batch_number' => $set_actual_batchnumber['actual_batchnumber']);
+//        echo '<pre>';print_r($uuid);die();
+        $url = $this->config->item('api_Address').'/api/v1/schedules/' . $uuid . '/set_actual_time';
+        $responce = $this->postCURL($url, $data);
+        $decode_data = json_decode($responce);
+//        echo '<pre>';print_r($decode_data);die();
+        $this->session->set_flashdata('set_actual_batchnumber', $decode_data);
+        redirect('schedule/get_schedule', 'refresh');
+    }
+
+    public function Unpublish_batchplan_and_schedule() {
+        $url = $this->config->item('api_Address').'/api/v1/batch_plans/production_unpublish';
+        $responce = $this->postCURL($url, array());
+        $decode_data = json_decode($responce);
+
+        if (isset($decode_data->success)) {
+            redirect('/MonthSchedule/month_schedule', 'refresh');
+        } else {
+            redirect('/Schedule/get_schedule', 'refresh');
+        }
+    }
+
+    public function Publish_batchplan_and_schedule() {
+        $url = $this->config->item('api_Address').'/api/v1/batch_plans/production_publish';
+        $responce = $this->postCURL($url, array());
+        $decode_data = json_decode($responce);
+
+        if (isset($decode_data->success)) {
+            redirect('/Schedule/get_schedule', 'refresh');
+        } else {
+            redirect('/MonthSchedule/month_schedule', 'refresh');
+        }
+    }
 }
