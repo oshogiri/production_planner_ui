@@ -176,7 +176,8 @@
                                             foreach ($schedules as $schedule):
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
+                                                    <!--<td><?php // echo gmdate("H:i", $schedule->bct); ?></td>-->
+                                                    <td><?php echo $schedule->bct; ?></td>
                                                     <td><?php echo $schedule->reactor; ?></td>
                                                     <td><?php echo $schedule->stage; ?></td>
                                                     <td><?php echo $schedule->product; ?></td>
@@ -313,7 +314,8 @@
                                             foreach ($schedules as $schedule):
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
+                                                    <!--<td><?php // echo gmdate("H:i", $schedule->bct); ?></td>-->
+                                                    <td><?php echo $schedule->bct; ?></td>
                                                     <td><?php echo $schedule->reactor; ?></td>
                                                     <td><?php echo $schedule->stage; ?></td>
                                                     <td><?php echo $schedule->product; ?></td>
@@ -450,7 +452,8 @@
                                             foreach ($schedules as $schedule):
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
+                                                    <!--<td><?php // echo gmdate("H:i", $schedule->bct); ?></td>-->
+                                                    <td><?php echo $schedule->bct; ?></td>
                                                     <td><?php echo $schedule->reactor; ?></td>
                                                     <td><?php echo $schedule->stage; ?></td>
                                                     <td><?php echo $schedule->product; ?></td>
@@ -587,7 +590,8 @@
                                             foreach ($schedules as $schedule):
                                                 ?>
                                                 <tr>
-                                                    <td><?php echo gmdate("H:i", $schedule->bct); ?></td>
+                                                    <!--<td><?php // echo gmdate("H:i", $schedule->bct); ?></td>-->
+                                                    <td><?php echo $schedule->bct; ?></td>
                                                     <td><?php echo $schedule->reactor; ?></td>
                                                     <td><?php echo $schedule->stage; ?></td>
                                                     <td><?php echo $schedule->product; ?></td>
