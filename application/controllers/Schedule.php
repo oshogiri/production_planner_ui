@@ -187,9 +187,12 @@ class Schedule extends CI_Controller {
             $date = null;
 //        echo '<pre>';print_r($date);die();
 
+//        $url = $this->config->item('api_Address').'/api/v1/schedules/get_schedule';
         $url = $this->config->item('api_Address').'/api/v1/schedules/get_schedule';
+        $url=$url . '?scheduled=true&';
         if (isset($date))
-            $url = $url . '?schedule_date=' . $date;
+            $url = $url . 'schedule_date=' . $date;
+        
 
         date_default_timezone_set('Asia/Kolkata');
 
@@ -215,6 +218,8 @@ class Schedule extends CI_Controller {
         $data = $this->curl->execute();
 
         $decode_data = json_decode($data);
+//        $responce = $this->postCURL($url, array('scheduled' => 'true'));
+//        $decode_data = json_decode($responce);
 //        echo '<pre>';print_r($decode_data);die();
         $set_actual_time = $this->session->flashdata('set_actual_time');
         $set_actual_reactor = $this->session->flashdata('set_actual_reactor');
