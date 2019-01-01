@@ -914,7 +914,7 @@
 
         $('.time-picker').datepicker({
             format: 'dd M yyyy',
-            endDate: new Date()
+        //    endDate: new Date()
         }).datepicker('update', new Date('<?php echo $date; ?>'));
 
         $('.actual_reactor').click(function () {

@@ -31,6 +31,7 @@
 <script src="<?php echo base_url(); ?>assets/dist/material/plugins/easy-pie-chart/js/jquery.easypiechart.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/dist/material/plugins/fullcalendar/js/fullcalendar.min.js"></script>
 <script src="<?php echo base_url(); ?>assets/dist/material/plugins/rippler/js/jquery.rippler.min.js"></script>
+<script src="<?php echo base_url(); ?>assets/dist/material/plugins/fullcalendar/js/fullcalendar.min.js"></script>
 <!-- main.min.js - WISEBOARD CORE SCRIPT -->
 <script src="<?php echo base_url(); ?>assets/dist/material/js/main.min.js"></script>
 <!-- admin.min.js - GENERAL CONFIGURATION SCRIPT FOR THE PAGES -->
@@ -54,6 +55,8 @@
 <script src="<?php echo base_url(); ?>assets/js/demo/demo-plugins-bootstrap-date-time-pickers.js"></script>
 
 <script src="<?php echo base_url(); ?>assets/js/demo/demo-plugin-datatables-extensions.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/demo/demo-plugin-fullcalendar.js"></script>
+
 
 <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>-->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>

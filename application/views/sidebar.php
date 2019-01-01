@@ -31,6 +31,12 @@
                     <span>Report</span>
                 </a>
             </li>
+            <li class="dropdown">
+                <a href="<?php echo site_url('ReportCalender') ?>">
+                    <i class="fa fa-eye"></i>
+                    <span>Month Report</span>
+                </a>
+            </li>
         <?php } ?>
         
         <?php if ($this->session->userdata('role') == 'planner') { ?>

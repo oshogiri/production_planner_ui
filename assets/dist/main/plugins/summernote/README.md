@@ -136,7 +136,7 @@ Once you run `grunt test`, it will watch all javascript file. Therefore karma ru
 run local server with connect and watch.
 ```bash
 grunt server
-# Open a browser on http://localhost:3000.
+# Open a browser on ."$api_Address"..
 # If you change source code, automatically reload your page.
 ```
 

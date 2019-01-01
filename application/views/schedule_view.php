@@ -104,14 +104,16 @@
                     <?php echo $error_batch; ?>
                 </div>
             <?php } ?>
+            <?php if (empty($publish)) { ?>
             <div class="panel-footer">
                 <?php if (!empty($get_planned_batches->stream_1_2) || !empty($get_planned_batches->stream_3_4)) { ?>
                     <form method="post" id="generate_schedule_form" action="<?php echo site_url('schedule/generate_schedule') ?>">
                         <input type="hidden" name="batch_sequence" id="batch_sequence"/>
-                        <button type="submit" class="btn btn-info rounded" id="submit_seq">Submit</button>
+                        <input type="submit" class="btn btn-info rounded" id="submit_seq" value="Generate">
                     </form>
                 <?php } ?>
             </div>
+            <?php } ?>
         </div><!-- /.panel-body -->
 
     </div><!--/.panel-->
@@ -442,43 +444,14 @@
 
         var counter = 0;
 
-//    $("#addrow12").on("click", function () {
-//        var newRow = $("<tr>");
-//        var cols = "";
-//
-//        cols += '<td><input type="text" class="form-control" name="stream' + counter + '"/></td>';
-//        cols += '<td><input type="text" class="form-control" name="product' + counter + '"/></td>';
-//        cols += '<td><input type="text" class="form-control" name="batch_number' + counter + '"/></td>';
-//
-//        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
-//        newRow.append(cols);
-//        $("table.order-lists12").append(newRow);
-//        counter++;
-//    });
-//
-//    $("table.order-lists12").on("click", ".ibtnDel", function (event) {
-//        $(this).closest("tr").remove();       
-//        counter -= 1
-//    });
-//    
-//    $("#addrow34").on("click", function () {
-//        var newRow = $("<tr>");
-//        var cols = "";
-//
-//        cols += '<td><input type="text" class="form-control" name="stream' + counter + '"/></td>';
-//        cols += '<td><input type="text" class="form-control" name="product' + counter + '"/></td>';
-//        cols += '<td><input type="text" class="form-control" name="batch_number' + counter + '"/></td>';
-//
-//        cols += '<td><input type="button" class="ibtnDel btn btn-md btn-danger "  value="Delete"></td>';
-//        newRow.append(cols);
-//        $("table.order-lists34").append(newRow);
-//        counter++;
-//    });
-//
-//    $("table.order-lists34").on("click", ".ibtnDel", function (event) {
-//        $(this).closest("tr").remove();       
-//        counter -= 1
-//    });
+        $('form').submit(function()
+        {  
+            var formId = this.id;
+            if (formId != ''){
+                $('#'+formId+' :input[type=submit]').attr('disabled',true);
+                this.submit();
+            }
+        });
 
     });
 </script>

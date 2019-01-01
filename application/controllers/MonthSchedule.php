@@ -55,7 +55,7 @@ class MonthSchedule extends CI_Controller {
         $view_data['dispmonth'] = $dispdate;
         $view_data['publish'] = "";
         $view_data['get_nobatch_responce'] = $get_nobatch_responce;
-        $view_data['get_addnobatch_responce'] = $get_nobatch_responce;
+        $view_data['get_addnobatch_responce'] = $get_addnobatch_responce;
 //        echo '<pre>';print_r($get_inventories);//die();
         //echo '<pre>';print_r($get_batch_plan);die();
 

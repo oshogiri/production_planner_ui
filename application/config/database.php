@@ -78,6 +78,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '1linkwok',
+	// 'password' => 'root',
 	'database' => 'ps',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',

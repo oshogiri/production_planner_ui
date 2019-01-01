@@ -23,11 +23,22 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
+
+// Live ---->
 $config['base_url'] = 'http://172.16.0.22:8080';
-//$config['base_url'] = 'http://localhost/production_planner_ui/';
-//$config['base_url'] = ' http://172.16.17.248/production_planner_ui/';
-//$config['api_Address']= 'http://0.0.0.0:3000';
 $config['api_Address']= 'http://172.16.0.22:1313';
+
+// Staging ---->
+// $config['base_url'] = 'http://172.16.20.237/production_planner_ui/';
+// $config['base_url'] = 'http://172.16.17.146/production_planner_ui/';
+// $config['base_url']    = 'http://172.16.20.247/production_planner_ui/';
+// $config['api_Address'] = 'http://172.16.0.22:3131';
+
+// Local ---->
+// $config['base_url'] = 'http://localhost/production_planner_ui/';
+// $config['api_Address']= 'http://0.0.0.0:3000';
+
+
 
 /*
 |--------------------------------------------------------------------------

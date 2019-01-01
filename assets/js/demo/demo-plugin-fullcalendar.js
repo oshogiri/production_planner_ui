@@ -52,59 +52,54 @@
       eventLimit: true, // allow "more" link when too many events
       events: [
         {
-          title: 'All Day Event',
+          title: '4BB - 2 Planed, 3 Actual',
+          url: 'http://localhost/production_planner_ui/ReportCalender/CalenderDetails',
           start: currentYear + '-' + currentMonth + '-01'
         },
         {
-          title: 'Long Event',
+          title: 'BMK - 2 Planed, 3 Actual',
+          url: 'http://localhost/production_planner_ui/ReportCalender/CalenderDetails',
           start: currentYear + '-' + currentMonth + '-07',
           end: currentYear + '-' + currentMonth + '-10'
         },
+        
+//        {
+//          id: 999,
+//          title: 'Repeating Event',
+//          start: currentYear + '-' + currentMonth + '-09T16:00:00'
+//        },
+//        {
+//          id: 999,
+//          title: 'Repeating Event',
+//          start: currentYear + '-' + currentMonth + '-16T16:00:00'
+//        },
+//        {
+//          title: 'Conference',
+//          start: currentYear + '-' + currentMonth + '-11',
+//          end: currentYear + '-' + currentMonth + '-13'
+//        },
         {
-          id: 999,
-          title: 'Repeating Event',
-          start: currentYear + '-' + currentMonth + '-09T16:00:00'
+          title: 'DMAX - 1 Planed, 2 Actual',
+          url: 'http://localhost/production_planner_ui/ReportCalender/CalenderDetails',
+          start: currentYear + '-' + currentMonth + '-12',
+          end: currentYear + '-' + currentMonth + '-12'
         },
         {
-          id: 999,
-          title: 'Repeating Event',
-          start: currentYear + '-' + currentMonth + '-16T16:00:00'
+          title: 'DSP - 2 Planed, 1 Actual',
+          url: 'http://localhost/production_planner_ui/ReportCalender/CalenderDetails',
+          start: currentYear + '-' + currentMonth + '-12'
         },
         {
-          title: 'Conference',
-          start: currentYear + '-' + currentMonth + '-11',
-          end: currentYear + '-' + currentMonth + '-13'
+          title: 'UP - 1 Planed, 2 Actual',
+          url: 'http://localhost/production_planner_ui/ReportCalender/CalenderDetails',
+          start: currentYear + '-' + currentMonth + '-12'
         },
-        {
-          title: 'Meeting',
-          start: currentYear + '-' + currentMonth + '-12T10:30:00',
-          end: currentYear + '-' + currentMonth + '-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: currentYear + '-' + currentMonth + '-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: currentYear + '-' + currentMonth + '-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: currentYear + '-' + currentMonth + '-12T17:30:00'
-        },
-        {
-          title: 'Dinner',
-          start: currentYear + '-' + currentMonth + '-12T20:00:00'
-        },
-        {
-          title: 'Birthday Party',
-          start: currentYear + '-' + currentMonth + '-13T07:00:00'
-        },
-        {
-          title: 'Click for Google',
-          url: 'http://google.com/',
-          start: currentYear + '-' + currentMonth + '-28'
-        }
+        
+//        {
+//          title: 'Click for Google',
+//          url: 'http://google.com/',
+//          start: currentYear + '-' + currentMonth + '-28'
+//        }
       ]
     });
   })

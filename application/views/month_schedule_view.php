@@ -14,10 +14,164 @@
     .stream3-color{background-color: #ffbb33}
     .stream4-color{background-color: #2BBBAD}
     .table-condensed>thead>tr>th, .table-condensed>tbody>tr>th, .table-condensed>tfoot>tr>th, .table-condensed>thead>tr>td, .table-condensed>tbody>tr>td, .table-condensed>tfoot>tr>td{font-weight: bold !important;padding: 0.5em !important;text-align: center;}
-
+    .batchplan-editable{font-size: 12px; text-align: center;}
+    .input-batchplan{border: none;width: 31px;}
 </style>
 <?php require_once 'header.php'; ?>
 <?php require_once 'sidebar.php'; ?>
+
+<!-- Update moth batch plan model -->
+<div class="modal fade modal-framed" id="modal-update-month-batch-plan">
+    <div class="modal-dialog modal-lg" style="width:1250px;">
+        <div class="modal-content">
+            <div class="modal-header bg-primary">
+                <button type="button" class="close" data-dismiss="modal">
+                    <span>&times;</span>
+                </button>
+                <h4 class="modal-title">Edit Batch Plan</h4>
+            </div><!-- .modal-header -->
+                <div class="modal-body">
+
+                    <div class="panel-body">
+                    <table class="table-bordered">
+                        <thead>
+                            <tr class="titlerow">
+                                <th class="batchplan-editable">Products</th>
+                                <th class="batchplan-editable">Stream</th>
+
+                                <?php $batch_data_array = array();
+                                    if (isset($batch_plans)) {
+                                        foreach ($batch_plans as $d => $bp) {
+                                            foreach ($bp['daily_plans'] as $x => $d_val) {
+                                                $batch_data_array[$bp['stream']][$bp['product']][$d_val['date']] = $d_val;
+                                            }
+                                        }
+                                    } ?>
+
+                                <?php 
+                                foreach ($date_header_array as $d => $date_val) {
+                                ?>
+                                <th class="batchplan-editable"><?php echo $date_val; ?></th>
+                                
+                                <?php
+                                    }
+                                ?>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <?php
+                            foreach ($inventories as $inventory) {
+                                if ($inventory->stream == 'Stream 1') { ?>
+                                    <tr>
+                                        <td class="batchplan-editable"><?php echo $inventory->product; ?></td>
+                                        <td class="batchplan-editable">1</td>
+                                    <?php
+                                        if (isset($date_header_array)) {
+                                            foreach ($date_header_array as $d => $date_val) {
+                                                if (isset($batch_data_array['Stream 1'][$inventory->product][$date_val])) {
+                                                    if ($batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches'] > 0) {
+                                                        ?><td class="total batchplan-editable"><input type="text" class="input-batchplan updatebatchplan" value="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?>" data-updatebatchplannobatch="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['number_of_batches']; ?>" data-updatebatchplanprouuid="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['uuid']; ?>"></td><?php
+                                                    } else {
+                                                        ?><td class="total batchplan-editable"><input type="text" class="input-batchplan addbatchbatchplan" data-updatebatchplanprouuid="<?php echo $batch_data_array['Stream 1'][$inventory->product][$date_val]['uuid']; ?>" data-updatebatchplanprodate="<?php echo $date_val; ?>" data-updatebatchplanproname="<?php echo $inventory->product; ?>" data-updatebatchplanprostream="Stream 1" /></td><?php
+                                                    }
+                                                } else {
+                                                    ?><td>NIL</td><?php
+                                                }
+                                            }
+                                        }
+                                    ?>
+                                    </tr>
+                                <?php }
+
+                                if ($inventory->stream == 'Stream 2') { ?>
+                                    <tr>
+                                        <td class="batchplan-editable"><?php echo $inventory->product; ?></td>
+                                        <td class="batchplan-editable">2</td>
+                                    <?php
+                                        if (isset($date_header_array)) {
+                                            foreach ($date_header_array as $d => $date_val) {
+                                                if (isset($batch_data_array['Stream 2'][$inventory->product][$date_val])) {
+                                                    if ($batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches'] > 0) {
+                                                        ?><td class="total batchplan-editable"><input type="text" class="input-batchplan updatebatchplan" value="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?>" data-updatebatchplannobatch="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['number_of_batches']; ?>" data-updatebatchplanprouuid="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['uuid']; ?>"></td><?php
+                                                    } else {
+                                                        ?><td class="total batchplan-editable"><input type="text" class="input-batchplan addbatchbatchplan" data-updatebatchplanprouuid="<?php echo $batch_data_array['Stream 2'][$inventory->product][$date_val]['uuid']; ?>" data-updatebatchplanprodate="<?php echo $date_val; ?>" data-updatebatchplanproname="<?php echo $inventory->product; ?>" data-updatebatchplanprostream="Stream 2" /></td><?php
+                                                    }
+                                                } else {
+                                                    ?><td>NIL</td><?php
+                                                }
+                                            }
+                                        }
+                                    ?>
+                                    </tr>
+                                <?php }
+
+                                if ($inventory->stream == 'Stream 3') {
+                                    ?>
+                                    <tr>
+                                        <td class="batchplan-editable"><?php echo $inventory->product; ?></td>
+                                        <td class="batchplan-editable">3</td>
+                                        <?php
+                                        if (isset($date_header_array)) {
+                                            //print_r($batch_data_array['Stream 1'][$inventory->product]);exit;
+                                            foreach ($date_header_array as $d => $date_val) {
+                                                if (isset($batch_data_array['Stream 3'][$inventory->product][$date_val])) {
+                                                    if ($batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches'] > 0) {
+                                                        ?><td class="total batchplan-editable"><input type="text" class="input-batchplan updatebatchplan" value="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?>" data-updatebatchplannobatch="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['number_of_batches']; ?>" data-updatebatchplanprouuid="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['uuid']; ?>"></td><?php
+                                                    } else {
+                                                        ?><td class="total batchplan-editable"><input type="text" class="input-batchplan addbatchbatchplan" data-updatebatchplanprouuid="<?php echo $batch_data_array['Stream 3'][$inventory->product][$date_val]['uuid']; ?>" data-updatebatchplanprodate="<?php echo $date_val; ?>" data-updatebatchplanproname="<?php echo $inventory->product; ?>" data-updatebatchplanprostream="Stream 3" /></td><?php
+                                                    }
+                                                } else {
+                                                    ?><td>NIL</td><?php
+                                                    }
+                                                }
+                                            }
+                                            ?>
+                                    </tr>
+                                    <?php
+                                }
+
+                                if ($inventory->stream == 'Stream 4') {
+                                    ?>
+                                    <tr>
+                                        <td class="batchplan-editable"><?php echo $inventory->product; ?></td>
+                                        <td class="batchplan-editable">4</td>
+                                        <?php
+                                        if (isset($date_header_array)) {
+                                            //print_r($batch_data_array['Stream 1'][$inventory->product]);exit;
+                                            foreach ($date_header_array as $d => $date_val) {
+                                                if (isset($batch_data_array['Stream 4'][$inventory->product][$date_val])) {
+                                                    if ($batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches'] > 0) {
+                                                        ?><td class="total batchplan-editable"><input type="text" class="input-batchplan updatebatchplan" value="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?>" data-updatebatchplannobatch="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['number_of_batches']; ?>" data-updatebatchplanprouuid="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['uuid']; ?>"></td><?php
+                                                    } else {
+                                                        ?><td class="total batchplan-editable"><input type="text" class="input-batchplan addbatchbatchplan" data-updatebatchplanprouuid="<?php echo $batch_data_array['Stream 4'][$inventory->product][$date_val]['uuid']; ?>" data-updatebatchplanprodate="<?php echo $date_val; ?>" data-updatebatchplanproname="<?php echo $inventory->product; ?>" data-updatebatchplanprostream="Stream 4" /></td><?php
+                                                    }
+                                                } else {
+                                                    ?><td>NIL</td><?php
+                                                    }
+                                                }
+                                            }
+                                            ?>
+                                    </tr>
+                                    <?php
+                                }
+                            }?>
+                        </tbody>
+                    </table>
+
+                    </div>
+                </div><!-- .modal-body -->
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location=window.location.href">Save changes</button>
+                </div><!-- .modal-footer -->
+            
+        </div>
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
 
 <div class="content">
     <div class="page-title-wrapper">
@@ -34,6 +188,7 @@
                 ?> 
             </div><!-- /.panel-title -->
             <div class="panel-tools">
+                
                 <form class="form-inline">
                     <?php // if (isset($inventories) && empty($publish) && $this->session->userdata('role') == 'planner') { ?>
 <!--                        <a href="<?php // echo site_url('MonthSchedule/generate_batch_plan'); ?>" class="btn btn-info btn-sm rippler" id="generate_batch_plan_id">
@@ -59,6 +214,12 @@
                 ?>
                 <div class="alert alert-info">
                     <?php echo $get_nobatch_responce->message; ?>
+                </div>
+                <?php
+            }
+            if (isset($get_addnobatch_responce)) {
+                ?>
+                <div class="alert alert-info">
                     <?php echo $get_addnobatch_responce->message; ?>
                 </div>
                 <?php
@@ -319,12 +480,13 @@
                     ?>
                     <button type="button" class="btn btn-info rounded" id="publish_seq" onclick="this.disabled = true; $(this).text('Publishing...');">Publish</button>
                     <?php
-                } else {
+                } 
+                else {
                     ?>
-                    <button type="button" class="btn btn-info rounded" id="unpublish_seq" onclick="this.disabled = true; $(this).text('Unpublishing...');">Unpublish</button>
-                    <?php
+                     <button class="btn btn-info rounded rippler" data-toggle="modal" data-target="#modal-update-month-batch-plan">Update Batch Plan</button>
+                     <?php
                 }
-            } elseif (empty($publish) && $this->session->userdata('role') == 'production') {
+            } elseif ($this->session->userdata('role') == 'production') {
                 ?>
                     <form action="<?php echo site_url('Schedule/Publish_batchplan_and_schedule')?>" method="post">
                     <input type="submit" class="btn btn-info rounded" value="Publish">
@@ -458,7 +620,7 @@
         //}, 20000);
     });
 
-    $(function () {
+    $(document).ready(function () {
 <?php if (isset($date_header_array)) { ?>
             var $table = $('.table');
             var $fixedColumn = $table.clone().insertBefore($table).addClass('fixed-column');
@@ -506,6 +668,58 @@
                 $('#addpro-name').val(addproname);
                 $('#addpro-date').val(addprodate);
                 $('#addstream').val(stream);
+
+            });
+
+            //Upadate month batch plan
+                
+            $('.updatebatchplan').blur(function () {
+
+                var updatebatchplanproname = $(this).data("updatebatchplanproname");
+                var updatebatchplanprodate = $(this).data("updatebatchplanprodate");
+                var updatebatchplannobatch = $(this).val();
+                var updatebatchplanprouuid = $(this).data("updatebatchplanprouuid");
+
+                console.log(updatebatchplanprouuid);
+                console.log(updatebatchplannobatch);
+
+                $.ajax({
+                    url: '<?php echo base_url('MonthSchedule/updateNoBatch') ?>',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        prod_uuid: updatebatchplanprouuid,
+                        prod_batch: updatebatchplannobatch
+                    }
+                }).done(function (response) {
+                    console.log(response);
+                });
+            });
+
+            $('.addbatchbatchplan').blur(function () {
+
+                var updatebatchplanproname = $(this).data("updatebatchplanproname");
+                var updatebatchplanprodate = $(this).data("updatebatchplanprodate");
+                var updatebatchplannobatch = $(this).val();
+                var updatebatchplanprouuid = $(this).data("updatebatchplanprouuid");
+                var updatebatchplanprostream = $(this).data("updatebatchplanprostream");
+
+                console.log(updatebatchplanprouuid);
+                console.log(updatebatchplannobatch);
+
+                $.ajax({
+                    url: '<?php echo base_url('MonthSchedule/addNoBatch') ?>',
+                    method: 'POST',
+                    dataType: 'json',
+                    data: {
+                        addstream: updatebatchplanprostream,
+                        prod_batch: updatebatchplannobatch,
+                        addproname: updatebatchplanproname,
+                        addprodate: updatebatchplanprodate
+                    }
+                }).done(function (response) {
+                    console.log(response);
+                });
             });
 
 
@@ -532,21 +746,21 @@
                 }
             });
         });
-        $('#unpublish_seq').click(function () {
-            $.ajax({
-                url: '<?php echo base_url('MonthSchedule/Unpublish_batchplan') ?>',
-                method: 'POST',
-                dataType: 'json'
-            }).done(function (response) {
-                console.log(response['success']);
-                if (response['success'] = "true") {
-                    window.location = window.location.href;
-                } else {
-                    $('#publish-schedule-section').html('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
-                }
+        // $('#unpublish_seq').click(function () {
+        //     $.ajax({
+        //         url: '<?php echo base_url('MonthSchedule/Unpublish_batchplan') ?>',
+        //         method: 'POST',
+        //         dataType: 'json'
+        //     }).done(function (response) {
+        //         console.log(response['success']);
+        //         if (response['success'] = "true") {
+        //             window.location = window.location.href;
+        //         } else {
+        //             $('#publish-schedule-section').html('<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert">&times;</a><p class="pull-left">' + response['message'] + '</p></div>');
+        //         }
 
-            });
-        });
+        //     });
+        // });
 
 
     });
